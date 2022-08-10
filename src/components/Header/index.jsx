@@ -56,7 +56,7 @@ export function Header() {
 
         <UserList>
           {filteredUsers.map((user) => (
-            <SearchUser key={user}>
+            <SearchUser key={user.username}>
               <img
                 src={user.picture}
                 alt="user profile"
