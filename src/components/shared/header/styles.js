@@ -21,14 +21,14 @@ const Profile = styled.div`
 
   right: 17px;
   top: 10px;
-
-  div {
-    width: 53px;
-    height: 53px;
-    border-radius: 26px;
-
-    background: #ffffff;
-  }
 `;
 
-export { Container, Profile };
+const Icon = styled.img`
+  width: 53px;
+  height: 53px;
+  border-radius: 26px;
+
+  background: #ffffff;
+`;
+
+export { Container, Profile, Icon };
