@@ -30,6 +30,7 @@ export const LeftSize = styled.div`
 export const RightSize = styled.div`
   background-color: #333333;
   width: 34%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,7 +95,6 @@ export const SubTitle = styled.div`
     font-size: 23px;
     line-height: 34px;
     text-align: center;
-
   }
 `;
 
@@ -104,7 +104,7 @@ export const Form = styled.form`
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: auto;
+  height: 28rem;
   padding: 0 15px;
   button {
     margin: 20px 0;
@@ -116,6 +116,7 @@ export const Form = styled.form`
   }
 
   @media (max-width: 500px) {
+    height: 85%;
 
     button {
       margin: 10px 0;
