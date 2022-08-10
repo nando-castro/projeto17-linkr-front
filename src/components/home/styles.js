@@ -101,7 +101,6 @@ const Profile = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
 `;
 
 const Icon = styled.img`
@@ -116,4 +115,36 @@ const Icon = styled.img`
   background: #999;
 `;
 
-export { Container, Timeline, Top, Content, Posts, Form, Icon, Profile };
+const Button = styled.button`
+  width: 112px;
+  height: 31px;
+  position: relative;
+  left: 75%;
+  top: 10px;
+
+  background: #1877f2;
+  border: none;
+  border-radius: 5px;
+
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+
+  color: #ffffff;
+
+  cursor: pointer;
+`;
+
+export {
+  Container,
+  Timeline,
+  Top,
+  Content,
+  Posts,
+  Form,
+  Icon,
+  Profile,
+  Button,
+};

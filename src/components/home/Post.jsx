@@ -1,4 +1,4 @@
-import { Container, Form, Icon, Posts, Profile } from "./styles";
+import { Container, Icon, Posts, Profile } from "./styles";
 
 export default function Post() {
   return (

@@ -1,6 +1,7 @@
 import Header from "../shared/header/Header";
 import Post from "./Post";
 import {
+  Button,
   Container,
   Content,
   Form,
@@ -23,7 +24,11 @@ export default function HomeScreen() {
           <Form>
             <p>What are you going to share today?</p>
             <input placeholder="http://..." />
-            <input placeholder="Awesome article about #javascript" className="body" />
+            <input
+              placeholder="Awesome article about #javascript"
+              className="body"
+            />
+            <Button>Publish</Button>
           </Form>
         </Content>
         <Post />
