@@ -26,12 +26,40 @@ export const Logo = styled.h1`
   }
 `;
 
+export const SearchBarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .userList {
+    position: absolute;
+    left: 0;
+    right: 0;
+    color: pink;
+
+    margin-top: 2.75rem;
+    background-color: blue;
+  }
+`;
+
+export const UserList = styled.ul`
+  position: absolute;
+  left: 0;
+  right: 0;
+  color: "#515151";
+
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 2rem;
+`;
+
 export const SearchBar = styled.label`
   display: flex;
   justify-content: space-between;
   flex: 1;
+  z-index: 50;
+
   padding: 1rem 2rem;
-  margin-left: 1.25rem;
   max-width: 564px;
   align-self: center;
   color: black;
@@ -40,15 +68,29 @@ export const SearchBar = styled.label`
   border-radius: 8px;
 `;
 
-export const Input = styled.input`
-  color: black;
-  width: 100%;
-  background: none;
-  border: none;
-  padding-inline: 0.5rem;
-  margin-right: 1rem;
-  ::placeholder {
-    color: gray;
+export const SearchUser = styled.li`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem;
+  background-color: #e7e7e7;
+  overflow: hidden;
+
+  cursor: pointer;
+
+  &:first-of-type {
+    padding-top: 2rem;
+  }
+
+  img {
+    height: 40px;
+    width: 40px;
+    border-radius: 9999px;
+    background-color: red;
+  }
+
+  span {
+    margin-left: 1rem;
   }
 `;
 
