@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DebounceInput } from "react-debounce-input";
 import { RiSearchLine, RiArrowDownSLine } from "react-icons/ri";
 
@@ -17,22 +17,18 @@ import {
 
 export function Header() {
   const [filteredUsers, setFilteredUsers] = useState([]);
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    api.get("/user/2").then(({ data }) => {
-      setUsers(data);
-    });
-  }, []);
 
   function handleSearchUser(query) {
     if (!query) return setFilteredUsers([]);
 
-    setFilteredUsers(
-      users.filter((user) =>
-        user.username.toLowerCase().includes(query.toLowerCase())
-      )
-    );
+    api
+      .post("/search", { username: query })
+      .then(({ data }) => {
+        setFilteredUsers(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
