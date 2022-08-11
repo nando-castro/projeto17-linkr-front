@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ResetCSS from "./assets/css/reset";
 import GlobalStyle from "./assets/css/global";
-import HomeScreen from "./components/home/Home";
 import SignUp from "./components/signup/Signup";
 import Signin from "./components/signin/Signin";
+import HomeScreen from "./pages/Home";
 
 function App() {
   return (
