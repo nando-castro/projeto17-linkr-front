@@ -6,18 +6,21 @@ export const AuthProvider = (props) => {
   const [userToken, setUserToken] = React.useState(
     JSON.parse(localStorage.getItem("token"))
   );
+  const [hoverProfile, setHoverProfile] = React.useState(false);
   useEffect(() => {
     if (userToken) {
-      const data = JSON.stringify(userToken)
+      const data = JSON.stringify(userToken);
       localStorage.setItem("token", data);
     } else {
-      const data = JSON.stringify(null)
+      const data = JSON.stringify(null);
       localStorage.setItem("token", data);
     }
   }, [userToken]);
 
   return (
-    <AuthContext.Provider value={{ userToken, setUserToken }}>
+    <AuthContext.Provider
+      value={{ userToken, setUserToken, hoverProfile, setHoverProfile }}
+    >
       {props.children}
     </AuthContext.Provider>
   );

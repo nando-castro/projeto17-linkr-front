@@ -97,9 +97,38 @@ export const SearchUser = styled.li`
 export const Profile = styled.div`
   display: flex;
   align-items: center;
+  width: auto;
+
   :hover {
     cursor: pointer;
   }
+  position: relative;
+`;
+
+export const Menu = styled.div`
+  position: absolute;
+  bottom: -3em;
+  right: -0.95em;
+  background: #171717;
+  border-radius: 0px 0px 0px 20px;
+  width: 150px;
+  height: 47px;
+  overflow-y: hidden;
+  color: white;
+  display: ${({ hoverProfile }) => (hoverProfile ? "flex" : "none")};
+  align-items: center;
+  justify-content: center;
+  /* transition: display 1s; */
+
+
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 20px;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+  
 `;
 
 export const Avatar = styled.img`

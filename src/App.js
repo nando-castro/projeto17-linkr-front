@@ -10,9 +10,8 @@ function App() {
     <BrowserRouter>
       <ResetCSS />
       <GlobalStyle />
-
       <Routes>
-        <Route path="/timeline" element={<HomeScreen />} />
+        <Route path="/timeline" element={<HomeScreen/>} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<Signin />}/>
       </Routes>

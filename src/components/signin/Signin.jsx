@@ -44,7 +44,7 @@ export default function Signin() {
     response
       .then(({ data }) => {
         setUserToken(data)
-        navigate("/");
+        navigate("/timeline");
       })
       .catch((err) => {
         Swal.fire({

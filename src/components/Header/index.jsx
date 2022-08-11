@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { DebounceInput } from "react-debounce-input";
-import { RiSearchLine, RiArrowDownSLine } from "react-icons/ri";
+import { RiSearchLine, RiArrowDownSLine, RiArrowUpSLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/auth";
 
 import { api } from "../../services/api";
 
@@ -13,11 +15,14 @@ import {
   SearchBarContainer,
   SearchUser,
   UserList,
+  Menu,
 } from "./styles";
 
 export function Header() {
-  const [filteredUsers, setFilteredUsers] = useState([]);
+  const navigate = useNavigate();
 
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const { setUserToken, hoverProfile, setHoverProfile } = useAuth();
   function handleSearchUser(query) {
     if (!query) return setFilteredUsers([]);
 
@@ -29,6 +34,11 @@ export function Header() {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  function logout() {
+    setUserToken(null);
+    navigate("/");
   }
 
   return (
@@ -69,10 +79,30 @@ export function Header() {
         </UserList>
       </SearchBarContainer>
 
-      <Profile>
-        <RiArrowDownSLine fontSize={40} color="white" />
+      <Profile hoverProfile={hoverProfile} setHoverProfile={setHoverProfile}>
+        <RiArrowUpSLine
+          fontSize={40}
+          color="white"
+          display={hoverProfile ? "block" : "none"}
+          onClick={() => setTimeout(() => setHoverProfile(false), 100)}
+        />
+        <RiArrowDownSLine
+          fontSize={40}
+          color="white"
+          display={hoverProfile ? "none" : "block"}
+          onClick={() => setTimeout(() => setHoverProfile(true), 100)}
+        />
 
-        <Avatar />
+        <Avatar
+          onClick={() => setTimeout(() => setHoverProfile(!hoverProfile), 100)}
+        />
+
+        <Menu
+          hoverProfile={hoverProfile}
+          onClick={() => logout()}
+        >
+          Logout
+        </Menu>
       </Profile>
     </Container>
   );
