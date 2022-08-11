@@ -12,8 +12,9 @@ function App() {
       <GlobalStyle />
 
       <Routes>
-        <Route path="/" element={<HomeScreen />} />
+        <Route path="/timeline" element={<HomeScreen />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/" element={<Signin />}/>
       </Routes>
     </BrowserRouter>
   );
