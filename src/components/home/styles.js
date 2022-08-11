@@ -90,6 +90,8 @@ const Posts = styled.div`
   width: 611px;
   height: 276px;
   margin-top: 26px;
+  display: flex;
+  flex-direction: row;
 
   background: #171717;
   border-radius: 16px;
@@ -113,6 +115,45 @@ const Icon = styled.img`
   border-radius: 26.5px;
 
   background: #999;
+`;
+
+const Body = styled.div`
+  width: 611px;
+  height: 276px;
+
+  background: #171717;
+  border-radius: 16px;
+`;
+
+const Name = styled.p`
+  position: relative;
+  width: 502px;
+  height: 23px;
+  top: 5px;
+  left: 18px;
+
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 23px;
+  color: #ffffff;
+`;
+
+const Description = styled.div`
+  position: relative;
+  width: 502px;
+  height: 52px;
+  top: 20px;
+  left: 18px;
+
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 20px;
+
+  color: #b7b7b7;
 `;
 
 const Button = styled.button`
@@ -147,4 +188,7 @@ export {
   Icon,
   Profile,
   Button,
+  Name,
+  Body,
+  Description,
 };
