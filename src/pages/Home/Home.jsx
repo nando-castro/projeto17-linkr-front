@@ -13,7 +13,7 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import { useAuth } from "../../context/auth";
-import { Header } from "../../components/Header";
+
 
 export default function Home() {
   const { token } = useAuth();

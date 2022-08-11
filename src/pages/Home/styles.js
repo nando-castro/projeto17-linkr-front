@@ -12,12 +12,12 @@ const Timeline = styled.div`
   max-width: 611px;
   width: 100%;
   height: auto;
-  margin-top: 150px;
+  margin-top: 75px;
   display: flex;
   flex-direction: column;
 
   @media (max-width: 611px) {
-    margin-top: 91px;
+    margin-top: 30px;
   }
 `;
 
