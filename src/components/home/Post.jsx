@@ -3,6 +3,7 @@ import {
   Container,
   Description,
   Icon,
+  Message,
   Name,
   Posts,
   Profile,
@@ -44,8 +45,16 @@ export default function Post() {
   }
 
   return (
-    <Container>
-      <Posts>{renderTimeline()}</Posts>
-    </Container>
+    <>
+      {timeline.length > 0 ? (
+        <Container>
+          <Posts>{renderTimeline()}</Posts>
+        </Container>
+      ) : (
+        <Container>
+          <Message>There are no posts yet</Message>
+        </Container>
+      )}
+    </>
   );
 }

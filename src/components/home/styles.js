@@ -178,6 +178,15 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const Message = styled.span`
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 23px;
+  color: #ffffff;
+`;
+
 export {
   Container,
   Timeline,
@@ -191,4 +200,5 @@ export {
   Name,
   Body,
   Description,
+  Message
 };
