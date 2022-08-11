@@ -116,7 +116,7 @@ export const Form = styled.form`
   }
 
   @media (max-width: 500px) {
-    height: 85%;
+    height: 52%;
 
     button {
       margin: 10px 0;
