@@ -35,7 +35,7 @@ export default function SignUp() {
 
     response
       .then(() => {
-        setTimeout(() => navigate('/signin'), 2600)
+        setTimeout(() => navigate('/'), 2600)
         Swal.fire({
             position: 'center',
             icon: 'success',
@@ -47,7 +47,6 @@ export default function SignUp() {
           })
       })
       .catch((err) => {
-        console.log(err);
         let erro;
         if (err.response.data === 'Email already exists!') {
             erro = err.response.data;
@@ -90,7 +89,7 @@ export default function SignUp() {
             autocomplete="off"
             pattern="^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
             errorMessage={<p>Type a valid email</p>}
-            autoFocus={true}
+            // autoFocus={true}
           >
             e-mail
           </Input>
@@ -151,7 +150,7 @@ export default function SignUp() {
             )}
           </Button>
         </Form>
-        <Link to="/signin">Switch back to log in</Link>
+        <Link to="/">Switch back to log in</Link>
       </RightSize>
     </SignUpBody>
   );
