@@ -11,6 +11,7 @@ import {
   Top,
 } from "./styles";
 
+
 export default function HomeScreen() {
   return (
     <Container>
@@ -18,8 +19,8 @@ export default function HomeScreen() {
       <Timeline>
         <Top>Timeline</Top>
         <Content>
-          <Profile>
-            <Icon></Icon>
+          <Profile className="icon-profile">
+            <Icon  />
           </Profile>
           <Form>
             <p>What are you going to share today?</p>

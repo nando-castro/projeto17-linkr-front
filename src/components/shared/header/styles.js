@@ -14,6 +14,7 @@ const Container = styled.div`
 
   background: #151515;
   color: #ffffff;
+  z-index: 2;
 `;
 
 const Profile = styled.div`

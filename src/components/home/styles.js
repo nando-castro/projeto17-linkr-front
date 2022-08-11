@@ -10,15 +10,21 @@ const Container = styled.div`
 `;
 
 const Timeline = styled.div`
-  width: 611px;
+  max-width: 611px;
+  width: 100%;
   height: auto;
   margin-top: 150px;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 611px) {
+    margin-top: 91px;
+  }
 `;
 
 const Top = styled.div`
-  width: 145px;
+  max-width: 145px;
+  width: 100%;
   height: 64px;
 
   font-family: "Oswald";
@@ -28,10 +34,33 @@ const Top = styled.div`
   line-height: 64px;
 
   color: #ffffff;
+
+  @media (max-width: 611px) {
+    margin-left: 17px;
+  }
+`;
+
+const Content = styled.div`
+  max-width: 611px;
+  width: 1005;
+  height: 209px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 46px;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  @media (max-width: 611px) {
+    .icon-profile {
+      display: none;
+    }
+  }
 `;
 
 const Form = styled.div`
-  width: 90%;
+  max-width: 611px;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -74,20 +103,9 @@ const Form = styled.div`
   }
 `;
 
-const Content = styled.div`
-  width: 611px;
-  height: 209px;
-  display: flex;
-  flex-direction: row;
-  margin-top: 46px;
-
-  background: #ffffff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 16px;
-`;
-
 const Posts = styled.div`
-  width: 611px;
+  max-width: 611px;
+  width: 100%;
   height: 276px;
   margin-top: 26px;
   display: flex;
@@ -95,6 +113,10 @@ const Posts = styled.div`
 
   background: #171717;
   border-radius: 16px;
+
+  @media (max-width: 611px;) {
+    border-radius: 0px;
+  }
 `;
 
 const Profile = styled.div`
@@ -109,7 +131,7 @@ const Icon = styled.img`
   position: relative;
   width: 50px;
   height: 50px;
-  left: 0;
+  left: 18px;
   top: 13px;
 
   border-radius: 26.5px;
@@ -129,8 +151,8 @@ const Name = styled.p`
   position: relative;
   width: 502px;
   height: 23px;
-  top: 5px;
-  left: 18px;
+  top: 15px;
+  left: 25px;
 
   font-family: "Lato";
   font-style: normal;
@@ -144,8 +166,8 @@ const Description = styled.div`
   position: relative;
   width: 502px;
   height: 52px;
-  top: 20px;
-  left: 18px;
+  top: 25px;
+  left: 25px;
 
   font-family: "Lato";
   font-style: normal;
@@ -200,5 +222,5 @@ export {
   Name,
   Body,
   Description,
-  Message
+  Message,
 };

@@ -10,6 +10,7 @@ import {
 } from "./styles";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { ReactTinyLink } from "react-tiny-link";
 
 export default function Post() {
   const [timeline, setTimeline] = useState([]);
@@ -39,6 +40,13 @@ export default function Post() {
         <Body>
           <Name>{i.username}</Name>
           <Description>{i.description}</Description>
+          <ReactTinyLink
+            cardSize="small"
+            showGraphic={true}
+            maxLine={2}
+            minLine={1}
+            url={i.url}
+          />
         </Body>
       </Posts>
     ));
@@ -47,9 +55,7 @@ export default function Post() {
   return (
     <>
       {timeline.length > 0 ? (
-        <Container>
-          <Posts>{renderTimeline()}</Posts>
-        </Container>
+        <Container>{renderTimeline()}</Container>
       ) : (
         <Container>
           <Message>There are no posts yet</Message>
