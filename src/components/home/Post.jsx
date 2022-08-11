@@ -3,6 +3,7 @@ import {
   Container,
   Description,
   Icon,
+  Link,
   Message,
   Name,
   Posts,
@@ -23,6 +24,7 @@ export default function Post() {
       promise
         .then((res) => {
           setTimeline(res.data);
+          console.log(res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -40,13 +42,16 @@ export default function Post() {
         <Body>
           <Name>{i.username}</Name>
           <Description>{i.description}</Description>
-          <ReactTinyLink
-            cardSize="small"
-            showGraphic={true}
-            maxLine={2}
-            minLine={1}
-            url={i.url}
-          />
+          <Link>
+            <ReactTinyLink
+              width={"100%"}
+              cardSize="small"
+              showGraphic={true}
+              maxLine={2}
+              minLine={1}
+              url={i.url}
+            />
+          </Link>
         </Body>
       </Posts>
     ));

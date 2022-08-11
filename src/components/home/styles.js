@@ -83,7 +83,8 @@ const Form = styled.div`
   }
 
   input {
-    width: 503px;
+    max-width: 503px;
+    width: 100%;
     height: 30px;
 
     border: none;
@@ -93,7 +94,8 @@ const Form = styled.div`
   }
 
   .body {
-    width: 502px;
+    max-width: 502px;
+    width: 100%;
     height: 66px;
 
     margin-top: 5px;
@@ -112,7 +114,6 @@ const Posts = styled.div`
   flex-direction: row;
 
   background: #171717;
-  border-radius: 16px;
 
   @media (max-width: 611px;) {
     border-radius: 0px;
@@ -140,11 +141,16 @@ const Icon = styled.img`
 `;
 
 const Body = styled.div`
-  width: 611px;
+  max-width: 611px;
+  width: 100%;
   height: 276px;
 
   background: #171717;
   border-radius: 16px;
+
+  @media (max-width: 611px;) {
+    border-radius: 0px;
+  }
 `;
 
 const Name = styled.p`
@@ -178,6 +184,18 @@ const Description = styled.div`
   color: #b7b7b7;
 `;
 
+const Link = styled.div`
+  width: 90%;
+  height: auto;
+  margin-top: 40px;
+  margin-left: 20px;
+
+  border: 1px solid #4d4d4d;
+  border-radius: 11px;
+
+  background: #fff;
+`;
+
 const Button = styled.button`
   width: 112px;
   height: 31px;
@@ -201,6 +219,7 @@ const Button = styled.button`
 `;
 
 const Message = styled.span`
+  margin-top: 40px;
   font-family: "Lato";
   font-style: normal;
   font-weight: 400;
@@ -223,4 +242,5 @@ export {
   Body,
   Description,
   Message,
+  Link,
 };

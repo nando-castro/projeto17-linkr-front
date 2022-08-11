@@ -10,7 +10,7 @@ import {
   Timeline,
   Top,
 } from "./styles";
-
+import { ReactTinyLink } from "react-tiny-link";
 
 export default function HomeScreen() {
   return (
@@ -20,7 +20,7 @@ export default function HomeScreen() {
         <Top>Timeline</Top>
         <Content>
           <Profile className="icon-profile">
-            <Icon  />
+            <Icon />
           </Profile>
           <Form>
             <p>What are you going to share today?</p>
