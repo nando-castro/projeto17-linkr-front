@@ -1,4 +1,4 @@
-import Header from "../shared/header/Header";
+
 import Post from "./Post";
 import {
   Button,
@@ -13,8 +13,9 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import { useAuth } from "../../context/auth";
+import { Header } from "../../components/Header";
 
-export default function HomeScreen() {
+export default function Home() {
   const { token } = useAuth();
 
   const [userPost, setUserPost] = useState({
@@ -50,7 +51,6 @@ export default function HomeScreen() {
 
   return (
     <Container>
-      <Header />
       <Timeline>
         <Top>Timeline</Top>
         <Content>
