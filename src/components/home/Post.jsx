@@ -1,20 +1,24 @@
 import {
+  Article,
   Body,
   Container,
   Description,
   Icon,
+  Image,
   Link,
   Message,
   Name,
   Posts,
   Profile,
+  Title,
+  Url,
 } from "./styles";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { ReactTinyLink } from "react-tiny-link";
+import { useAuth } from "../../context/auth";
 
 export default function Post() {
-  const [timeline, setTimeline] = useState([]);
+  const { timeline, setTimeline } = useAuth();
 
   const URL = `http://localhost:4000/timeline`;
 
@@ -33,6 +37,10 @@ export default function Post() {
     getPostsTimeline();
   }, []);
 
+  function openUrl(){
+    window.open(`${timeline.url}`);
+  }
+
   function renderTimeline() {
     return timeline.map((i, index) => (
       <Posts key={index}>
@@ -42,15 +50,11 @@ export default function Post() {
         <Body>
           <Name>{i.username}</Name>
           <Description>{i.description}</Description>
-          <Link>
-            <ReactTinyLink
-              width={"100%"}
-              cardSize="small"
-              showGraphic={true}
-              maxLine={2}
-              minLine={1}
-              url={i.url}
-            />
+          <Link key={index} onClick={openUrl}>
+            <Title>Google</Title>
+            <Article>{i.description}</Article>
+            <Url>{i.url}</Url>
+            <Image src={i.picture} />
           </Link>
         </Body>
       </Posts>

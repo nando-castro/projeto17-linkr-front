@@ -185,15 +185,76 @@ const Description = styled.div`
 `;
 
 const Link = styled.div`
-  width: 90%;
-  height: auto;
-  margin-top: 40px;
-  margin-left: 20px;
+  box-sizing: border-box;
+  max-width: 503px;
+  width: 100%;
+  height: 155px;
 
+  margin-top: 20px;
+  margin-left: 20px;
   border: 1px solid #4d4d4d;
   border-radius: 11px;
+  cursor: pointer;
+`;
+
+const Image = styled.img`
+  position: relative;
+  width: 150px;
+  height: 155px;
+  left: 355px;
+  top: -68px;
 
   background: #fff;
+  border-radius: 0px 12px 13px 0px;
+`;
+
+const Title = styled.h1`
+  position: relative;
+  width: 249.98px;
+  height: 38px;
+  left: 20px;
+  top: 24px;
+
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #cecece;
+`;
+
+const Article = styled.span`
+  position: relative;
+  width: 303px;
+  height: 39px;
+  left: 20px;
+  top: 15px;
+
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+
+  color: #9b9595;
+`;
+
+const Url = styled.p`
+  position: relative;
+  width: 264px;
+  height: 13px;
+  left: 20px;
+  top: 70px;
+
+
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+
+  color: #cecece;
 `;
 
 const Button = styled.button`
@@ -243,4 +304,8 @@ export {
   Description,
   Message,
   Link,
+  Image,
+  Title,
+  Article,
+  Url,
 };
