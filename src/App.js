@@ -4,6 +4,7 @@ import GlobalStyle from "./assets/css/global";
 import SignUp from "./components/signup/Signup";
 import Signin from "./components/signin/Signin";
 import HomeScreen from "./pages/Home";
+import HashtagPage from "./pages/HashtagPage";
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
         <Route path="/timeline" element={<HomeScreen/>} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<Signin />}/>
+        <Route path="/" element={<HomeScreen />} />
+        <Route path="/hashtag/:hashtag" element={<HashtagPage />} />
       </Routes>
     </BrowserRouter>
   );
