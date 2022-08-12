@@ -1,4 +1,5 @@
 import ReactHashtag from "@mdnm/react-hashtag";
+import jwt_decode from "jwt-decode";
 import {
   Article,
   Body,
@@ -35,6 +36,7 @@ export default function Post({
   urlTitle,
   urlImage,
   id,
+  writerId,
 }) {
   const customStyles = {
     content: {
@@ -54,6 +56,10 @@ export default function Post({
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { userToken } = useContext(AuthContext);
+  const decoded = jwt_decode(
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTY2MDMyNzU2MCwiZXhwIjoxNjYwMzMxMTYwfQ.ScV7rSO7NaikLtrGoa5RPNRMYoFKRl8Axchqkxvqwm0"
+  );
+  console.log(decoded);
   function openUrl(url) {
     window.open(`${url}`);
   }
@@ -88,34 +94,40 @@ export default function Post({
       <Body>
         <PostHeader>
           <Name>{username}</Name>
-
-          <PostIcons>
-            <FaPencilAlt />
-            <FaTrash onClick={() => toogleModal()} />
-            <Modal
-              isOpen={modalIsOpen}
-              style={customStyles}
-              contentLabel="Example Modal"
-            >
-              {isLoading ? (
-                <StyledModal>
-                  <Loading />
-                </StyledModal>
-              ) : (
-                <StyledModal>
-                  <h1>Are you sure you want to delete this post?</h1>
-                  <ModalButtons>
-                    <ModalButton confirm={false} onClick={() => toogleModal()}>
-                      <p>No, go back</p>
-                    </ModalButton>
-                    <ModalButton confirm={true} onClick={() => deletePost()}>
-                      <p> Yes, delete it</p>
-                    </ModalButton>
-                  </ModalButtons>
-                </StyledModal>
-              )}
-            </Modal>
-          </PostIcons>
+          {writerId === decoded.userId ? (
+            <PostIcons>
+              <FaPencilAlt />
+              <FaTrash onClick={() => toogleModal()} />
+              <Modal
+                isOpen={modalIsOpen}
+                style={customStyles}
+                contentLabel="Example Modal"
+              >
+                {isLoading ? (
+                  <StyledModal>
+                    <Loading />
+                  </StyledModal>
+                ) : (
+                  <StyledModal>
+                    <h1>Are you sure you want to delete this post?</h1>
+                    <ModalButtons>
+                      <ModalButton
+                        confirm={false}
+                        onClick={() => toogleModal()}
+                      >
+                        <p>No, go back</p>
+                      </ModalButton>
+                      <ModalButton confirm={true} onClick={() => deletePost()}>
+                        <p> Yes, delete it</p>
+                      </ModalButton>
+                    </ModalButtons>
+                  </StyledModal>
+                )}
+              </Modal>
+            </PostIcons>
+          ) : (
+            <></>
+          )}
         </PostHeader>
         <Description>
           <p>
