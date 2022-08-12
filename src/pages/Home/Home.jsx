@@ -12,7 +12,6 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import { useAuth } from "../../context/auth";
-import { Loader } from "../../components/Loading/styles";
 import { useNavigate } from "react-router-dom";
 import LoaderButton from "../../components/Loading/LoadingButton";
 
@@ -79,8 +78,10 @@ export default function Home() {
               name="description"
               onChange={changeInput}
             />
-            {loading === true ? (
-              <Button><LoaderButton /></Button>
+            { userPost.url && loading === true ? (
+              <Button disabled cursor={"default"}>
+                Publishing...
+              </Button>
             ) : (
               <Button onClick={handdlePost}>Publish</Button>
             )}

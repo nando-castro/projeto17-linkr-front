@@ -8,13 +8,14 @@ import {
   Link,
   Message,
   Name,
+  OpenLink,
   Posts,
   Profile,
   Title,
   Url,
 } from "./styles";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuth } from "../../context/auth";
 import { Loader } from "../../components/Loading/styles";
 
@@ -38,7 +39,7 @@ export default function Post() {
     getPostsTimeline();
   }, []);
 
-  function openUrl(){
+  function openUrl() {
     window.open(`${timeline.url}`);
   }
 
@@ -50,13 +51,15 @@ export default function Post() {
         </Profile>
         <Body>
           <Name>{i.username}</Name>
-          <Description>{i.Description}</Description>
-          <Link key={index} onClick={openUrl}>
-            <Title>Google</Title>
-            <Article>{i.urlDescription}</Article>
-            <Url>{i.url}</Url>
-            <Image src={i.urlImage} />
-          </Link>
+          <Description>{i.description}</Description>
+          <OpenLink href={i.url} target="_blank" rel="noreferrer noopener">
+            <Link key={index}>
+              <Title>Google</Title>
+              <Article>{i.urlDescription}</Article>
+              <Url>{i.url}</Url>
+              <Image src={i.urlImage} />
+            </Link>
+          </OpenLink>
         </Body>
       </Posts>
     ));
@@ -68,7 +71,7 @@ export default function Post() {
         <Container>{renderTimeline()}</Container>
       ) : (
         <Container>
-          <Message>There are no posts yet</Message>
+          <Message>Carregando...</Message>
           <br></br>
           <Loader />
         </Container>

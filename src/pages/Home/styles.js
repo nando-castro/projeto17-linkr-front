@@ -246,7 +246,6 @@ const Url = styled.p`
   left: 20px;
   top: 70px;
 
-
   font-family: "Lato";
   font-style: normal;
   font-weight: 400;
@@ -288,6 +287,12 @@ const Message = styled.span`
   color: #ffffff;
 `;
 
+const OpenLink = styled.a`
+  max-width: 611px;
+  width: 100%;
+  height: 276px;
+`;
+
 export {
   Container,
   Timeline,
@@ -307,4 +312,5 @@ export {
   Title,
   Article,
   Url,
+  OpenLink,
 };
