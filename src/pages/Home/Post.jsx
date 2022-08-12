@@ -16,6 +16,7 @@ import {
 } from "./styles";
 import axios from "axios";
 import { useEffect } from "react";
+import { Link as LinkTo } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import { Loader } from "../../components/Loading/styles";
 
@@ -42,11 +43,16 @@ export default function Post() {
   function renderTimeline() {
     return timeline.map((i, index) => (
       <Posts key={index}>
-        <Profile>
-          <Icon src={i.picture} />
-        </Profile>
+        <LinkTo to={`/user/${i.id}`}>
+          <Profile>
+            <Icon src={i.picture} />
+          </Profile>
+        </LinkTo>
         <Body>
-          <Name>{i.username}</Name>
+          <LinkTo to={`/user/${i.id}`}>
+            <Name>{i.username}</Name>
+          </LinkTo>
+
           <Description>{i.description}</Description>
           <OpenLink href={i.url} target="_blank" rel="noreferrer noopener">
             <Link key={index}>
