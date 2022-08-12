@@ -10,7 +10,7 @@ import Loading from "../../components/Loading/Loading";
 export default function HashtagPage() {
   const mockposts = [
     {
-      writerId: 4,
+      writerId: 5,
       id: 1,
       picture:
         "https://img.freepik.com/fotos-gratis/imagem-aproximada-em-tons-de-cinza-de-uma-aguia-careca-americana-em-um-fundo-escuro_181624-31795.jpg?w=2000",
@@ -87,8 +87,8 @@ export default function HashtagPage() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState(mockposts);
   function getPostsByHashtag() {
-    axios
-      .get(`${api}/hashtag/${hashtag}`)
+    api
+      .get(`/hashtag/${hashtag}`)
       .then((res) => {
         setPosts(res.data);
       })

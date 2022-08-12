@@ -1,29 +1,34 @@
 import { Container, Title, Content } from "./styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { api } from "../../services/api";
+import Loading from "../Loading/Loading";
 export function HashtagBox() {
-  //   const [hashtags, setHashtags] = useState();
+  const [hashtags, setHashtags] = useState();
+  const navigate = useNavigate();
+  useEffect(() => {
+    api
+      .get("/hashtags")
+      .then((res) => {
+        setHashtags(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate("/");
+      });
+  }, []);
+  if (!hashtags) {
+    return (
+      <Container>
+        <Title>
+          <h1>trending</h1>
+        </Title>
+        <Loading />
+      </Container>
+    );
+  }
 
-  //   useEffect(() => {
-  //     axios
-  //       .get(`https://linkr1.herokuapp.com/hashtags`)
-  //       .then((res) => setHashtags(res.data))
-  //       .catch((err) => console.log(err));
-  //   }, []);
-  const hashtags = [
-    "javascript",
-    "react",
-    "react-native",
-    "material",
-    "mobile",
-    "web-dev",
-    "mobile",
-    "css",
-    "html",
-    "node",
-    "sql",
-  ];
   return (
     <Container>
       <Title>
@@ -31,8 +36,8 @@ export function HashtagBox() {
       </Title>
       <Content>
         {hashtags?.map((hashtag, i) => (
-          <Link to={`/hashtag/${hashtag}`} key={i}>
-            <p># {hashtag}</p>
+          <Link to={`/hashtag/${hashtag.name}`} key={i}>
+            <p># {hashtag.name}</p>
           </Link>
         ))}
       </Content>

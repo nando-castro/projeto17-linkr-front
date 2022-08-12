@@ -27,6 +27,7 @@ import axios from "axios";
 import { api } from "../../services/api";
 import Loading from "../Loading/Loading";
 import { AuthContext } from "../../context/auth";
+
 export default function Post({
   picture,
   username,
@@ -53,6 +54,7 @@ export default function Post({
       maxWidth: "600px",
     },
   };
+
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { userToken } = useContext(AuthContext);
@@ -71,8 +73,8 @@ export default function Post({
         Authorization: `Bearer ${userToken}`,
       },
     };
-    axios
-      .delete(`${api}/post/${id}`, config)
+    api
+      .delete(`/post/${id}`, config)
       .then((res) => {
         setIsLoading(false);
         toogleModal();
