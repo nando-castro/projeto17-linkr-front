@@ -39,10 +39,6 @@ export default function Post() {
     getPostsTimeline();
   }, []);
 
-  function openUrl() {
-    window.open(`${timeline.url}`);
-  }
-
   function renderTimeline() {
     return timeline.map((i, index) => (
       <Posts key={index}>
