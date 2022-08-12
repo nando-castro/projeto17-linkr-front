@@ -34,7 +34,6 @@ export default function Post() {
       promise
         .then((res) => {
           setTimeline(res.data);
-          console.log(res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -50,19 +49,37 @@ export default function Post() {
     setLike(false);
   }
 
+/*   function likePost (event) {
+   
+    if (!like && event.detail === 2) {
+      setLike(true);
+    }
+    
+
+    {like ? (
+      <ion-icon name="heart" onClick={() => setLike(!like)}></ion-icon>
+    ) : (
+      <ion-icon
+        name="heart-outline"
+        color={like ? "#000" : "#86d"}
+        onClick={() => setLike(!like)}
+      ></ion-icon>
+    )}
+  } */
+
   function renderTimeline() {
     return timeline.map((i, index) => (
       <Posts key={index}>
         <Profile>
           <Icon src={i.picture} />
-          <Like>
+          <Like >
             {like === false ? (
               <IoIosHeartEmpty onClick={haddleLike} />
             ) : (
               <IoIosHeart onClick={haddleDislike} className="active-like" />
             )}
           </Like>
-          <Cont>{i.likes}</Cont>
+          <Cont>{`${i.likes} likes`}</Cont>
         </Profile>
         <Body>
           <Name>{i.username}</Name>

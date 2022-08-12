@@ -23,7 +23,7 @@ export default function Home() {
     description: "",
   });
 
-  const URL = "https://localhost:4000/posts";
+  const URL = "http://localhost:4000/posts";
 
   function handdlePost(e) {
     e.preventDefault();
@@ -34,17 +34,17 @@ export default function Home() {
       { ...userPost },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY2MDMzMjE1NCwiZXhwIjoxNjYwMzM1NzU0fQ.1fo4Q8OYizb54KK__pVOMLJSUC_1-bt4XS-vIfG-yv0`,
         },
       }
     );
     promise.then((res) => {
       setUserPost(res.data);
       setLoading(false);
-      navigate("/timeline");
     });
     promise.catch((err) => {
       console.log("Erro não foi possível postar");
+      console.log(err);
     });
   }
 
@@ -77,7 +77,7 @@ export default function Home() {
               name="description"
               onChange={changeInput}
             />
-            { userPost.url && loading === true ? (
+            {userPost.url && loading === true ? (
               <Button disabled cursor={"default"}>
                 Publishing...
               </Button>
