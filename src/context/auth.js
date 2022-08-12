@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 export const AuthContext = React.createContext({});
 
@@ -7,6 +7,7 @@ export const AuthProvider = (props) => {
     JSON.parse(localStorage.getItem("token"))
   );
   const [hoverProfile, setHoverProfile] = React.useState(false);
+  const [timeline, setTimeline] = useState([]);
   useEffect(() => {
     if (userToken) {
       const data = JSON.stringify(userToken);
@@ -19,7 +20,14 @@ export const AuthProvider = (props) => {
 
   return (
     <AuthContext.Provider
-      value={{ userToken, setUserToken, hoverProfile, setHoverProfile }}
+      value={{
+        userToken,
+        setUserToken,
+        hoverProfile,
+        setHoverProfile,
+        timeline,
+        setTimeline,
+      }}
     >
       {props.children}
     </AuthContext.Provider>
