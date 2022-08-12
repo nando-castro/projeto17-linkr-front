@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { DebounceInput } from "react-debounce-input";
 import { RiSearchLine, RiArrowDownSLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 import { api } from "../../services/api";
 
@@ -21,8 +22,15 @@ export function Header() {
   function handleSearchUser(query) {
     if (!query) return setFilteredUsers([]);
 
+    const config = {
+      headers: {
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTY2MDI3MzQ0MCwiZXhwIjoxNjYwMjc3MDQwfQ.Tpd-3GMC2r2EwHr1VkmoVrAH3g9FlfAOMagzShEsPqg`,
+        // Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    };
+
     api
-      .post("/search", { username: query })
+      .post("/search", { username: query }, config)
       .then(({ data }) => {
         setFilteredUsers(data);
       })
@@ -56,15 +64,17 @@ export function Header() {
 
         <UserList>
           {filteredUsers.map((user) => (
-            <SearchUser key={user.username}>
-              <img
-                src={user.picture}
-                alt="user profile"
-                className="searchUserImage"
-              />
+            <Link key={user.username} to={`/user/${user.id}`}>
+              <SearchUser>
+                <img
+                  src={user.picture}
+                  alt="user profile"
+                  className="searchUserImage"
+                />
 
-              <span>{user.username}</span>
-            </SearchUser>
+                <span>{user.username}</span>
+              </SearchUser>
+            </Link>
           ))}
         </UserList>
       </SearchBarContainer>
