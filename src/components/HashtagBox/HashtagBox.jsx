@@ -1,7 +1,6 @@
 import { Container, Title, Content } from "./styles";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { api } from "../../services/api";
 import Loading from "../Loading/Loading";
 export function HashtagBox() {

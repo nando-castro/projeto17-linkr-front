@@ -23,7 +23,6 @@ import { FaTrash, FaPencilAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 import { useContext, useState } from "react";
-import axios from "axios";
 import { api } from "../../services/api";
 import Loading from "../Loading/Loading";
 import { AuthContext } from "../../context/auth";
