@@ -56,9 +56,7 @@ export default function Post({
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { userToken } = useContext(AuthContext);
-  const decoded = jwt_decode(
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTY2MDMyNzU2MCwiZXhwIjoxNjYwMzMxMTYwfQ.ScV7rSO7NaikLtrGoa5RPNRMYoFKRl8Axchqkxvqwm0"
-  );
+  const decoded = jwt_decode(userToken);
   function openUrl(url) {
     window.open(`${url}`);
   }
