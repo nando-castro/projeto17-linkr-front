@@ -6,6 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   border-radius: 15px;
   width: 300px;
+  max-height:580px;
 `;
 export const Content = styled.div`
   padding: 0 20px;
@@ -15,9 +16,8 @@ export const Content = styled.div`
   }
   p {
     font-family: "Lato", sans-serif;
-    margin-bottom: 40px;
+    margin-bottom: 25px;
     font-weight: 700;
-    height: 0px;
     color: #ffffff;
     font-size: 20px;
   }
