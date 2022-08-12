@@ -15,7 +15,7 @@ import { useAuth } from "../../context/auth";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  const { token } = useAuth();
+  //const { token } = useAuth();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [userPost, setUserPost] = useState({
