@@ -1,4 +1,3 @@
-
 import Post from "./Post";
 import {
   Button,
@@ -13,11 +12,14 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import { useAuth } from "../../context/auth";
-
+import { Loader } from "../../components/Loading/styles";
+import { useNavigate } from "react-router-dom";
+import LoaderButton from "../../components/Loading/LoadingButton";
 
 export default function Home() {
   const { token } = useAuth();
-
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const [userPost, setUserPost] = useState({
     url: "",
     description: "",
@@ -27,6 +29,7 @@ export default function Home() {
 
   function handdlePost(e) {
     e.preventDefault();
+    setLoading(true);
 
     const promise = axios.post(
       URL,
@@ -39,6 +42,8 @@ export default function Home() {
     );
     promise.then((res) => {
       setUserPost(res.data);
+      setLoading(false);
+      navigate("/timeline");
     });
     promise.catch((err) => {
       console.log("Erro não foi possível postar");
@@ -74,7 +79,11 @@ export default function Home() {
               name="description"
               onChange={changeInput}
             />
-            <Button onClick={handdlePost}>Publish</Button>
+            {loading === true ? (
+              <Button><LoaderButton /></Button>
+            ) : (
+              <Button onClick={handdlePost}>Publish</Button>
+            )}
           </Form>
         </Content>
         <Post />

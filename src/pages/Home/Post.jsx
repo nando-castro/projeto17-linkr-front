@@ -16,6 +16,7 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth";
+import { Loader } from "../../components/Loading/styles";
 
 export default function Post() {
   const { timeline, setTimeline } = useAuth();
@@ -49,12 +50,12 @@ export default function Post() {
         </Profile>
         <Body>
           <Name>{i.username}</Name>
-          <Description>{i.description}</Description>
+          <Description>{i.Description}</Description>
           <Link key={index} onClick={openUrl}>
             <Title>Google</Title>
-            <Article>{i.description}</Article>
+            <Article>{i.urlDescription}</Article>
             <Url>{i.url}</Url>
-            <Image src={i.picture} />
+            <Image src={i.urlImage} />
           </Link>
         </Body>
       </Posts>
@@ -68,6 +69,8 @@ export default function Post() {
       ) : (
         <Container>
           <Message>There are no posts yet</Message>
+          <br></br>
+          <Loader />
         </Container>
       )}
     </>

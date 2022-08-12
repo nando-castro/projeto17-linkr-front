@@ -201,7 +201,7 @@ const Image = styled.img`
   width: 150px;
   height: 155px;
   left: 355px;
-  top: -68px;
+  top: -52px;
 
   background: #fff;
   border-radius: 0px 12px 13px 0px;
