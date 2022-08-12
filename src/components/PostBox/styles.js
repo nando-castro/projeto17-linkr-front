@@ -2,11 +2,16 @@ import styled from "styled-components";
 
 export const PostWrapper = styled.div`
   max-width: 600px;
+  width: 100%;
   display: flex;
   border-radius: 16px;
   background-color: #171717;
   padding: 20px;
   column-gap: 20px;
+  @media (max-width: 611px) {
+    border-radius: 0px;
+    padding: 10px;
+  }
 `;
 
 export const Article = styled.span`
@@ -46,6 +51,7 @@ export const Icon = styled.img`
 export const Body = styled.div`
   background: #171717;
   border-radius: 16px;
+  max-width: 100%;
 `;
 export const Name = styled.p`
   width: 100%;
@@ -87,13 +93,15 @@ export const Image = styled.img`
   background: #fff;
   border-radius: 0px 12px 13px 0px;
   object-fit: cover;
+  @media (max-width: 611px) {
+    width: 100px;
+  }
 `;
 export const Title = styled.h1`
   width: 100%;
   font-family: "Lato";
   font-weight: 400;
   font-size: 16px;
-  line-height: 19px;
   color: #cecece;
 `;
 export const PostHeader = styled.div`

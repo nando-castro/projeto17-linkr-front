@@ -40,4 +40,5 @@ export const Posts = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 30px;
+  max-width: 100%;
 `;
