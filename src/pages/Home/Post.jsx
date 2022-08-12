@@ -54,7 +54,7 @@ export default function Post() {
           <Description>{i.description}</Description>
           <OpenLink href={i.url} target="_blank" rel="noreferrer noopener">
             <Link key={index}>
-              <Title>Google</Title>
+              <Title>{i.urlTitle}</Title>
               <Article>{i.urlDescription}</Article>
               <Url>{i.url}</Url>
               <Image src={i.urlImage} />
