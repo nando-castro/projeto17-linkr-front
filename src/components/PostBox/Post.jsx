@@ -59,7 +59,6 @@ export default function Post({
   const decoded = jwt_decode(
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTY2MDMyNzU2MCwiZXhwIjoxNjYwMzMxMTYwfQ.ScV7rSO7NaikLtrGoa5RPNRMYoFKRl8Axchqkxvqwm0"
   );
-  console.log(decoded);
   function openUrl(url) {
     window.open(`${url}`);
   }
