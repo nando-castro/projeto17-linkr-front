@@ -114,7 +114,7 @@ const Posts = styled.div`
 
   background: #171717;
 
-  @media (max-width: 611px;) {
+  @media (max-width: 611px) {
     border-radius: 0px;
   }
 `;
@@ -147,7 +147,7 @@ const Body = styled.div`
   background: #171717;
   border-radius: 16px;
 
-  @media (max-width: 611px;) {
+  @media (max-width: 611px) {
     border-radius: 0px;
   }
 `;
@@ -245,7 +245,6 @@ const Url = styled.p`
   height: 13px;
   left: 20px;
   top: 70px;
-
 
   font-family: "Lato";
   font-style: normal;
