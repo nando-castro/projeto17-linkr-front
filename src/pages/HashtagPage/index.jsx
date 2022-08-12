@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { api } from "../../services/api";
@@ -6,9 +6,22 @@ import { Container, Timeline, Top, Content, Posts } from "./styles";
 import { Header } from "../../components/Header";
 import Post from "../../components/PostBox/Post";
 import { HashtagBox } from "../../components/HashtagBox/HashtagBox";
+import Loading from "../../components/Loading/Loading";
 export default function HashtagPage() {
   const { hashtag } = useParams();
-
+  const [posts, setPosts] = useState(mockposts);
+  function getPostsByHashtag() {
+    axios
+      .get(`${api}/hashtag/${hashtag}`)
+      .then((res) => {
+        setPosts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate("/");
+      });
+  }
+  // useEffect(() => getPostsByHashtag(), []);
   const mockposts = [
     {
       id: 1,
@@ -80,6 +93,19 @@ export default function HashtagPage() {
         "https://t.ctcdn.com.br/P7-_JvQTS4U7-if6zHyXjyMiNQ8=/400x400/smart/i606944.png",
     },
   ];
+  if (!posts) {
+    return (
+      <Container>
+        <Header />
+        <Timeline>
+          <Top># {hashtag}</Top>
+          <Content>
+            <Loading />
+          </Content>
+        </Timeline>
+      </Container>
+    );
+  }
   return (
     <Container>
       <Header />
