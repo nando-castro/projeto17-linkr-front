@@ -121,6 +121,7 @@ export default function HashtagPage() {
                 urlTitle={post.urlTitle}
                 urlImage={post.urlImage}
                 key={post.id}
+                id={post.id}
               />
             ))}
           </Posts>
