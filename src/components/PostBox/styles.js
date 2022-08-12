@@ -51,7 +51,7 @@ export const Icon = styled.img`
 export const Body = styled.div`
   background: #171717;
   border-radius: 16px;
-  max-width: 100%;
+  width: 100%;
 `;
 export const Name = styled.p`
   width: 100%;
@@ -73,7 +73,7 @@ export const Description = styled.div`
   }
 `;
 export const Link = styled.div`
-  max-width: 100%;
+  width: 100%;
   height: 155px;
   display: flex;
   justify-content: space-between;
@@ -94,7 +94,7 @@ export const Image = styled.img`
   border-radius: 0px 12px 13px 0px;
   object-fit: cover;
   @media (max-width: 611px) {
-    width: 100px;
+    width: 90px;
   }
 `;
 export const Title = styled.h1`
