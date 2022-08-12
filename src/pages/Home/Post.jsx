@@ -1,10 +1,12 @@
 import {
   Article,
   Body,
+  Cont,
   Container,
   Description,
   Icon,
   Image,
+  Like,
   Link,
   Message,
   Name,
@@ -15,12 +17,14 @@ import {
   Url,
 } from "./styles";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth";
 import { Loader } from "../../components/Loading/styles";
+import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 
 export default function Post() {
   const { timeline, setTimeline } = useAuth();
+  const [like, setLike] = useState(false);
 
   const URL = `http://localhost:4000/timeline`;
 
@@ -39,11 +43,26 @@ export default function Post() {
     getPostsTimeline();
   }, []);
 
+  function haddleLike() {
+    setLike(true);
+  }
+  function haddleDislike() {
+    setLike(false);
+  }
+
   function renderTimeline() {
     return timeline.map((i, index) => (
       <Posts key={index}>
         <Profile>
           <Icon src={i.picture} />
+          <Like>
+            {like === false ? (
+              <IoIosHeartEmpty onClick={haddleLike} />
+            ) : (
+              <IoIosHeart onClick={haddleDislike} className="active-like" />
+            )}
+          </Like>
+          <Cont>{i.likes}</Cont>
         </Profile>
         <Body>
           <Name>{i.username}</Name>

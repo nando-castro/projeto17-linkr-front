@@ -13,7 +13,6 @@ import axios from "axios";
 import { useState } from "react";
 import { useAuth } from "../../context/auth";
 import { useNavigate } from "react-router-dom";
-import LoaderButton from "../../components/Loading/LoadingButton";
 
 export default function Home() {
   const { token } = useAuth();

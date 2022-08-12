@@ -131,12 +131,49 @@ const Icon = styled.img`
   position: relative;
   width: 50px;
   height: 50px;
-  left: 18px;
+  left: 17px;
   top: 13px;
 
   border-radius: 26.5px;
 
   background: #999;
+`;
+
+const Like = styled.div`
+  width: 20px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: relative;
+  left: 16px;
+  top: 30px;
+  color: #ffffff;
+  font-size: 20px;
+
+  cursor: pointer;
+
+  .active-like {
+    color: #ac0000;
+  }
+`;
+
+const Cont = styled.p`
+  width: 50px;
+  height: 13px;
+  position: relative;
+  left: 16px;
+  top: 40px;
+
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+
+  color: #ffffff;
 `;
 
 const Body = styled.div`
@@ -313,4 +350,6 @@ export {
   Article,
   Url,
   OpenLink,
+  Like,
+  Cont,
 };
