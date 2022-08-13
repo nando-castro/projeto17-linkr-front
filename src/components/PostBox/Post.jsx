@@ -93,7 +93,7 @@ export default function Post({
         <Icon src={picture} />
 
         <Likes>
-          <RiHeartLine color="white" />
+          <RiHeartLine color="white" fontSize={"20px"} />
           <span className="likes">{likes} likes</span>
         </Likes>
       </Profile>
