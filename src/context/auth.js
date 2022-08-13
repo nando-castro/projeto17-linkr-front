@@ -17,8 +17,7 @@ export const AuthProvider = (props) => {
       const data = JSON.stringify(userToken);
       localStorage.setItem("token", data);
     } else {
-      const data = JSON.stringify(null);
-      localStorage.setItem("token", data);
+      localStorage.removeItem("token");
     }
   }, [userToken]);
 
