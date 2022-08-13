@@ -7,8 +7,6 @@ import { useAuth } from "../../context/auth";
 import FormPost from "./FormPost";
 import {
   Container,
-  Content,
-  ContentForm,
   Posts,
   Timeline,
   Top,
