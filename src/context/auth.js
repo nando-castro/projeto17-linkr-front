@@ -8,6 +8,10 @@ export const AuthProvider = (props) => {
   );
   const [hoverProfile, setHoverProfile] = React.useState(false);
   const [timeline, setTimeline] = useState([]);
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("@linkr:user"))
+  );
+
   useEffect(() => {
     if (userToken) {
       const data = JSON.stringify(userToken);
@@ -27,6 +31,8 @@ export const AuthProvider = (props) => {
         setHoverProfile,
         timeline,
         setTimeline,
+        setUser,
+        user,
       }}
     >
       {props.children}
