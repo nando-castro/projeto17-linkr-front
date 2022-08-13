@@ -6,7 +6,10 @@ export const Container = styled.div`
   flex-direction: column;
   border-radius: 15px;
   width: 300px;
-  max-height:580px;
+  max-height: 580px;
+  @media (max-width: 610px) {
+    display: none;
+  }
 `;
 export const Content = styled.div`
   padding: 0 20px;
