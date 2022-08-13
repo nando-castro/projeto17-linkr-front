@@ -298,7 +298,9 @@ export const Content = styled.main`
 
 export const Main = styled.div`
   display: flex;
+  justify-content: center;
   gap: 25px;
+  width: 100%;
 
   margin-top: 45px;
 `;
