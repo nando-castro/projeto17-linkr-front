@@ -13,15 +13,12 @@ import {
   Url,
   PostWrapper,
   UrlContent,
-<<<<<<< HEAD
   Like,
-=======
   PostHeader,
   PostIcons,
   StyledModal,
   ModalButtons,
   ModalButton,
->>>>>>> 23f9d7b22c8b9a293860604089771e563d3f497a
 } from "./styles";
 import { FaTrash, FaPencilAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -39,12 +36,9 @@ export default function Post({
   urlDescription,
   urlTitle,
   urlImage,
-<<<<<<< HEAD
-  likes
-=======
+  likes,
   id,
   writerId,
->>>>>>> 23f9d7b22c8b9a293860604089771e563d3f497a
 }) {
   const customStyles = {
     content: {

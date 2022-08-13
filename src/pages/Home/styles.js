@@ -75,7 +75,7 @@ export const Form = styled.form`
     border: none;
     background: #efefef;
     border-radius: 5px;
-    margin-top: 10px;
+    margin-top: 5px;
   }
 
   input::placeholder {
@@ -116,6 +116,7 @@ export const Button = styled.div`
 
   background: #1877f2;
   border-radius: 5px;
+  margin-top: 5px;
 
   cursor: pointer;
 `;

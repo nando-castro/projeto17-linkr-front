@@ -104,7 +104,6 @@ export const Title = styled.h1`
   font-size: 16px;
   color: #cecece;
 `;
-<<<<<<< HEAD
 
 export const Like = styled.div`
   width: 20px;
@@ -187,7 +186,7 @@ export const Button = styled.button`
 
   cursor: pointer;
 `;
-=======
+
 export const PostHeader = styled.div`
   width: 100%;
   display: flex;
@@ -227,4 +226,3 @@ export const ModalButton = styled.div`
   padding: 10px 20px;
   border-radius: 5px;
 `;
->>>>>>> 23f9d7b22c8b9a293860604089771e563d3f497a
