@@ -6,6 +6,8 @@ import Signin from "./components/signin/Signin";
 import HomeScreen from "./pages/Home";
 import HashtagPage from "./pages/HashtagPage";
 import Modal from "react-modal";
+import { UserPage } from "./pages/UserPage";
+
 Modal.setAppElement(".root");
 function App() {
   return (
@@ -13,6 +15,7 @@ function App() {
       <ResetCSS />
       <GlobalStyle />
       <Routes>
+        <Route path="/user/:id" element={<UserPage />} />
         <Route path="/timeline" element={<HomeScreen />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<Signin />} />
