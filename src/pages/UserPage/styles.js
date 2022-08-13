@@ -303,6 +303,10 @@ export const Main = styled.div`
   width: 100%;
 
   margin-top: 45px;
+
+  @media (max-width: 611px) {
+    margin-top: calc(45px + 30px);
+  }
 `;
 
 export {
