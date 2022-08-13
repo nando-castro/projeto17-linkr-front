@@ -291,11 +291,16 @@ export const Content = styled.main`
   align-items: flex-start;
   justify-content: center;
 
-  margin-top: 45px;
-
   @media (max-width: 611px) {
     width: 100%;
   }
+`;
+
+export const Main = styled.div`
+  display: flex;
+  gap: 25px;
+
+  margin-top: 45px;
 `;
 
 export {

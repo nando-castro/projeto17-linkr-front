@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { HashtagBox } from "../../components/HashtagBox/HashtagBox";
 import { Header } from "../../components/Header";
 import Post from "../../components/PostBox/Post";
 import { useAuth } from "../../context/auth";
@@ -11,6 +12,7 @@ import {
   Posts,
   Container,
   UserDetails,
+  Main,
 } from "./styles";
 
 export function UserPage() {
@@ -40,32 +42,36 @@ export function UserPage() {
     <Container>
       <Header />
 
-      <Content>
-        <UserDetails>
-          <Profile>
-            <Icon src={user.userPicture} />
-          </Profile>
-          <h2 className="username">{user.userName}'s posts</h2>
-        </UserDetails>
+      <Main>
+        <Content>
+          <UserDetails>
+            <Profile>
+              <Icon src={user.userPicture} />
+            </Profile>
+            <h2 className="username">{user.userName}'s posts</h2>
+          </UserDetails>
 
-        <Posts>
-          {posts?.map((post) => (
-            <Post
-              description={post.description}
-              id={post.postId}
-              picture={post.picture}
-              url={post.url}
-              likes={post.likes}
-              urlDescription={post.urlDescription}
-              urlImage={post.urlImage}
-              urlTitle={post.urlTitle}
-              username={post.username}
-              writerId={post.userId}
-              key={post.postId}
-            />
-          ))}
-        </Posts>
-      </Content>
+          <Posts>
+            {posts?.map((post) => (
+              <Post
+                description={post.description}
+                id={post.postId}
+                picture={post.picture}
+                url={post.url}
+                likes={post.likes}
+                urlDescription={post.urlDescription}
+                urlImage={post.urlImage}
+                urlTitle={post.urlTitle}
+                username={post.username}
+                writerId={post.userId}
+                key={post.postId}
+              />
+            ))}
+          </Posts>
+        </Content>
+
+        <HashtagBox />
+      </Main>
     </Container>
   );
 }
