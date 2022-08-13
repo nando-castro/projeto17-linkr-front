@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -40,4 +40,5 @@ export const Posts = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 30px;
+  max-width: 100%;
 `;

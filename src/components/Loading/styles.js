@@ -1,8 +1,7 @@
 import styled from "styled-components";
 export const Container = styled.div`
-  height: 100vh;
   width: 100%;
-  padding: 30px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,7 +19,7 @@ export const Loader = styled.div`
   border: 10px solid #ffffff;
   border-top-color: #1877f2;
   border-radius: 50%;
-  margin-bottom: 20px;
+
   @keyframes is-rotating {
     to {
       transform: rotate(1turn);
