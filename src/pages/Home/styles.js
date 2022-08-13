@@ -1,355 +1,139 @@
 import styled from "styled-components";
 
-const Container = styled.div`
-  width: 100%;
+export const Container = styled.div`
+  width: 100vw;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-const Timeline = styled.div`
+export const Top = styled.div`
+  width: 100%;
   max-width: 611px;
-  width: 100%;
-  height: auto;
-  margin-top: 75px;
-  display: flex;
-  flex-direction: column;
-
-  @media (max-width: 611px) {
-    margin-top: 30px;
-  }
-`;
-
-const Top = styled.div`
-  max-width: 145px;
-  width: 100%;
   height: 64px;
-
+  margin-top: 40px;
+  padding-left: 10px;
   font-family: "Oswald";
   font-style: normal;
   font-weight: 700;
   font-size: 43px;
   line-height: 64px;
-
   color: #ffffff;
-
-  @media (max-width: 611px) {
-    margin-left: 17px;
-  }
 `;
-
-const Content = styled.div`
-  max-width: 611px;
-  width: 1005;
-  height: 209px;
-  display: flex;
-  flex-direction: row;
-  margin-top: 46px;
-
-  background: #ffffff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 16px;
-  @media (max-width: 611px) {
-    .icon-profile {
-      display: none;
-    }
-  }
-`;
-
-const Form = styled.div`
-  max-width: 611px;
+export const Content = styled.div`
   width: 100%;
-  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  width: 100%;
+  background: #fff;
+
+
+`;
+
+export const Timeline = styled.div`
+  max-width: 600px;
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+`;
 
-  padding: 20px 20px;
+export const Posts = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+`;
 
+export const ContentForm = styled.form`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  margin-bottom: 20px;
   border-radius: 5px;
+  background: #fff;
+`;
 
-  p {
-    width: 445px;
-    height: 40px;
+export const Form = styled.form`
+  max-width: 600px;
+  width: 100%;
+  height: 209px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
 
+  backgound: #ffff;
+
+  input {
+    width: 100%;
+    height: 30px;
+    border: none;
+    background: #efefef;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+
+  input::placeholder {
+    padding-left: 13px;
     font-family: "Lato";
     font-style: normal;
     font-weight: 300;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 15px;
+    line-height: 18px;
 
-    color: #707070;
+    color: #949494;
   }
 
-  input {
-    max-width: 503px;
-    width: 100%;
-    height: 30px;
-
-    border: none;
-
-    background: #efefef;
-    border-radius: 5px;
-  }
-
-  .body {
-    max-width: 502px;
-    width: 100%;
+  .article {
     height: 66px;
-
-    margin-top: 5px;
-
-    background: #efefef;
-    border-radius: 5px;
   }
 `;
 
-const Posts = styled.div`
-  max-width: 611px;
+export const Title = styled.p`
   width: 100%;
-  height: 276px;
-  margin-top: 26px;
-  display: flex;
-  flex-direction: row;
+  height: 40px;
 
-  background: #171717;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 24px;
 
-  @media (max-width: 611px;) {
-    border-radius: 0px;
-  }
+  color: #707070;
 `;
 
-const Profile = styled.div`
-  width: 70px;
+export const Button = styled.div`
+  width: 100%;
+  height: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #1877f2;
+  border-radius: 5px;
+
+  cursor: pointer;
+`;
+
+export const Profile = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 10px;
 `;
 
-const Icon = styled.img`
-  position: relative;
+export const Icon = styled.img`
   width: 50px;
   height: 50px;
-  left: 17px;
-  top: 13px;
-
-  border-radius: 26.5px;
-
-  background: #999;
-`;
-
-const Like = styled.div`
-  width: 20px;
-  height: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  position: relative;
-  left: 16px;
-  top: 30px;
-  color: #ffffff;
-  font-size: 20px;
-
-  cursor: pointer;
-
-  .active-like {
-    color: #ac0000;
+  border-radius: 50%;
+  img {
+    border-radius: 50%;
+    object-fit: cover;
   }
 `;
-
-const Cont = styled.p`
-  width: 50px;
-  height: 13px;
-  position: relative;
-  left: 16px;
-  top: 40px;
-
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 11px;
-  line-height: 13px;
-  text-align: center;
-
-  color: #ffffff;
-`;
-
-const Body = styled.div`
-  max-width: 611px;
-  width: 100%;
-  height: 276px;
-
-  background: #171717;
-  border-radius: 16px;
-
-  @media (max-width: 611px;) {
-    border-radius: 0px;
-  }
-`;
-
-const Name = styled.p`
-  position: relative;
-  width: 502px;
-  height: 23px;
-  top: 15px;
-  left: 25px;
-
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 19px;
-  line-height: 23px;
-  color: #ffffff;
-`;
-
-const Description = styled.div`
-  position: relative;
-  width: 502px;
-  height: 52px;
-  top: 25px;
-  left: 25px;
-
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 20px;
-
-  color: #b7b7b7;
-`;
-
-const Link = styled.div`
-  box-sizing: border-box;
-  max-width: 503px;
-  width: 100%;
-  height: 155px;
-
-  margin-top: 20px;
-  margin-left: 20px;
-  border: 1px solid #4d4d4d;
-  border-radius: 11px;
-  cursor: pointer;
-`;
-
-const Image = styled.img`
-  position: relative;
-  width: 150px;
-  height: 155px;
-  left: 355px;
-  top: -52px;
-
-  background: #fff;
-  border-radius: 0px 12px 13px 0px;
-`;
-
-const Title = styled.h1`
-  position: relative;
-  width: 249.98px;
-  height: 38px;
-  left: 20px;
-  top: 24px;
-
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-
-  color: #cecece;
-`;
-
-const Article = styled.span`
-  position: relative;
-  width: 303px;
-  height: 39px;
-  left: 20px;
-  top: 15px;
-
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 11px;
-  line-height: 13px;
-
-  color: #9b9595;
-`;
-
-const Url = styled.p`
-  position: relative;
-  width: 264px;
-  height: 13px;
-  left: 20px;
-  top: 70px;
-
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 11px;
-  line-height: 13px;
-
-  color: #cecece;
-`;
-
-const Button = styled.button`
-  width: 112px;
-  height: 31px;
-  position: relative;
-  left: 75%;
-  top: 10px;
-
-  background: #1877f2;
-  border: none;
-  border-radius: 5px;
-
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 17px;
-
-  color: #ffffff;
-
-  cursor: pointer;
-`;
-
-const Message = styled.span`
-  margin-top: 40px;
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 19px;
-  line-height: 23px;
-  color: #ffffff;
-`;
-
-const OpenLink = styled.a`
-  max-width: 611px;
-  width: 100%;
-  height: 276px;
-`;
-
-export {
-  Container,
-  Timeline,
-  Top,
-  Content,
-  Posts,
-  Form,
-  Icon,
-  Profile,
-  Button,
-  Name,
-  Body,
-  Description,
-  Message,
-  Link,
-  Image,
-  Title,
-  Article,
-  Url,
-  OpenLink,
-  Like,
-  Cont,
-};

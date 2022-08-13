@@ -1,92 +1,65 @@
-import Post from "./Post";
+import axios from "axios";
+import { useEffect } from "react";
+import Swal from "sweetalert2";
+import { Header } from "../../components/Header";
+import Post from "../../components/PostBox/Post";
+import { useAuth } from "../../context/auth";
+import FormPost from "./FormPost";
 import {
-  Button,
   Container,
   Content,
-  Form,
-  Icon,
-  Profile,
+  ContentForm,
+  Posts,
   Timeline,
   Top,
 } from "./styles";
-import axios from "axios";
-import { useState } from "react";
-import { useAuth } from "../../context/auth";
-import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  //const { token } = useAuth();
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const [userPost, setUserPost] = useState({
-    url: "",
-    description: "",
-  });
+  const { timeline, setTimeline } = useAuth();
 
-  const URL = "http://localhost:4000/posts";
+  const URL = `http://localhost:4000/timeline`;
 
-  function handdlePost(e) {
-    e.preventDefault();
-    setLoading(true);
+  useEffect(() => {
+    function getPostsTimeline() {
+      const promise = axios.get(URL);
+      promise
+        .then((res) => {
+          setTimeline(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...Parece que algo deu errado!",
+          });
+          console.log(err);
+        });
+    }
+    getPostsTimeline();
+  }, []);
 
-    const promise = axios.post(
-      URL,
-      { ...userPost },
-      {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY2MDMzMjE1NCwiZXhwIjoxNjYwMzM1NzU0fQ.1fo4Q8OYizb54KK__pVOMLJSUC_1-bt4XS-vIfG-yv0`,
-        },
-      }
-    );
-    promise.then((res) => {
-      setUserPost(res.data);
-      setLoading(false);
-    });
-    promise.catch((err) => {
-      console.log("Erro não foi possível postar");
-      console.log(err);
-    });
+  function renderTimeline() {
+    return timeline.map((i, index) => (
+      <Post
+        key={index}
+        picture={i.picture}
+        username={i.username}
+        description={i.description}
+        url={i.url}
+        urlDescription={i.urlDescription}
+        urlTitle={i.urlTitle}
+        urlImage={i.urlImage}
+        likes={i.likes}
+      />
+    ));
   }
-
-  function changeInput(e) {
-    setUserPost({ ...userPost, [e.target.name]: e.target.value });
-  }
-
   return (
     <Container>
+      <Header />
       <Timeline>
-        <Top>Timeline</Top>
-        <Content>
-          <Profile className="icon-profile">
-            <Icon />
-          </Profile>
-          <Form>
-            <p>What are you going to share today?</p>
-            <input
-              type="text"
-              placeholder="http://..."
-              value={userPost.url}
-              name="url"
-              onChange={changeInput}
-            />
-            <input
-              className="body"
-              type="text"
-              placeholder="Awesome article about #javascript"
-              value={userPost.description}
-              name="description"
-              onChange={changeInput}
-            />
-            {userPost.url && loading === true ? (
-              <Button disabled cursor={"default"}>
-                Publishing...
-              </Button>
-            ) : (
-              <Button onClick={handdlePost}>Publish</Button>
-            )}
-          </Form>
-        </Content>
-        <Post />
+        <Top>timeline</Top>
+        <FormPost />
+        <Posts>{renderTimeline()}</Posts>
       </Timeline>
     </Container>
   );
