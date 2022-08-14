@@ -22,7 +22,8 @@ export function Header() {
   const navigate = useNavigate();
 
   const [filteredUsers, setFilteredUsers] = useState([]);
-  const { setUserToken, hoverProfile, setHoverProfile } = useAuth();
+  const { userToken, setUserToken, hoverProfile, setHoverProfile, user } =
+    useAuth();
   const hoverProfileRef = useRef(null);
 
   useEffect(() => {
@@ -46,8 +47,14 @@ export function Header() {
   function handleSearchUser(query) {
     if (!query) return setFilteredUsers([]);
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
+
     api
-      .post("/search", { username: query })
+      .post("/search", { username: query }, config)
       .then(({ data }) => {
         setFilteredUsers(data);
       })
@@ -118,6 +125,7 @@ export function Header() {
         />
 
         <Avatar
+          src={user.userPicture}
           onClick={() => setTimeout(() => setHoverProfile(!hoverProfile), 100)}
         />
 

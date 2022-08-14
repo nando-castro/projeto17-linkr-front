@@ -32,6 +32,8 @@ export const SearchBarContainer = styled.div`
   flex-direction: column;
   position: relative;
 
+  width: calc(100% * 2 / 5);
+
   .userList {
     position: absolute;
     left: 0;
@@ -39,7 +41,17 @@ export const SearchBarContainer = styled.div`
     color: pink;
 
     margin-top: 2.75rem;
-    background-color: blue;
+  }
+
+  @media (max-width: 611px) {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    right: 0;
+    margin: auto;
+    justify-self: center;
+    align-self: center;
+    width: 95%;
   }
 `;
 
@@ -48,6 +60,8 @@ export const UserList = styled.ul`
   left: 0;
   right: 0;
   color: "#515151";
+
+  width: 100%;
 
   border-radius: 8px;
   overflow: hidden;
@@ -60,13 +74,18 @@ export const SearchBar = styled.label`
   flex: 1;
   z-index: 50;
 
+  width: 100%;
+
   padding: 1rem 2rem;
-  max-width: 564px;
   align-self: center;
   color: black;
   position: relative;
   background-color: white;
   border-radius: 8px;
+
+  @media (max-width: 611px) {
+    width: 100%;
+  }
 `;
 
 export const SearchUser = styled.li`
@@ -121,15 +140,13 @@ export const Menu = styled.div`
   justify-content: center;
   /* transition: display 1s; */
 
-
-    font-family: "Lato";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 17px;
-    line-height: 20px;
-    letter-spacing: 0.05em;
-    color: #ffffff;
-  
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 20px;
+  letter-spacing: 0.05em;
+  color: #ffffff;
 `;
 
 export const Avatar = styled.img`

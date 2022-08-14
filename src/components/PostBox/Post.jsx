@@ -18,8 +18,10 @@ import {
   StyledModal,
   ModalButtons,
   ModalButton,
+  Likes,
 } from "./styles";
 import { FaTrash, FaPencilAlt } from "react-icons/fa";
+import { RiHeartLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 import { useContext, useState } from "react";
@@ -37,6 +39,7 @@ export default function Post({
   urlImage,
   id,
   writerId,
+  likes,
 }) {
   const customStyles = {
     content: {
@@ -88,6 +91,11 @@ export default function Post({
     <PostWrapper>
       <Profile>
         <Icon src={picture} />
+
+        <Likes>
+          <RiHeartLine color="white" fontSize={"20px"} />
+          <span className="likes">{likes} likes</span>
+        </Likes>
       </Profile>
       <Body>
         <PostHeader>
