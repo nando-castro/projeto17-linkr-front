@@ -1,26 +1,23 @@
+import { Container, Message } from "./styles";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import Swal from "sweetalert2";
-import { Header } from "../../components/Header";
+
+import { useEffect } from "react";
+import { useAuth } from "../../context/auth";
 import { Loader } from "../../components/Loading/styles";
 import Post from "../../components/PostBox/Post";
-import { useAuth } from "../../context/auth";
-import FormPost from "./FormPost";
-import { Container, Message, Posts, Timeline, Top } from "./styles";
+import Swal from "sweetalert2";
 
-export default function Home() {
+export default function PostScreen() {
   const { timeline, setTimeline } = useAuth();
-  const [loading, setLoading] = useState(false);
+
   const URL = `http://localhost:4000/timeline`;
 
   useEffect(() => {
     function getPostsTimeline() {
-      setLoading(true);
       const promise = axios.get(URL);
       promise
         .then((res) => {
           setTimeline(res.data);
-          setLoading(false);
         })
         .catch((err) => {
           Swal.fire({
@@ -28,7 +25,6 @@ export default function Home() {
             title:
               "An error occured while trying to fetch the posts, please refresh the page",
           });
-          setLoading(false)
         });
     }
     getPostsTimeline();
@@ -49,24 +45,18 @@ export default function Home() {
       />
     ));
   }
+
   return (
-    <Container>
-      <Header />
-      <Timeline>
-        <Top>timeline</Top>
-        <FormPost />
-        {loading ? (
-          <Container>
-            <Message>Loading...</Message>
-            <br></br>
-            <Loader />
-          </Container>
-        ) : timeline.length === 0 ? (
-          <Message>There are no posts yet</Message>
-        ) : (
-          <Posts>{renderTimeline()}</Posts>
-        )}
-      </Timeline>
-    </Container>
+    <>
+      {timeline.length > 0 ? (
+        <Container>{renderTimeline()}</Container>
+      ) : (
+        <Container>
+          <Message>Loading...</Message>
+          <br></br>
+          <Loader />
+        </Container>
+      )}
+    </>
   );
 }

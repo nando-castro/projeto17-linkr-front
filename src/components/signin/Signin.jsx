@@ -43,6 +43,7 @@ export default function Signin() {
 
     response
       .then(({ data }) => {
+
         setUserToken(data.token);
 
         const user = JSON.stringify(data.userProfile);

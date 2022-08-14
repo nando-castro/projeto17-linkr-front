@@ -13,6 +13,7 @@ import {
   Url,
   PostWrapper,
   UrlContent,
+  Like,
   PostHeader,
   PostIcons,
   StyledModal,
@@ -28,6 +29,8 @@ import { useContext, useState } from "react";
 import { api } from "../../services/api";
 import Loading from "../Loading/Loading";
 import { AuthContext } from "../../context/auth";
+import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
+import axios from "axios";
 
 export default function Post({
   picture,
@@ -37,9 +40,9 @@ export default function Post({
   urlDescription,
   urlTitle,
   urlImage,
+  likes,
   id,
   writerId,
-  likes,
 }) {
   const customStyles = {
     content: {
@@ -56,10 +59,14 @@ export default function Post({
       maxWidth: "600px",
     },
   };
+  const [like, setLike] = useState(false);
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { userToken } = useContext(AuthContext);
+  const [postLike, setPostLike] = useState({
+    postId: "",
+  });
   const decoded = jwt_decode(userToken);
   function openUrl(url) {
     window.open(`${url}`);
@@ -87,13 +94,24 @@ export default function Post({
         alert("It was not possible to delete this post, please try again");
       });
   }
+
+  function handleLike() {
+    if (like === false) {
+      return setLike(true);
+    } else {
+      return setLike(false);
+    }
+  }
   return (
     <PostWrapper>
       <Profile>
         <Icon src={picture} />
-
         <Likes>
-          <RiHeartLine color="white" fontSize={"20px"} />
+          {like === false ? (
+            <IoIosHeartEmpty onClick={handleLike} />
+          ) : (
+            <IoIosHeart onClick={handleLike} className="active-like" />
+          )}
           <span className="likes">{likes} likes</span>
         </Likes>
       </Profile>

@@ -5,10 +5,11 @@ import SignUp from "./components/signup/Signup";
 import Signin from "./components/signin/Signin";
 import HomeScreen from "./pages/Home";
 import HashtagPage from "./pages/HashtagPage";
-import Modal from "react-modal";
 import { UserPage } from "./pages/UserPage";
+import Modal from "react-modal";
 
 Modal.setAppElement(".root");
+
 function App() {
   return (
     <BrowserRouter>
@@ -20,6 +21,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<Signin />} />
         <Route path="/hashtag/:hashtag" element={<HashtagPage />} />
+        <Route path="/user/:id" element={<UserPage />} />
       </Routes>
     </BrowserRouter>
   );
