@@ -25,14 +25,14 @@ export default function Signin() {
   });
   const [enableButton, setEnableButton] = useState(true);
 
-  const { userToken, setUserToken } = useAuth();
+  const { userToken, setUserToken, setUser } = useAuth();
   useEffect(() => {
     if (userToken && userToken.length !== 0) {
-        navigate('/timeline')
-    };
+      navigate("/timeline");
+    }
 
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -43,7 +43,12 @@ export default function Signin() {
 
     response
       .then(({ data }) => {
-        setUserToken(data.token)
+
+        setUserToken(data.token);
+
+        const user = JSON.stringify(data.userProfile);
+        localStorage.setItem("@linkr:user", user);
+        setUser(data.userProfile);
         navigate("/timeline");
       })
       .catch((err) => {

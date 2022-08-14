@@ -19,8 +19,10 @@ import {
   StyledModal,
   ModalButtons,
   ModalButton,
+  Likes,
 } from "./styles";
 import { FaTrash, FaPencilAlt } from "react-icons/fa";
+import { RiHeartLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 import { useContext, useState } from "react";
@@ -28,6 +30,7 @@ import { api } from "../../services/api";
 import Loading from "../Loading/Loading";
 import { AuthContext } from "../../context/auth";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
+import axios from "axios";
 
 export default function Post({
   picture,
@@ -57,9 +60,13 @@ export default function Post({
     },
   };
   const [like, setLike] = useState(false);
+
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { userToken } = useContext(AuthContext);
+  const [postLike, setPostLike] = useState({
+    postId: "",
+  });
   const decoded = jwt_decode(userToken);
   function openUrl(url) {
     window.open(`${url}`);
@@ -89,21 +96,24 @@ export default function Post({
   }
 
   function handleLike() {
-    if (like === false) return setLike(true);
-    else return setLike(false);
+    if (like === false) {
+      return setLike(true);
+    } else {
+      return setLike(false);
+    }
   }
   return (
     <PostWrapper>
       <Profile>
         <Icon src={picture} />
-        <Like>
+        <Likes>
           {like === false ? (
             <IoIosHeartEmpty onClick={handleLike} />
           ) : (
             <IoIosHeart onClick={handleLike} className="active-like" />
           )}
-        </Like>
-        <Like>{`${likes} likes`}</Like>
+          <span className="likes">{likes} likes</span>
+        </Likes>
       </Profile>
       <Body>
         <PostHeader>

@@ -11,7 +11,6 @@ import { Container, Message, Posts, Timeline, Top } from "./styles";
 export default function Home() {
   const { timeline, setTimeline } = useAuth();
   const [loading, setLoading] = useState(false);
-  let page = 1;
   const URL = `http://localhost:4000/timeline`;
 
   useEffect(() => {

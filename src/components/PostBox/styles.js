@@ -38,6 +38,8 @@ export const Profile = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
 `;
 export const Icon = styled.img`
   width: 50px;
@@ -48,6 +50,24 @@ export const Icon = styled.img`
     object-fit: cover;
   }
 `;
+
+export const Likes = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  .likes {
+    margin-top: 4px;
+    text-align: center;
+    font-size: 11px;
+    line-height: 13px;
+  }
+  .active-like {
+    color: red;
+  }
+`;
+
 export const Body = styled.div`
   background: #171717;
   border-radius: 16px;
@@ -118,8 +138,8 @@ export const Like = styled.div`
 
   cursor: pointer;
 
-  active-like {
-    background: red;
+  .active-like {
+    color: red;
   }
 `;
 

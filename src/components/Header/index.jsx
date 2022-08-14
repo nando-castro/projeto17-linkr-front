@@ -24,7 +24,8 @@ export function Header() {
   const navigate = useNavigate();
 
   const [filteredUsers, setFilteredUsers] = useState([]);
-  const { setUserToken, hoverProfile, setHoverProfile } = useAuth();
+  const { userToken, setUserToken, hoverProfile, setHoverProfile, user } =
+    useAuth();
   const hoverProfileRef = useRef(null);
 
   useEffect(() => {
@@ -50,8 +51,7 @@ export function Header() {
 
     const config = {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTY2MDI3MzQ0MCwiZXhwIjoxNjYwMjc3MDQwfQ.Tpd-3GMC2r2EwHr1VkmoVrAH3g9FlfAOMagzShEsPqg`,
-        // Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${userToken}`,
       },
     };
 
@@ -129,6 +129,7 @@ export function Header() {
         />
 
         <Avatar
+          src={user.userPicture}
           onClick={() => setTimeout(() => setHoverProfile(!hoverProfile), 100)}
         />
 

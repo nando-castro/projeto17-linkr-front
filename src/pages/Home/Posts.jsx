@@ -1,31 +1,11 @@
-import {
-  Article,
-  Body,
-  Cont,
-  Container,
-  Description,
-  Icon,
-  Image,
-  Like,
-  Link,
-  Message,
-  Name,
-  OpenLink,
-  Posts,
-  Profile,
-  Title,
-  Url,
-} from "./styles";
+import { Container, Message } from "./styles";
 import axios from "axios";
 
-import { Link as LinkTo } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuth } from "../../context/auth";
 import { Loader } from "../../components/Loading/styles";
-import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import Post from "../../components/PostBox/Post";
 import Swal from "sweetalert2";
-
 
 export default function PostScreen() {
   const { timeline, setTimeline } = useAuth();
@@ -50,7 +30,6 @@ export default function PostScreen() {
     getPostsTimeline();
   }, []);
 
-           
   function renderTimeline() {
     return timeline.map((i, index) => (
       <Post
