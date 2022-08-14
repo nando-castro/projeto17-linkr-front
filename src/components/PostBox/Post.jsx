@@ -24,10 +24,11 @@ import { FaTrash, FaPencilAlt } from "react-icons/fa";
 import { RiHeartLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { api } from "../../services/api";
 import Loading from "../Loading/Loading";
 import { AuthContext } from "../../context/auth";
+import ReactTooltip from "react-tooltip";
 
 export default function Post({
   picture,
@@ -40,6 +41,7 @@ export default function Post({
   id,
   writerId,
   likes,
+  likesUsernames,
 }) {
   const customStyles = {
     content: {
@@ -56,10 +58,14 @@ export default function Post({
       maxWidth: "600px",
     },
   };
+  const { userToken, user } = useContext(AuthContext);
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { userToken } = useContext(AuthContext);
+  const [likedText, setLikedText] = useState("");
+  const [like, setLike] = useState(likesUsernames.includes(user.userName));
+  const [likesAmount, setLikesAmount] = useState(likes);
+
   const decoded = jwt_decode(userToken);
   function openUrl(url) {
     window.open(`${url}`);
@@ -87,14 +93,73 @@ export default function Post({
         alert("It was not possible to delete this post, please try again");
       });
   }
+
+  function filterLikesUsernames() {
+    if (likesUsernames.length === 0) {
+      return;
+    }
+
+    const userLiked = likesUsernames.includes(user.userName);
+    const likesUsernamesFiltered = likesUsernames.filter(
+      (username) => username !== user.userName
+    );
+
+    if (likesUsernames.length === 1) {
+      if (userLiked) {
+        const string = `Você curtiu este post`;
+        setLikedText(string);
+        setLike(true);
+        return;
+      } else {
+        const string = `${likesUsernames[0]} curtiu este post`;
+        setLikedText(string);
+        return;
+      }
+    }
+
+    if (likesUsernames.length === 2) {
+      if (userLiked) {
+        const string = `Você e ${likesUsernamesFiltered[0]} curtiram este post`;
+        setLikedText(string);
+        setLike(true);
+        return;
+      } else {
+        const string = `${likesUsernames[0]} e ${likesUsernames[1]} curtiram este post`;
+        setLikedText(string);
+        return;
+      }
+    }
+
+    if (userLiked) {
+      const string = `Você, ${likesUsernamesFiltered[0]} e outras ${
+        likesUsernamesFiltered.length - 1
+      } pessoas curtiram`;
+      setLikedText(string);
+      setLike(true);
+      return;
+    } else {
+      const string = `${likesUsernames[0]}, ${likesUsernames[1]} e outras ${
+        likesUsernames.length - 2
+      } pessoas curtiram `;
+      setLikedText(string);
+      return;
+    }
+  }
+
+  useEffect(() => {
+    filterLikesUsernames();
+  }, []);
+
   return (
     <PostWrapper>
       <Profile>
         <Icon src={picture} />
 
-        <Likes>
+        <Likes data-tip={likedText}>
+          <ReactTooltip />
           <RiHeartLine color="white" fontSize={"20px"} />
-          <span className="likes">{likes} likes</span>
+          {like && <span>dei like</span>}
+          <span className="likes">{likesAmount} likes</span>
         </Likes>
       </Profile>
       <Body>
