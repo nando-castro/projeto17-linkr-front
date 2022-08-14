@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { HashtagBox } from "../../components/HashtagBox/HashtagBox";
 import { Header } from "../../components/Header";
 import Post from "../../components/PostBox/Post";
@@ -17,6 +17,7 @@ import {
 
 export function UserPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const { user, userToken } = useAuth();
 
@@ -29,11 +30,17 @@ export function UserPage() {
       },
     };
 
-    api.get(`/user/${id}`, config).then((response) => {
-      if (response.status === 200) {
-        setPosts(response.data);
-      }
-    });
+    api
+      .get(`/user/${id}`, config)
+      .then((response) => {
+        if (response.status === 200) {
+          setPosts(response.data);
+        }
+      })
+      .catch((err) => {
+        localStorage.setItem("token", null);
+        navigate("/");
+      });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
