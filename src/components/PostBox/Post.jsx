@@ -95,13 +95,34 @@ export default function Post({
       });
   }
 
-  function handleLike() {
-    if (like === false) {
-      return setLike(true);
-    } else {
-      return setLike(false);
-    }
+  const URL = `http://localhost:4000/like`;
+
+  function handleLike(e) {
+    e.preventDefault();
+    const promise = axios.post(
+      URL,
+      { ...postLike },
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      }
+    );
+
+    promise
+      .then((res) => {
+        setPostLike(res.data, decoded.userId);
+        if (like === false) {
+          return setLike(true);
+        } else {
+          return setLike(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
+
   return (
     <PostWrapper>
       <Profile>
