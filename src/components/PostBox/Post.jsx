@@ -62,7 +62,9 @@ export default function Post({
   const { userToken, user } = useAuth();
 
   const [likedText, setLikedText] = useState("");
-  const [like, setLike] = useState(likesUsernames.includes(user.userName));
+  const [like, setLike] = useState(
+    likesUsernames.some((username) => username === user.userName)
+  );
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -102,7 +104,10 @@ export default function Post({
       return;
     }
 
-    const userLiked = likesUsernames.includes(user.userName);
+    const userLiked = likesUsernames.some(
+      (username) => username === user.userName
+    );
+
     const likesUsernamesFiltered = likesUsernames.filter(
       (username) => username !== user.userName
     );
@@ -151,6 +156,7 @@ export default function Post({
 
   useEffect(() => {
     filterLikesUsernames();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleLike(e) {
