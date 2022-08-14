@@ -66,6 +66,7 @@ export function UserPage() {
                 picture={post.picture}
                 url={post.url}
                 likes={post.likes}
+                likesUsernames={post.likesUsername}
                 urlDescription={post.urlDescription}
                 urlImage={post.urlImage}
                 urlTitle={post.urlTitle}
