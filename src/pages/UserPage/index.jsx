@@ -20,14 +20,14 @@ export function UserPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { user, userToken } = useAuth();
+  const { userToken } = useAuth();
 
+  const [userPage, setUserPage] = useState({});
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const config = {
       headers: {
-
         Authorization: `Bearer ${userToken}`,
       },
     };
@@ -36,6 +36,13 @@ export function UserPage() {
       .get(`/user/${id}`, config)
       .then((response) => {
         if (response.status === 200) {
+          const { data } = response;
+          const userData = data[0];
+          const user = {
+            userName: userData.username,
+            userPicture: userData.picture,
+          };
+          setUserPage(user);
           setPosts(response.data);
         }
       })
@@ -49,16 +56,15 @@ export function UserPage() {
 
   return (
     <Container>
-
       <Header />
 
       <Main>
         <Content>
           <UserDetails>
             <Profile>
-              <Icon src={user.userPicture} />
+              <Icon src={userPage.userPicture} />
             </Profile>
-            <h2 className="username">{user.userName}'s posts</h2>
+            <h2 className="username">{userPage.userName}'s posts</h2>
           </UserDetails>
 
           <Posts>
