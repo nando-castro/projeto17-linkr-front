@@ -46,6 +46,7 @@ export default function Home() {
         urlTitle={i.urlTitle}
         urlImage={i.urlImage}
         likes={i.likes}
+        id={i.postId}
       />
     ));
   }

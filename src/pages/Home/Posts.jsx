@@ -6,16 +6,14 @@ import { useAuth } from "../../context/auth";
 import { Loader } from "../../components/Loading/styles";
 import Post from "../../components/PostBox/Post";
 import Swal from "sweetalert2";
+import { api } from "../../services/api";
 
 export default function PostScreen() {
   const { timeline, setTimeline } = useAuth();
 
-  const URL = `http://localhost:4000/timeline`;
-
   useEffect(() => {
     function getPostsTimeline() {
-      const promise = axios.get(URL);
-      promise
+      api.get(`/timeline`)
         .then((res) => {
           setTimeline(res.data);
         })
@@ -42,6 +40,7 @@ export default function PostScreen() {
         urlTitle={i.urlTitle}
         urlImage={i.urlImage}
         likes={i.likes}
+        id={i.postId}
       />
     ));
   }

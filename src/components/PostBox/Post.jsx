@@ -28,7 +28,7 @@ import Modal from "react-modal";
 import { useContext, useState } from "react";
 import { api } from "../../services/api";
 import Loading from "../Loading/Loading";
-import { AuthContext } from "../../context/auth";
+import { AuthContext, useAuth } from "../../context/auth";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import axios from "axios";
 
@@ -63,10 +63,12 @@ export default function Post({
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { userToken } = useContext(AuthContext);
-  const [postLike, setPostLike] = useState({
-    postId: "",
-  });
+  //const { userToken } = useContext(AuthContext);
+  const { userToken } = useAuth();
+  //const { postLike, setPostLike } = useAuth();
+  const [postLike, setPostLike] = useState(null);
+  const [likesAmount, setLikesAmount] = useState(likes);
+
   const decoded = jwt_decode(userToken);
   function openUrl(url) {
     window.open(`${url}`);
@@ -95,26 +97,22 @@ export default function Post({
       });
   }
 
-  const URL = `http://localhost:4000/like`;
-
   function handleLike(e) {
     e.preventDefault();
-    const promise = axios.post(
-      URL,
-      { ...postLike },
-      {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      }
-    );
-
-    promise
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
+    api
+      .post(`/like/${id}`, postLike, config)
       .then((res) => {
-        setPostLike(res.data, decoded.userId);
+        setPostLike(decoded.userId);
         if (like === false) {
+          setLikesAmount((old) => old+1);
           return setLike(true);
         } else {
+          setLikesAmount((old) => old-1);
           return setLike(false);
         }
       })
@@ -133,7 +131,7 @@ export default function Post({
           ) : (
             <IoIosHeart onClick={handleLike} className="active-like" />
           )}
-          <span className="likes">{likes} likes</span>
+          <span className="likes">{likesAmount} likes</span>
         </Likes>
       </Profile>
       <Body>
