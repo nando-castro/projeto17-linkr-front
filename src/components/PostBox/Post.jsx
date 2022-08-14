@@ -97,6 +97,8 @@ export default function Post({
       });
   }
 
+  console.log(decoded.userId, writerId)
+
   function handleLike(e) {
     e.preventDefault();
     const config = {

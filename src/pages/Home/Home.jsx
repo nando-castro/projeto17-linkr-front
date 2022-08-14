@@ -5,19 +5,19 @@ import { Header } from "../../components/Header";
 import { Loader } from "../../components/Loading/styles";
 import Post from "../../components/PostBox/Post";
 import { useAuth } from "../../context/auth";
+import { api } from "../../services/api";
 import FormPost from "./FormPost";
 import { Container, Message, Posts, Timeline, Top } from "./styles";
 
 export default function Home() {
   const { timeline, setTimeline } = useAuth();
   const [loading, setLoading] = useState(false);
-  const URL = `http://localhost:4000/timeline`;
 
   useEffect(() => {
     function getPostsTimeline() {
       setLoading(true);
-      const promise = axios.get(URL);
-      promise
+      api
+        .get(`/timeline`)
         .then((res) => {
           setTimeline(res.data);
           setLoading(false);
@@ -28,7 +28,7 @@ export default function Home() {
             title:
               "An error occured while trying to fetch the posts, please refresh the page",
           });
-          setLoading(false)
+          setLoading(false);
         });
     }
     getPostsTimeline();
@@ -36,18 +36,22 @@ export default function Home() {
 
   function renderTimeline() {
     return timeline.map((i, index) => (
-      <Post
-        key={index}
-        picture={i.picture}
-        username={i.username}
-        description={i.description}
-        url={i.url}
-        urlDescription={i.urlDescription}
-        urlTitle={i.urlTitle}
-        urlImage={i.urlImage}
-        likes={i.likes}
-        id={i.postId}
-      />
+      <>
+      {console.log(i)}
+        <Post
+          key={index}
+          picture={i.picture}
+          username={i.username}
+          description={i.description}
+          url={i.url}
+          urlDescription={i.urlDescription}
+          urlTitle={i.urlTitle}
+          urlImage={i.urlImage}
+          likes={i.likes}
+          id={i.postId}
+          writerId={i.userId}
+        />
+      </>
     ));
   }
   return (
