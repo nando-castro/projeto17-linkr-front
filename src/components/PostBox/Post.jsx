@@ -21,14 +21,14 @@ import {
   Likes,
 } from "./styles";
 import { FaTrash, FaPencilAlt } from "react-icons/fa";
-import { RiHeartLine } from "react-icons/ri";
+import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import Loading from "../Loading/Loading";
-import { AuthContext } from "../../context/auth";
 import ReactTooltip from "react-tooltip";
+import { useAuth } from "../../context/auth";
 
 export default function Post({
   picture,
@@ -38,9 +38,9 @@ export default function Post({
   urlDescription,
   urlTitle,
   urlImage,
+  likes,
   id,
   writerId,
-  likes,
   likesUsernames,
 }) {
   const customStyles = {
@@ -58,13 +58,16 @@ export default function Post({
       maxWidth: "600px",
     },
   };
-  const { userToken, user } = useContext(AuthContext);
+
+  const { userToken, user } = useAuth();
+
+  const [likedText, setLikedText] = useState("");
+  const [like, setLike] = useState(likesUsernames.includes(user.userName));
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [likedText, setLikedText] = useState("");
-  const [like, setLike] = useState(likesUsernames.includes(user.userName));
-  const [likesAmount, setLikesAmount] = useState(likes);
+  const [postLike, setPostLike] = useState(null);
+  const [likesAmount, setLikesAmount] = useState(Number(likes));
 
   const decoded = jwt_decode(userToken);
   function openUrl(url) {
@@ -150,15 +153,42 @@ export default function Post({
     filterLikesUsernames();
   }, []);
 
+  function handleLike(e) {
+    e.preventDefault();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
+    api
+      .post(`/like/${id}`, postLike, config)
+      .then((res) => {
+        setPostLike(decoded.userId);
+        if (like === false) {
+          setLikesAmount((old) => old + 1);
+          return setLike(true);
+        } else {
+          setLikesAmount((old) => old - 1);
+          return setLike(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <PostWrapper>
       <Profile>
         <Icon src={picture} />
 
-        <Likes data-tip={likedText}>
+        <Likes data-tip={likedText} onClick={handleLike}>
           <ReactTooltip />
-          <RiHeartLine color="white" fontSize={"20px"} />
-          {like && <span>dei like</span>}
+          {like === false ? (
+            <RiHeartLine color="white" fontSize={"20px"} />
+          ) : (
+            <RiHeartFill fontSize={"20px"} className="active-like" />
+          )}
           <span className="likes">{likesAmount} likes</span>
         </Likes>
       </Profile>

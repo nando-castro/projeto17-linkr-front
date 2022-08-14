@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { useNavigate, useParams } from "react-router-dom";
 import { HashtagBox } from "../../components/HashtagBox/HashtagBox";
 import { Header } from "../../components/Header";
@@ -26,6 +27,7 @@ export function UserPage() {
   useEffect(() => {
     const config = {
       headers: {
+
         Authorization: `Bearer ${userToken}`,
       },
     };
@@ -47,6 +49,7 @@ export function UserPage() {
 
   return (
     <Container>
+
       <Header />
 
       <Main>
