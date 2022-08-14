@@ -8,6 +8,7 @@ export const AuthProvider = (props) => {
   );
   const [hoverProfile, setHoverProfile] = React.useState(false);
   const [timeline, setTimeline] = useState([]);
+  const [postLike, setPostLike] = useState(null);
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("@linkr:user"))
   );
@@ -32,6 +33,8 @@ export const AuthProvider = (props) => {
         setTimeline,
         setUser,
         user,
+        postLike,
+        setPostLike
       }}
     >
       {props.children}
