@@ -33,6 +33,7 @@ export const SearchBarContainer = styled.div`
   position: relative;
 
   width: calc(100% * 2 / 5);
+  z-index: 2;
 
   .userList {
     position: absolute;
@@ -126,6 +127,7 @@ export const Profile = styled.div`
 `;
 
 export const Menu = styled.div`
+  z-index: 3;
   position: absolute;
   bottom: -3em;
   right: -0.95em;

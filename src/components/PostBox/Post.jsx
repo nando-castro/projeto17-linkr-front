@@ -21,13 +21,17 @@ import {
   Likes,
 } from "./styles";
 import { FaTrash, FaPencilAlt } from "react-icons/fa";
+
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import Loading from "../Loading/Loading";
 import { useAuth } from "../../context/auth";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
+import { RiHeartLine, RiHeartFill } from "react-icons/ri";
+import ReactTooltip from "react-tooltip";
+
 
 export default function Post({
   picture,
@@ -40,6 +44,7 @@ export default function Post({
   likes,
   id,
   writerId,
+  likesUsernames,
 }) {
   const customStyles = {
     content: {
@@ -56,11 +61,16 @@ export default function Post({
       maxWidth: "600px",
     },
   };
-  const [like, setLike] = useState(false);
+
+  const { userToken, user } = useAuth();
+
+  const [likedText, setLikedText] = useState("");
+  const [like, setLike] = useState(
+    likesUsernames.some((username) => username === user.userName)
+  );
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { userToken } = useAuth();
   const [postLike, setPostLike] = useState(null);
   const [likesAmount, setLikesAmount] = useState(Number(likes));
 
@@ -92,6 +102,67 @@ export default function Post({
       });
   }
 
+
+  function filterLikesUsernames() {
+    if (likesUsernames.length === 0) {
+      return;
+    }
+
+    const userLiked = likesUsernames.some(
+      (username) => username === user.userName
+    );
+
+    const likesUsernamesFiltered = likesUsernames.filter(
+      (username) => username !== user.userName
+    );
+
+    if (likesUsernames.length === 1) {
+      if (userLiked) {
+        const string = `Você curtiu este post`;
+        setLikedText(string);
+        setLike(true);
+        return;
+      } else {
+        const string = `${likesUsernames[0]} curtiu este post`;
+        setLikedText(string);
+        return;
+      }
+    }
+
+    if (likesUsernames.length === 2) {
+      if (userLiked) {
+        const string = `Você e ${likesUsernamesFiltered[0]} curtiram este post`;
+        setLikedText(string);
+        setLike(true);
+        return;
+      } else {
+        const string = `${likesUsernames[0]} e ${likesUsernames[1]} curtiram este post`;
+        setLikedText(string);
+        return;
+      }
+    }
+
+    if (userLiked) {
+      const string = `Você, ${likesUsernamesFiltered[0]} e outras ${
+        likesUsernamesFiltered.length - 1
+      } pessoas curtiram`;
+      setLikedText(string);
+      setLike(true);
+      return;
+    } else {
+      const string = `${likesUsernames[0]}, ${likesUsernames[1]} e outras ${
+        likesUsernames.length - 2
+      } pessoas curtiram `;
+      setLikedText(string);
+      return;
+    }
+  }
+
+  useEffect(() => {
+    filterLikesUsernames();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function handleLike(e) {
     e.preventDefault();
     const config = {
@@ -120,11 +191,13 @@ export default function Post({
     <PostWrapper>
       <Profile>
         <Icon src={picture} />
-        <Likes>
+
+        <Likes data-tip={likedText} onClick={handleLike}>
+          <ReactTooltip />
           {like === false ? (
-            <IoIosHeartEmpty onClick={handleLike} />
+            <RiHeartLine color="white" fontSize={"20px"} />
           ) : (
-            <IoIosHeart onClick={handleLike} className="active-like" />
+            <RiHeartFill fontSize={"20px"} className="active-like" />
           )}
           <span className="likes">{likesAmount} likes</span>
         </Likes>

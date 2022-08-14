@@ -47,6 +47,7 @@ export default function Home() {
         likes={i.likes}
         id={i.postId}
         writerId={i.userId}
+        likesUsernames={i.likesUsername}
       />
     ));
   }

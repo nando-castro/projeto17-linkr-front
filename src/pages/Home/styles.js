@@ -21,7 +21,7 @@ export const Top = styled.div`
   line-height: 64px;
   color: #ffffff;
   @media (max-width: 611px) {
-    margin-top: 15px;
+    margin-top: 60px;
   }
 `;
 export const Content = styled.div`
@@ -128,7 +128,6 @@ export const ContentButton = styled.div`
 export const Button = styled.div`
   width: 112px;
   height: 31px;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -136,10 +135,16 @@ export const Button = styled.div`
   background: #1877f2;
   border-radius: 5px;
   margin-top: 5px;
-
-  color: #fff;
-
   cursor: pointer;
+
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+
+  color: #ffffff;
 `;
 
 export const Profile = styled.div`
