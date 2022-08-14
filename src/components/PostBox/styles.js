@@ -89,6 +89,7 @@ export const UrlContent = styled.div`
   padding: 20px;
 `;
 export const Image = styled.img`
+  max-width: 150px;
   height: 100%;
   background: #fff;
   border-radius: 0px 12px 13px 0px;

@@ -2,15 +2,11 @@ import axios from "axios";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { Header } from "../../components/Header";
+import { Loader } from "../../components/Loading/styles";
 import Post from "../../components/PostBox/Post";
 import { useAuth } from "../../context/auth";
 import FormPost from "./FormPost";
-import {
-  Container,
-  Posts,
-  Timeline,
-  Top,
-} from "./styles";
+import { Container, Message, Posts, Timeline, Top } from "./styles";
 
 export default function Home() {
   const { timeline, setTimeline } = useAuth();
@@ -23,14 +19,13 @@ export default function Home() {
       promise
         .then((res) => {
           setTimeline(res.data);
-          console.log(res.data);
         })
         .catch((err) => {
           Swal.fire({
             icon: "error",
-            title: "Oops...Parece que algo deu errado!",
+            title:
+              "An error occured while trying to fetch the posts, please refresh the page",
           });
-          console.log(err);
         });
     }
     getPostsTimeline();
@@ -57,7 +52,15 @@ export default function Home() {
       <Timeline>
         <Top>timeline</Top>
         <FormPost />
-        <Posts>{renderTimeline()}</Posts>
+        {timeline.length > 0 ? (
+          <Posts>{renderTimeline()}</Posts>
+        ) : (
+          <Container>
+            <Message>Loading...</Message>
+            <br></br>
+            <Loader />
+          </Container>
+        )}
       </Timeline>
     </Container>
   );

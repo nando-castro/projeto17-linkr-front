@@ -44,6 +44,7 @@ export default function Signin() {
     response
       .then(({ data }) => {
         setUserToken(data)
+        console.log(data)
         navigate("/timeline");
       })
       .catch((err) => {

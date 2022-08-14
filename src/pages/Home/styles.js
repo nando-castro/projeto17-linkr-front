@@ -9,8 +9,8 @@ export const Container = styled.div`
 `;
 
 export const Top = styled.div`
-  width: 100%;
   max-width: 611px;
+  width: 100%;
   height: 64px;
   margin-top: 40px;
   padding-left: 10px;
@@ -20,6 +20,9 @@ export const Top = styled.div`
   font-size: 43px;
   line-height: 64px;
   color: #ffffff;
+  @media(max-width: 611px){
+    margin-top: 15px;
+  }
 `;
 export const Content = styled.div`
   width: 100%;
@@ -28,8 +31,6 @@ export const Content = styled.div`
   margin-top: 50px;
   width: 100%;
   background: #fff;
-
-
 `;
 
 export const Timeline = styled.div`
@@ -79,7 +80,6 @@ export const Form = styled.form`
   }
 
   input::placeholder {
-    padding-left: 13px;
     font-family: "Lato";
     font-style: normal;
     font-weight: 300;
@@ -87,6 +87,17 @@ export const Form = styled.form`
     line-height: 18px;
 
     color: #949494;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    font-family: "Lato";
+  }
+
+  input[type=text]: focus {
+    border: 3px solid #555;
   }
 
   .article {
@@ -137,4 +148,19 @@ export const Icon = styled.img`
     border-radius: 50%;
     object-fit: cover;
   }
+`;
+
+export const Message = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 33px;
+  line-height: 64px;
+  color: #ffffff;
 `;
