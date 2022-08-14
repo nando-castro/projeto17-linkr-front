@@ -1,14 +1,21 @@
 import axios from "axios";
-import jwtDecode from "jwt-decode";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useAuth } from "../../context/auth";
-import { Button, ContentForm, Form, Icon, Profile, Title } from "./styles";
+import {
+  Button,
+  ContentButton,
+  ContentForm,
+  Form,
+  Icon,
+  Profile,
+  Title,
+} from "./styles";
 
 export default function FormPost() {
   const navigate = useNavigate();
-  const { userToken } = useAuth();
+  const { userToken, user } = useAuth();
   const [enableButton, setEnableButton] = useState(true);
 
   const [post, setPost] = useState({
@@ -52,8 +59,6 @@ export default function FormPost() {
     });
   }
 
-  //navigate("/timeline");
-
   function validatePost() {
     if (!post.url) {
       Swal.fire("Fill URL field!");
@@ -69,7 +74,7 @@ export default function FormPost() {
   return (
     <ContentForm>
       <Profile>
-        <Icon />
+        <Icon src={user.userPicture} />
       </Profile>
       <Form>
         <Title>What are you going to share today?</Title>
@@ -89,11 +94,13 @@ export default function FormPost() {
           onChange={changeInput}
         />
 
-        {enableButton === true ? (
-          <Button onClick={createPost}>Publish</Button>
-        ) : (
-          <Button>Publishing...</Button>
-        )}
+        <ContentButton>
+          {enableButton === true ? (
+            <Button onClick={createPost}>Publish</Button>
+          ) : (
+            <Button>Publishing...</Button>
+          )}
+        </ContentButton>
       </Form>
     </ContentForm>
   );

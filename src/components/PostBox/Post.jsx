@@ -13,7 +13,6 @@ import {
   Url,
   PostWrapper,
   UrlContent,
-  Like,
   PostHeader,
   PostIcons,
   StyledModal,
@@ -22,15 +21,13 @@ import {
   Likes,
 } from "./styles";
 import { FaTrash, FaPencilAlt } from "react-icons/fa";
-import { RiHeartLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { api } from "../../services/api";
 import Loading from "../Loading/Loading";
-import { AuthContext, useAuth } from "../../context/auth";
+import { useAuth } from "../../context/auth";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
-import axios from "axios";
 
 export default function Post({
   picture,
@@ -63,11 +60,9 @@ export default function Post({
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  //const { userToken } = useContext(AuthContext);
   const { userToken } = useAuth();
-  //const { postLike, setPostLike } = useAuth();
   const [postLike, setPostLike] = useState(null);
-  const [likesAmount, setLikesAmount] = useState(likes);
+  const [likesAmount, setLikesAmount] = useState(Number(likes));
 
   const decoded = jwt_decode(userToken);
   function openUrl(url) {
@@ -97,8 +92,6 @@ export default function Post({
       });
   }
 
-  console.log(decoded.userId, writerId)
-
   function handleLike(e) {
     e.preventDefault();
     const config = {
@@ -111,10 +104,10 @@ export default function Post({
       .then((res) => {
         setPostLike(decoded.userId);
         if (like === false) {
-          setLikesAmount((old) => old+1);
+          setLikesAmount((old) => old + 1);
           return setLike(true);
         } else {
-          setLikesAmount((old) => old-1);
+          setLikesAmount((old) => old - 1);
           return setLike(false);
         }
       })

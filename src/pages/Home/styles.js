@@ -20,7 +20,7 @@ export const Top = styled.div`
   font-size: 43px;
   line-height: 64px;
   color: #ffffff;
-  @media(max-width: 611px){
+  @media (max-width: 611px) {
     margin-top: 15px;
   }
 `;
@@ -118,9 +118,17 @@ export const Title = styled.p`
   color: #707070;
 `;
 
-export const Button = styled.div`
+export const ContentButton = styled.div`
   width: 100%;
   height: 31px;
+  display: flex;
+  justify-content: right;
+`;
+
+export const Button = styled.div`
+  width: 112px;
+  height: 31px;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -128,6 +136,8 @@ export const Button = styled.div`
   background: #1877f2;
   border-radius: 5px;
   margin-top: 5px;
+
+  color: #fff;
 
   cursor: pointer;
 `;
@@ -164,4 +174,3 @@ export const Message = styled.div`
   line-height: 64px;
   color: #ffffff;
 `;
-

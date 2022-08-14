@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Header } from "../../components/Header";
@@ -36,22 +35,19 @@ export default function Home() {
 
   function renderTimeline() {
     return timeline.map((i, index) => (
-      <>
-      {console.log(i)}
-        <Post
-          key={index}
-          picture={i.picture}
-          username={i.username}
-          description={i.description}
-          url={i.url}
-          urlDescription={i.urlDescription}
-          urlTitle={i.urlTitle}
-          urlImage={i.urlImage}
-          likes={i.likes}
-          id={i.postId}
-          writerId={i.userId}
-        />
-      </>
+      <Post
+        key={index}
+        picture={i.picture}
+        username={i.username}
+        description={i.description}
+        url={i.url}
+        urlDescription={i.urlDescription}
+        urlTitle={i.urlTitle}
+        urlImage={i.urlImage}
+        likes={i.likes}
+        id={i.postId}
+        writerId={i.userId}
+      />
     ));
   }
   return (
