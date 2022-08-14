@@ -50,15 +50,7 @@ export default function PostScreen() {
     getPostsTimeline();
   }, []);
 
-           /* 
-          <Like>
-            {like === false ? (
-              <IoIosHeartEmpty onClick={haddleLike} />
-            ) : (
-              <IoIosHeart onClick={haddleDislike} className="active-like" />
-            )}
-          </Like> */
-
+           
   function renderTimeline() {
     return timeline.map((i, index) => (
       <Post

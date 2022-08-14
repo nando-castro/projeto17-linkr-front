@@ -27,6 +27,7 @@ import { useContext, useState } from "react";
 import { api } from "../../services/api";
 import Loading from "../Loading/Loading";
 import { AuthContext } from "../../context/auth";
+import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 
 export default function Post({
   picture,
@@ -55,7 +56,7 @@ export default function Post({
       maxWidth: "600px",
     },
   };
-
+  const [like, setLike] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { userToken } = useContext(AuthContext);
@@ -86,11 +87,23 @@ export default function Post({
         alert("It was not possible to delete this post, please try again");
       });
   }
+
+  function handleLike() {
+    if (like === false) return setLike(true);
+    else return setLike(false);
+  }
   return (
     <PostWrapper>
       <Profile>
         <Icon src={picture} />
-        <Like>{likes}</Like>
+        <Like>
+          {like === false ? (
+            <IoIosHeartEmpty onClick={handleLike} />
+          ) : (
+            <IoIosHeart onClick={handleLike} className="active-like" />
+          )}
+        </Like>
+        <Like>{`${likes} likes`}</Like>
       </Profile>
       <Body>
         <PostHeader>

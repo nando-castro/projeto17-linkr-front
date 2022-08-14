@@ -117,6 +117,10 @@ export const Like = styled.div`
   font-size: 20px;
 
   cursor: pointer;
+
+  active-like {
+    background: red;
+  }
 `;
 
 export const Form = styled.div`

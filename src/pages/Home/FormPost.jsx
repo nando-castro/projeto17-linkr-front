@@ -52,6 +52,8 @@ export default function FormPost() {
     });
   }
 
+  //navigate("/timeline");
+
   function validatePost() {
     if (!post.url) {
       Swal.fire("Fill URL field!");
