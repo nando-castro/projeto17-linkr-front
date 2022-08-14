@@ -1,4 +1,5 @@
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -7,12 +8,9 @@ import { Button, ContentForm, Form, Icon, Profile, Title } from "./styles";
 
 export default function FormPost() {
   const navigate = useNavigate();
-  const { token } = useAuth();
+  const { userToken } = useAuth();
   const [enableButton, setEnableButton] = useState(true);
-  const [status, setStatus] = useState({
-    type: "",
-    mensagem: "",
-  });
+
   const [post, setPost] = useState({
     url: "",
     description: "",
@@ -29,7 +27,7 @@ export default function FormPost() {
       { ...post },
       {
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY2MDQzOTY3OCwiZXhwIjoxNjYwNDQzMjc4fQ.oCn_H9Y_-e64lfuwp9fDLkjTNSw9ZvBEikq2jemkqPc`,
+          Authorization: `Bearer ${userToken}`,
         },
       }
     );
@@ -46,12 +44,6 @@ export default function FormPost() {
       window.location.reload();
     });
     promise.catch((err) => {
-      /* if (err.response.status === 422) {
-        setEnableButton(true);
-        alert("Preencha os campos com dados válidos");
-        return;
-      } */
-      console.log(err);
       Swal.fire({
         icon: "error",
         title: "Houve um erro ao publicar seu link",

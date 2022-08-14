@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Header } from "../../components/Header";
 import { Loader } from "../../components/Loading/styles";
@@ -10,15 +10,18 @@ import { Container, Message, Posts, Timeline, Top } from "./styles";
 
 export default function Home() {
   const { timeline, setTimeline } = useAuth();
-
+  const [loading, setLoading] = useState(false);
+  let page = 1;
   const URL = `http://localhost:4000/timeline`;
 
   useEffect(() => {
     function getPostsTimeline() {
+      setLoading(true);
       const promise = axios.get(URL);
       promise
         .then((res) => {
           setTimeline(res.data);
+          setLoading(false);
         })
         .catch((err) => {
           Swal.fire({
@@ -26,6 +29,7 @@ export default function Home() {
             title:
               "An error occured while trying to fetch the posts, please refresh the page",
           });
+          setLoading(false)
         });
     }
     getPostsTimeline();
@@ -52,14 +56,16 @@ export default function Home() {
       <Timeline>
         <Top>timeline</Top>
         <FormPost />
-        {timeline.length > 0 ? (
-          <Posts>{renderTimeline()}</Posts>
-        ) : (
+        {loading ? (
           <Container>
             <Message>Loading...</Message>
             <br></br>
             <Loader />
           </Container>
+        ) : timeline.length === 0 ? (
+          <Message>There are no posts yet</Message>
+        ) : (
+          <Posts>{renderTimeline()}</Posts>
         )}
       </Timeline>
     </Container>
