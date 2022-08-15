@@ -56,7 +56,7 @@ export default function HashtagPage() {
                 urlTitle={post.urlTitle}
                 urlImage={post.urlImage}
                 key={post.id}
-                writerId={post.userId}
+                writerId={post.writerId}
                 id={post.id}
                 getPosts={getPostsByHashtag}
                 likesUsernames={post.likesUsername}
