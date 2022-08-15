@@ -282,8 +282,7 @@ export default function Post({
           return setLike(false);
         }
       })
-      .catch((err) => {
-      });
+      .catch((err) => {});
   }
 
   return (

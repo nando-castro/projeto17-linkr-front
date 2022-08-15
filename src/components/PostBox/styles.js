@@ -21,18 +21,24 @@ export const Article = styled.span`
   font-weight: 400;
   font-size: 11px;
   color: #9b9595;
+  /* white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; */
 `;
 export const Url = styled.p`
   font-family: "Lato";
   font-weight: 400;
   font-size: 11px;
   color: #cecece;
+  max-width: 100%;
+  word-break: break-all;
 `;
 export const Message = styled.span`
   font-family: "Lato";
   font-weight: 400;
   font-size: 19px;
   color: #ffffff;
+  max-width: 100%;
 `;
 export const Profile = styled.div`
   height: 100%;
