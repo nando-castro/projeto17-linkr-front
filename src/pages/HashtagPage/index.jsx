@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { api } from "../../services/api";
-import { Container, Timeline, Top, Content, Posts } from "./styles";
+import { Container, Timeline, Top, Content, Posts, Message } from "./styles";
 import { Header } from "../../components/Header";
 import Post from "../../components/PostBox/Post";
 import { HashtagBox } from "../../components/HashtagBox/HashtagBox";
@@ -29,7 +29,9 @@ export default function HashtagPage() {
     return (
       <>
         <Header />
-        <Loading />
+        <Loading>
+          <Message>Loading...</Message>
+        </Loading>
       </>
     );
   }
