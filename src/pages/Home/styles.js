@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,7 +21,7 @@ export const Top = styled.div`
   font-size: 43px;
   line-height: 64px;
   color: #ffffff;
-  @media(max-width: 611px){
+  @media (max-width: 611px) {
     margin-top: 15px;
   }
 `;
@@ -164,4 +165,3 @@ export const Message = styled.div`
   line-height: 64px;
   color: #ffffff;
 `;
-

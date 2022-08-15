@@ -71,7 +71,7 @@ export default function Post({
   const [editText, setEditText] = useState(description);
   const [likedText, setLikedText] = useState("");
   const [like, setLike] = useState(
-    likesUsernames.some((username) => username === user.userName)
+    likesUsernames?.some((username) => username === user.userName)
   );
 
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -114,7 +114,7 @@ export default function Post({
       return;
     }
 
-    const userLiked = likesUsernames.some(
+    const userLiked = likesUsernames?.some(
       (username) => username === user.userName
     );
 
@@ -201,6 +201,7 @@ export default function Post({
             setEditText(editText);
             setIsLoading(false);
             setIsEditing(false);
+            getPosts();
           })
           .catch((err) => {
             console.log(err);

@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const PostWrapper = styled.div`
   max-width: 600px;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   border-radius: 16px;
   background-color: #171717;
@@ -103,12 +103,12 @@ export const Editing = styled.input`
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  color: #4C4C4C;
+  color: #4c4c4c;
   border-radius: 7px;
   word-break: break-word;
   outline: none;
-  background-color: ${({isLoading}) => isLoading ? "#CECECE" : "white"}
-`
+  background-color: ${({ isLoading }) => (isLoading ? "#CECECE" : "white")};
+`;
 export const Link = styled.div`
   width: 100%;
   height: 155px;
