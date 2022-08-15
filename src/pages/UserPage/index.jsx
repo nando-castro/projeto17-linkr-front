@@ -25,8 +25,7 @@ export function UserPage() {
 
   const [userPage, setUserPage] = useState({});
   const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
+  function getPostsByUser() {
     const config = {
       headers: {
         Authorization: `Bearer ${userToken}`,
@@ -54,7 +53,9 @@ export function UserPage() {
         localStorage.setItem("token", null);
         navigate("/");
       });
-
+  }
+  useEffect(() => {
+    getPostsByUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
   if (!user) {
@@ -88,6 +89,7 @@ export function UserPage() {
                 username={post.username}
                 writerId={post.userId}
                 key={post.postId}
+                getPosts={getPostsByUser}
               />
             ))}
           </Posts>

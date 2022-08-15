@@ -79,7 +79,7 @@ export default function Home() {
                 urlDescription={post.urlDescription}
                 urlTitle={post.urlTitle}
                 urlImage={post.urlImage}
-                writerId={post.writerId}
+                writerId={post.userId}
                 id={post.postId}
                 getPosts={getPostsTimeline}
                 likesUsernames={post.likesUsername}
