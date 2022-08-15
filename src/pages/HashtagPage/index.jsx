@@ -55,6 +55,7 @@ export default function HashtagPage() {
                 id={post.id}
                 getPosts={getPostsByHashtag}
                 likesUsernames={post.likesUsername}
+                likes={post.likes}
               />
             ))}
           </Posts>

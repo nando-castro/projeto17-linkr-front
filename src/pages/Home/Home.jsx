@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Header } from "../../components/Header";
 import { Loader } from "../../components/Loading/styles";
@@ -11,6 +12,8 @@ import { Container, Message, Posts, Timeline, Top } from "./styles";
 export default function Home() {
   const { timeline, setTimeline } = useAuth();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   function getPostsTimeline() {
     setLoading(true);
     api
@@ -28,6 +31,7 @@ export default function Home() {
         setLoading(false);
       });
   }
+
   useEffect(() => {
     getPostsTimeline();
   }, []);
@@ -51,6 +55,7 @@ export default function Home() {
       />
     ));
   }
+
   return (
     <Container>
       <Header />
