@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useAuth } from "../../context/auth";
+import { api } from "../../services/api";
 import {
   Button,
   ContentButton,
@@ -15,9 +16,9 @@ import {
 
 export default function FormPost() {
   const navigate = useNavigate();
-  const { userToken, user } = useAuth();
+  const { userToken, user, update, setUpdate, timeline, setTimeline } =
+    useAuth();
   const [enableButton, setEnableButton] = useState(true);
-
   const [post, setPost] = useState({
     url: "",
     description: "",
@@ -47,10 +48,16 @@ export default function FormPost() {
     promise.then((res) => {
       setEnableButton(true);
       setPost(res.data);
+      setUpdate(!update);
       //navigate("/timeline");
-      window.location.reload();
+      //window.location.reload();
     });
     promise.catch((err) => {
+      if (err.response.status === 422) {
+        Swal.fire("Fill in all fields correctly!");
+        setEnableButton(true);
+        return;
+      }
       Swal.fire({
         icon: "error",
         title: "Houve um erro ao publicar seu link",
@@ -58,6 +65,25 @@ export default function FormPost() {
       setEnableButton(true);
     });
   }
+
+  useEffect(() => {
+    function getPostsTimeline() {
+      api
+        .get(`/timeline`)
+        .then((res) => {
+          setTimeline(res.data);
+          navigate(`/timeline`)
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: "error",
+            title:
+              "An error occured while trying to fetch the posts, please refresh the page",
+          });
+        });
+    }
+    getPostsTimeline();
+  }, [update]);
 
   function validatePost() {
     if (!post.url) {
@@ -81,7 +107,7 @@ export default function FormPost() {
         <input
           type="text"
           placeholder="http://..."
-          value={post.url}
+          value={post.url || ""}
           name="url"
           onChange={changeInput}
         />
@@ -89,7 +115,7 @@ export default function FormPost() {
           className="article"
           type="text"
           placeholder="Awesome article about #javascript"
-          value={post.description}
+          value={post.description || ""}
           name="description"
           onChange={changeInput}
         />
