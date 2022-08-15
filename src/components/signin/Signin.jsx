@@ -24,10 +24,9 @@ export default function Signin() {
     password: "",
   });
   const [enableButton, setEnableButton] = useState(true);
-
   const { userToken, setUserToken, setUser } = useAuth();
   useEffect(() => {
-    if (userToken && userToken.length !== 0) {
+    if (userToken && userToken.length !== 0 && userToken !== "null") {
       navigate("/timeline");
     }
 
@@ -43,7 +42,6 @@ export default function Signin() {
 
     response
       .then(({ data }) => {
-
         setUserToken(data.token);
 
         const user = JSON.stringify(data.userProfile);

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { HashtagBox } from "../../components/HashtagBox/HashtagBox";
 import { Header } from "../../components/Header";
+import Loading from "../../components/Loading/Loading";
 import Post from "../../components/PostBox/Post";
 import { useAuth } from "../../context/auth";
 import { api } from "../../services/api";
@@ -20,7 +21,7 @@ export function UserPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { userToken } = useAuth();
+  const { userToken, user } = useAuth();
 
   const [userPage, setUserPage] = useState({});
   const [posts, setPosts] = useState([]);
@@ -31,7 +32,10 @@ export function UserPage() {
         Authorization: `Bearer ${userToken}`,
       },
     };
-
+    if (!userToken || userToken === "null") {
+      navigate("/");
+      return;
+    }
     api
       .get(`/user/${id}`, config)
       .then((response) => {
@@ -52,8 +56,10 @@ export function UserPage() {
       });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  }, [id]);
+  if (!user) {
+    return <Loading />;
+  }
   return (
     <Container>
       <Header />

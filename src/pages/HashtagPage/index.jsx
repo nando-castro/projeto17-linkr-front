@@ -6,12 +6,18 @@ import { Header } from "../../components/Header";
 import Post from "../../components/PostBox/Post";
 import { HashtagBox } from "../../components/HashtagBox/HashtagBox";
 import Loading from "../../components/Loading/Loading";
+import { useAuth } from "../../context/auth";
 export default function HashtagPage() {
   const { hashtag } = useParams();
+  const { userToken } = useAuth();
   const navigate = useNavigate();
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState();
   function getPostsByHashtag() {
     setPosts();
+    if (!userToken || userToken === "null") {
+      navigate("/");
+      return;
+    }
     api
       .get(`/hashtag/${hashtag}`)
       .then((res) => {
@@ -28,7 +34,6 @@ export default function HashtagPage() {
   if (!posts) {
     return (
       <>
-        <Header />
         <Loading />
       </>
     );

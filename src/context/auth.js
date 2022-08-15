@@ -11,7 +11,7 @@ export const AuthProvider = (props) => {
   const [postLike, setPostLike] = useState(null);
   const [update, setUpdate] = useState(false);
   const [user, setUser] = useState(
-    localStorage.getItem("@linkr:user")
+    JSON.parse(localStorage.getItem("@linkr:user"))
   );
 
   useEffect(() => {

@@ -75,7 +75,7 @@ export default function Post({
   const [like, setLike] = useState(
     likesUsernames?.some((username) => username === user.userName)
   );
-
+  const { update, setUpdate } = useAuth();
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [postLike, setPostLike] = useState(null);
@@ -262,7 +262,7 @@ export default function Post({
   useEffect(() => {
     filterLikesUsernames();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [update]);
 
   function handleLike(e) {
     e.preventDefault();

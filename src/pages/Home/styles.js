@@ -59,7 +59,7 @@ export const ContentForm = styled.form`
   background: #fff;
 `;
 
-export const Form = styled.form`
+export const Form = styled.div`
   max-width: 600px;
   width: 100%;
   height: 209px;
@@ -96,11 +96,9 @@ export const Form = styled.form`
     box-sizing: border-box;
     font-family: "Lato";
   }
-
   input[type="text"]:focus {
     border: 3px solid #555;
   }
-
   .article {
     height: 66px;
   }
