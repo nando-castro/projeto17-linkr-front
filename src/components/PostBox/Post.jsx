@@ -25,15 +25,17 @@ import {
   Editing,
 } from "./styles";
 import { FaTrash, FaPencilAlt } from "react-icons/fa";
-import { RiHeartLine, RiHeartFill } from "react-icons/ri";
+
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 import { useEffect, useState, useRef } from "react";
 import { api } from "../../services/api";
 import Loading from "../Loading/Loading";
-import ReactTooltip from "react-tooltip";
 import { useAuth } from "../../context/auth";
 import axios from "axios";
+import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
+import { RiHeartLine, RiHeartFill } from "react-icons/ri";
+import ReactTooltip from "react-tooltip";
 
 export default function Post({
   picture,
@@ -66,14 +68,14 @@ export default function Post({
   };
   const inputRef = useRef();
   const { userToken, user } = useAuth();
-
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(description);
   const [likedText, setLikedText] = useState("");
   const [like, setLike] = useState(
     likesUsernames?.some((username) => username === user.userName)
   );
-
+  const { update, setUpdate } = useAuth();
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [postLike, setPostLike] = useState(null);
@@ -86,7 +88,6 @@ export default function Post({
   function toogleModal() {
     setIsOpen(!modalIsOpen);
   }
-  const navigate = useNavigate();
 
   function deletePost() {
     setIsLoading(true);
@@ -261,7 +262,7 @@ export default function Post({
   useEffect(() => {
     filterLikesUsernames();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [update]);
 
   function handleLike(e) {
     e.preventDefault();

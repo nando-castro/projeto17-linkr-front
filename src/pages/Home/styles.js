@@ -22,7 +22,7 @@ export const Top = styled.div`
   line-height: 64px;
   color: #ffffff;
   @media (max-width: 611px) {
-    margin-top: 15px;
+    margin-top: 60px;
   }
 `;
 export const Content = styled.div`
@@ -59,7 +59,7 @@ export const ContentForm = styled.form`
   background: #fff;
 `;
 
-export const Form = styled.form`
+export const Form = styled.div`
   max-width: 600px;
   width: 100%;
   height: 209px;
@@ -100,7 +100,6 @@ export const Form = styled.form`
   input[type="text"]:focus {
     border: 3px solid #555;
   }
-
   .article {
     height: 66px;
   }
@@ -119,8 +118,15 @@ export const Title = styled.p`
   color: #707070;
 `;
 
-export const Button = styled.div`
+export const ContentButton = styled.div`
   width: 100%;
+  height: 31px;
+  display: flex;
+  justify-content: right;
+`;
+
+export const Button = styled.div`
+  width: 112px;
   height: 31px;
   display: flex;
   align-items: center;
@@ -129,8 +135,16 @@ export const Button = styled.div`
   background: #1877f2;
   border-radius: 5px;
   margin-top: 5px;
-
   cursor: pointer;
+
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+
+  color: #ffffff;
 `;
 
 export const Profile = styled.div`

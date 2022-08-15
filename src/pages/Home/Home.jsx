@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Header } from "../../components/Header";
+import Loading from "../../components/Loading/Loading";
 import { Loader } from "../../components/Loading/styles";
 import Post from "../../components/PostBox/Post";
 import { useAuth } from "../../context/auth";
@@ -16,13 +18,21 @@ import {
 } from "./styles";
 
 export default function Home() {
-  const { timeline, setTimeline } = useAuth();
+  const { timeline, setTimeline, setUserToken, user, userToken, update } =
+    useAuth();
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
   function getPostsTimeline() {
     setLoading(true);
+    if (!userToken || userToken === "null") {
+      navigate("/");
+      return;
+    }
     api
       .get(`/timeline`)
       .then((res) => {
+        console.log(res.data);
         setTimeline(res.data);
         setLoading(false);
       })
@@ -32,31 +42,16 @@ export default function Home() {
           title:
             "An error occured while trying to fetch the posts, please refresh the page",
         });
-        setLoading(false);
       });
+
+    setLoading(false);
   }
   useEffect(() => {
     getPostsTimeline();
-  }, []);
+  }, [update]);
 
-  function renderTimeline() {
-    return timeline.map((i, index) => (
-      <Post
-        key={index}
-        picture={i.picture}
-        username={i.username}
-        description={i.description}
-        url={i.url}
-        urlDescription={i.urlDescription}
-        urlTitle={i.urlTitle}
-        urlImage={i.urlImage}
-        likes={i.likes}
-        id={i.postId}
-        writerId={i.userId}
-        likesUsernames={i.likesUsername}
-        getPosts={getPostsTimeline}
-      />
-    ));
+  if (!user) {
+    return <Loading />;
   }
   return (
     <Container>
@@ -73,7 +68,25 @@ export default function Home() {
         ) : timeline.length === 0 ? (
           <Message>There are no posts yet</Message>
         ) : (
-          <Posts>{renderTimeline()}</Posts>
+          <Posts>
+            {timeline?.map((post) => (
+              <Post
+                key={post.postId}
+                picture={post.picture}
+                username={post.username}
+                description={post.description}
+                url={post.url}
+                urlDescription={post.urlDescription}
+                urlTitle={post.urlTitle}
+                urlImage={post.urlImage}
+                writerId={post.writerId}
+                id={post.postId}
+                getPosts={getPostsTimeline}
+                likesUsernames={post.likesUsername}
+                likes={post.likes}
+              />
+            ))}
+          </Posts>
         )}
       </Timeline>
     </Container>
