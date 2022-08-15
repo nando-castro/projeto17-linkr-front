@@ -35,27 +35,30 @@ export const Content = styled.div`
 `;
 
 export const Timeline = styled.div`
-  max-width: 600px;
+  margin-top: 50px;
   width: 100%;
-  height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  max-width: 1000px;
 `;
 
 export const Posts = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 30px;
+  max-width: 100%;
 `;
 
 export const ContentForm = styled.form`
   width: 100%;
+  border-radius: 10px;
+  max-width: 600px;
   display: flex;
   justify-content: space-between;
   margin-top: 16px;
   margin-bottom: 20px;
-  border-radius: 5px;
+
   background: #fff;
 `;
 
@@ -67,6 +70,7 @@ export const Form = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  border-radius: 10px;
   padding: 20px;
 
   background: #ffff;
@@ -186,4 +190,11 @@ export const LoaderWrapper = styled.div`
   align-items: center;
   justify-content: center;
   max-height: 100%;
+`;
+
+export const TimelineWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  width: 100%;
 `;

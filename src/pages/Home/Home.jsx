@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { HashtagBox } from "../../components/HashtagBox/HashtagBox";
 import { Header } from "../../components/Header";
 import Loading from "../../components/Loading/Loading";
 import { Loader } from "../../components/Loading/styles";
@@ -15,6 +16,7 @@ import {
   Timeline,
   Top,
   LoaderWrapper,
+  TimelineWrapper,
 } from "./styles";
 
 export default function Home() {
@@ -67,25 +69,28 @@ export default function Home() {
         ) : timeline.length === 0 ? (
           <Message>There are no posts yet</Message>
         ) : (
-          <Posts>
-            {timeline?.map((post) => (
-              <Post
-                key={post.postId}
-                picture={post.picture}
-                username={post.username}
-                description={post.description}
-                url={post.url}
-                urlDescription={post.urlDescription}
-                urlTitle={post.urlTitle}
-                urlImage={post.urlImage}
-                writerId={post.userId}
-                id={post.postId}
-                getPosts={getPostsTimeline}
-                likesUsernames={post.likesUsername}
-                likes={post.likes}
-              />
-            ))}
-          </Posts>
+          <TimelineWrapper>
+            <Posts>
+              {timeline?.map((post) => (
+                <Post
+                  key={post.postId}
+                  picture={post.picture}
+                  username={post.username}
+                  description={post.description}
+                  url={post.url}
+                  urlDescription={post.urlDescription}
+                  urlTitle={post.urlTitle}
+                  urlImage={post.urlImage}
+                  writerId={post.userId}
+                  id={post.postId}
+                  getPosts={getPostsTimeline}
+                  likesUsernames={post.likesUsername}
+                  likes={post.likes}
+                />
+              ))}
+            </Posts>
+            <HashtagBox />
+          </TimelineWrapper>
         )}
       </Timeline>
     </Container>
