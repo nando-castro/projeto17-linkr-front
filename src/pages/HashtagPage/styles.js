@@ -42,3 +42,17 @@ export const Posts = styled.div`
   row-gap: 30px;
   max-width: 100%;
 `;
+export const Message = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 33px;
+  line-height: 64px;
+  color: #ffffff;
+`;

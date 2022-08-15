@@ -91,6 +91,7 @@ export const Description = styled.div`
   span {
     font-weight: 700;
     color: white;
+    cursor: pointer;
   }
 `;
 
@@ -269,4 +270,19 @@ export const ModalButton = styled.div`
   font-size: 18px;
   padding: 10px 20px;
   border-radius: 5px;
+`;
+
+export const LoadingMessage = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 33px;
+  line-height: 64px;
+  color: #ffffff;
 `;

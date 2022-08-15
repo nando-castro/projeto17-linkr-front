@@ -8,7 +8,14 @@ import Post from "../../components/PostBox/Post";
 import { useAuth } from "../../context/auth";
 import { api } from "../../services/api";
 import FormPost from "./FormPost";
-import { Container, Message, Posts, Timeline, Top } from "./styles";
+import {
+  Container,
+  Message,
+  Posts,
+  Timeline,
+  Top,
+  LoaderWrapper,
+} from "./styles";
 
 export default function Home() {
   const { timeline, setTimeline, setUserToken, user, userToken, update } =
@@ -53,11 +60,11 @@ export default function Home() {
         <Top>timeline</Top>
         <FormPost />
         {loading ? (
-          <Container>
+          <LoaderWrapper>
+            <Loader />
             <Message>Loading...</Message>
             <br></br>
-            <Loader />
-          </Container>
+          </LoaderWrapper>
         ) : timeline.length === 0 ? (
           <Message>There are no posts yet</Message>
         ) : (
