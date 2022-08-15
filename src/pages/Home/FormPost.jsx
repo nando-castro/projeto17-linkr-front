@@ -46,11 +46,10 @@ export default function FormPost() {
     }
 
     promise.then((res) => {
+      console.log(res.data)
       setEnableButton(true);
       setPost(res.data);
       setUpdate(!update);
-      //navigate("/timeline");
-      //window.location.reload();
     });
     promise.catch((err) => {
       if (err.response.status === 422) {
@@ -66,22 +65,26 @@ export default function FormPost() {
     });
   }
 
-  useEffect(() => {
-    function getPostsTimeline() {
-      api
-        .get(`/timeline`)
-        .then((res) => {
-          setTimeline(res.data);
-          navigate(`/timeline`)
-        })
-        .catch((err) => {
-          Swal.fire({
-            icon: "error",
-            title:
-              "An error occured while trying to fetch the posts, please refresh the page",
-          });
+  function getPostsTimeline() {
+    api
+      .get(`/timeline`)
+      .then((res) => {
+        setTimeline(res.data);
+        setPost({
+          url: "",
+          description: "",
         });
-    }
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title:
+            "An error occured while trying to fetch the posts, please refresh the page",
+        });
+      });
+  }
+
+  useEffect(() => {
     getPostsTimeline();
   }, [update]);
 

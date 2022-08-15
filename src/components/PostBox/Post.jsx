@@ -32,7 +32,6 @@ import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 import ReactTooltip from "react-tooltip";
 
-
 export default function Post({
   picture,
   username,
@@ -68,7 +67,7 @@ export default function Post({
   const [like, setLike] = useState(
     likesUsernames.some((username) => username === user.userName)
   );
-
+  const { update,setUpdate } = useAuth();
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [postLike, setPostLike] = useState(null);
@@ -101,7 +100,6 @@ export default function Post({
         alert("It was not possible to delete this post, please try again");
       });
   }
-
 
   function filterLikesUsernames() {
     if (likesUsernames.length === 0) {
@@ -161,7 +159,7 @@ export default function Post({
   useEffect(() => {
     filterLikesUsernames();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [update]);
 
   function handleLike(e) {
     e.preventDefault();

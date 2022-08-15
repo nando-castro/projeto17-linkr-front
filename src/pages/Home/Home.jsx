@@ -12,7 +12,6 @@ import { Container, Message, Posts, Timeline, Top } from "./styles";
 export default function Home() {
   const { timeline, setTimeline } = useAuth();
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     function getPostsTimeline() {
@@ -22,7 +21,6 @@ export default function Home() {
         .then((res) => {
           setTimeline(res.data);
           setLoading(false);
-          navigate(`/timeline`);
         })
         .catch((err) => {
           Swal.fire({
@@ -37,7 +35,7 @@ export default function Home() {
   }, []);
 
   function renderTimeline() {
-    return timeline.map((i, index) => (
+    return timeline?.map((i, index) => (
       <Post
         key={index}
         picture={i.picture}

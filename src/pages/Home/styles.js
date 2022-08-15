@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -58,7 +58,7 @@ export const ContentForm = styled.form`
   background: #fff;
 `;
 
-export const Form = styled.form`
+export const Form = styled.div`
   max-width: 600px;
   width: 100%;
   height: 209px;
@@ -68,7 +68,7 @@ export const Form = styled.form`
   flex-direction: column;
   padding: 20px;
 
-  backgound: #ffff;
+  background: #ffff;
 
   input {
     width: 100%;
@@ -96,7 +96,7 @@ export const Form = styled.form`
     font-family: "Lato";
   }
 
-  input[type=text]: focus {
+  input[type=text]:focus {
     border: 3px solid #555;
   }
 
