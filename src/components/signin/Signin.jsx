@@ -17,7 +17,7 @@ import Swal from "sweetalert2";
 import { useAuth } from "../../context/auth";
 
 export default function Signin() {
-  const URL = "http://localhost:4000"; // alterar pra context depois
+  const URL = "https://linkr1.herokuapp.com"; // alterar pra context depois
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
     email: "",

@@ -1,7 +1,6 @@
 import ReactHashtag from "@mdnm/react-hashtag";
 import jwt_decode from "jwt-decode";
 import KeyboardEventHandler from "react-keyboard-event-handler";
-import { Oval } from "react-loader-spinner";
 import Swal from "sweetalert2";
 import {
   Article,
@@ -33,7 +32,7 @@ import { api } from "../../services/api";
 import Loading from "../Loading/Loading";
 import { useAuth } from "../../context/auth";
 import axios from "axios";
-import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
+// import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 import ReactTooltip from "react-tooltip";
 
@@ -186,7 +185,7 @@ export default function Post({
           },
         };
         const promisse = axios.put(
-          `http://localhost:4000/post/${id}`,
+          `https://linkr1.herokuapp.com/post/${id}`,
           { description: editText },
           config
         );
@@ -205,7 +204,6 @@ export default function Post({
             getPosts();
           })
           .catch((err) => {
-            console.log(err);
             Swal.fire({
               icon: "error",
               title: "Não deu bao",
