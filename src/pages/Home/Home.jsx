@@ -6,30 +6,36 @@ import Post from "../../components/PostBox/Post";
 import { useAuth } from "../../context/auth";
 import { api } from "../../services/api";
 import FormPost from "./FormPost";
-import { Container, Message, Posts, Timeline, Top } from "./styles";
+import {
+  Container,
+  Message,
+  Posts,
+  Timeline,
+  Top,
+  LoaderWrapper,
+} from "./styles";
 
 export default function Home() {
   const { timeline, setTimeline } = useAuth();
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    function getPostsTimeline() {
-      setLoading(true);
-      api
-        .get(`/timeline`)
-        .then((res) => {
-          setTimeline(res.data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          Swal.fire({
-            icon: "error",
-            title:
-              "An error occured while trying to fetch the posts, please refresh the page",
-          });
-          setLoading(false);
+  function getPostsTimeline() {
+    setLoading(true);
+    api
+      .get(`/timeline`)
+      .then((res) => {
+        setTimeline(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title:
+            "An error occured while trying to fetch the posts, please refresh the page",
         });
-    }
+        setLoading(false);
+      });
+  }
+  useEffect(() => {
     getPostsTimeline();
   }, []);
 
@@ -48,6 +54,7 @@ export default function Home() {
         id={i.postId}
         writerId={i.userId}
         likesUsernames={i.likesUsername}
+        getPosts={getPostsTimeline}
       />
     ));
   }
@@ -58,11 +65,11 @@ export default function Home() {
         <Top>timeline</Top>
         <FormPost />
         {loading ? (
-          <Container>
+          <LoaderWrapper>
+            <Loader />
             <Message>Loading...</Message>
             <br></br>
-            <Loader />
-          </Container>
+          </LoaderWrapper>
         ) : timeline.length === 0 ? (
           <Message>There are no posts yet</Message>
         ) : (

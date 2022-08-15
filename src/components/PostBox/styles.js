@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const PostWrapper = styled.div`
   max-width: 600px;
   width: 100%;
+  /* height: 100%; */
   display: flex;
   border-radius: 16px;
   background-color: #171717;
@@ -90,11 +91,29 @@ export const Description = styled.div`
   span {
     font-weight: 700;
     color: white;
+    cursor: pointer;
   }
+`;
+
+export const Editing = styled.input`
+  width: 100%;
+  max-height: 44px;
+  height: 100%;
+  margin-bottom: 10px;
+  font-family: "Lato";
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #4c4c4c;
+  border-radius: 7px;
+  word-break: break-word;
+  outline: none;
+  background-color: ${({ isLoading }) => (isLoading ? "#CECECE" : "white")};
 `;
 export const Link = styled.div`
   width: 100%;
   height: 155px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   border: 1px solid #4d4d4d;
@@ -224,6 +243,7 @@ export const PostIcons = styled.div`
   color: #ffffff;
   font-size: 20px;
   column-gap: 15px;
+  cursor: pointer;
 `;
 export const StyledModal = styled.div`
   font-family: "Lato";
@@ -250,4 +270,19 @@ export const ModalButton = styled.div`
   font-size: 18px;
   padding: 10px 20px;
   border-radius: 5px;
+`;
+
+export const LoadingMessage = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 33px;
+  line-height: 64px;
+  color: #ffffff;
 `;

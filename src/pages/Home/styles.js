@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100vw;
-  min-height: 100vh;
+  width: 100%;
+  min-height: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,7 +21,7 @@ export const Top = styled.div`
   font-size: 43px;
   line-height: 64px;
   color: #ffffff;
-  @media(max-width: 611px){
+  @media (max-width: 611px) {
     margin-top: 15px;
   }
 `;
@@ -68,7 +69,7 @@ export const Form = styled.form`
   flex-direction: column;
   padding: 20px;
 
-  backgound: #ffff;
+  background: #ffff;
 
   input {
     width: 100%;
@@ -96,7 +97,7 @@ export const Form = styled.form`
     font-family: "Lato";
   }
 
-  input[type=text]: focus {
+  input[type="text"]:focus {
     border: 3px solid #555;
   }
 
@@ -164,4 +165,10 @@ export const Message = styled.div`
   line-height: 64px;
   color: #ffffff;
 `;
-
+export const LoaderWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 100%;
+`;

@@ -4,19 +4,19 @@ export const AuthContext = React.createContext({});
 
 export const AuthProvider = (props) => {
   const [userToken, setUserToken] = React.useState(
-    JSON.parse(localStorage.getItem("token"))
+    localStorage.getItem("token")
   );
   const [hoverProfile, setHoverProfile] = React.useState(false);
   const [timeline, setTimeline] = useState([]);
   const [postLike, setPostLike] = useState(null);
   const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("@linkr:user"))
+    localStorage.getItem("@linkr:user")
   );
 
   useEffect(() => {
     if (userToken) {
-      const data = JSON.stringify(userToken);
-      localStorage.setItem("token", data);
+      // const data = JSON.stringify(userToken);
+      localStorage.setItem("token", userToken);
     } else {
       localStorage.setItem("token", null);
     }
