@@ -32,7 +32,6 @@ export default function Home() {
     api
       .get(`/timeline`)
       .then((res) => {
-        console.log(res.data);
         setTimeline(res.data);
         setLoading(false);
       })

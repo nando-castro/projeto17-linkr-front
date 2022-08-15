@@ -46,7 +46,6 @@ export default function FormPost() {
     }
 
     promise.then((res) => {
-      console.log(res.data);
       setEnableButton(true);
       setPost(res.data);
       getPostsTimeline();

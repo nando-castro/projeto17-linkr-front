@@ -61,7 +61,6 @@ export function Header() {
         setFilteredUsers(data);
       })
       .catch((err) => {
-        console.log(err);
       });
   }
 
@@ -72,7 +71,7 @@ export function Header() {
 
   return (
     <Container>
-      <Logo>linkr</Logo>
+      <Logo onClick={() => navigate("/timeline")}>linkr</Logo>
 
       <SearchBarContainer>
         <SearchBar>

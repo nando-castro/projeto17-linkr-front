@@ -24,7 +24,6 @@ export default function HashtagPage() {
         setPosts(res.data);
       })
       .catch((err) => {
-        console.log(err);
         localStorage.setItem("token", null);
         navigate("/");
       });

@@ -103,7 +103,6 @@ export default function Post({
         getPosts();
       })
       .catch((err) => {
-        console.log(err);
         setIsLoading(false);
         toogleModal();
         alert("It was not possible to delete this post, please try again");
@@ -168,7 +167,9 @@ export default function Post({
     setIsEditing(!isEditing);
     setEditText(description);
   }
-
+  // useEffect(() => {
+  //   setEditText(description)
+  // }, [description])
   function InputKeys(key) {
     if (isLoading) return;
     if (key === "Esc") {
@@ -228,7 +229,7 @@ export default function Post({
               navigate(`/hashtag/${hashtag.replace("#", "")}`)
             }
           >
-            {editText}
+            {description}
           </ReactHashtag>
         </p>
       </Description>
@@ -282,7 +283,6 @@ export default function Post({
         }
       })
       .catch((err) => {
-        console.log(err);
       });
   }
 

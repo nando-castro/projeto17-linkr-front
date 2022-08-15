@@ -24,7 +24,7 @@ export default function Signin() {
     password: "",
   });
   const [enableButton, setEnableButton] = useState(true);
-  const { userToken, setUserToken, setUser } = useAuth();
+  const { userToken, setUserToken, setUser, setHoverProfile } = useAuth();
   useEffect(() => {
     if (userToken && userToken.length !== 0 && userToken !== "null") {
       navigate("/timeline");
@@ -48,6 +48,7 @@ export default function Signin() {
         localStorage.setItem("@linkr:user", user);
         setUser(data.userProfile);
         navigate("/timeline");
+        setHoverProfile(false);
       })
       .catch((err) => {
         Swal.fire({
