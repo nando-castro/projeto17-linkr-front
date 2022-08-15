@@ -157,4 +157,5 @@ export const Avatar = styled.img`
   width: 53px;
   border-radius: 9999px;
   background-color: red;
+  object-fit: cover;
 `;

@@ -112,6 +112,7 @@ const Icon = styled.img`
   border-radius: 26.5px;
 
   background: #999;
+  object-fit: cover;
 `;
 
 const Button = styled.button`
