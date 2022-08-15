@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { useNavigate, useParams } from "react-router-dom";
 import { HashtagBox } from "../../components/HashtagBox/HashtagBox";
 import { Header } from "../../components/Header";
@@ -19,8 +20,9 @@ export function UserPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { user, userToken } = useAuth();
+  const { userToken } = useAuth();
 
+  const [userPage, setUserPage] = useState({});
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -34,6 +36,13 @@ export function UserPage() {
       .get(`/user/${id}`, config)
       .then((response) => {
         if (response.status === 200) {
+          const { data } = response;
+          const userData = data[0];
+          const user = {
+            userName: userData.username,
+            userPicture: userData.picture,
+          };
+          setUserPage(user);
           setPosts(response.data);
         }
       })
@@ -53,9 +62,9 @@ export function UserPage() {
         <Content>
           <UserDetails>
             <Profile>
-              <Icon src={user.userPicture} />
+              <Icon src={userPage.userPicture} />
             </Profile>
-            <h2 className="username">{user.userName}'s posts</h2>
+            <h2 className="username">{userPage.userName}'s posts</h2>
           </UserDetails>
 
           <Posts>
@@ -66,6 +75,7 @@ export function UserPage() {
                 picture={post.picture}
                 url={post.url}
                 likes={post.likes}
+                likesUsernames={post.likesUsername}
                 urlDescription={post.urlDescription}
                 urlImage={post.urlImage}
                 urlTitle={post.urlTitle}

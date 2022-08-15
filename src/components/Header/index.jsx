@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { DebounceInput } from "react-debounce-input";
+
 import { RiSearchLine, RiArrowDownSLine, RiArrowUpSLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth";
+import { Link } from "react-router-dom";
 
 import { api } from "../../services/api";
 
@@ -93,15 +95,17 @@ export function Header() {
 
         <UserList>
           {filteredUsers.map((user) => (
-            <SearchUser key={user.username}>
-              <img
-                src={user.picture}
-                alt="user profile"
-                className="searchUserImage"
-              />
+            <Link key={user.username} to={`/user/${user.id}`}>
+              <SearchUser>
+                <img
+                  src={user.picture}
+                  alt="user profile"
+                  className="searchUserImage"
+                />
 
-              <span>{user.username}</span>
-            </SearchUser>
+                <span>{user.username}</span>
+              </SearchUser>
+            </Link>
           ))}
         </UserList>
       </SearchBarContainer>

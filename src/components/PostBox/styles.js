@@ -56,11 +56,15 @@ export const Likes = styled.div`
   flex-direction: column;
   align-items: center;
   color: white;
+  cursor: pointer;
   .likes {
     margin-top: 4px;
     text-align: center;
     font-size: 11px;
     line-height: 13px;
+  }
+  .active-like {
+    color: red;
   }
 `;
 
@@ -105,6 +109,7 @@ export const UrlContent = styled.div`
   padding: 20px;
 `;
 export const Image = styled.img`
+  max-width: 150px;
   height: 100%;
   background: #fff;
   border-radius: 0px 12px 13px 0px;
@@ -120,6 +125,93 @@ export const Title = styled.h1`
   font-size: 16px;
   color: #cecece;
 `;
+
+export const Like = styled.div`
+  width: 20px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 20px;
+
+  cursor: pointer;
+
+  .active-like {
+    color: red;
+  }
+`;
+
+export const Form = styled.div`
+  max-width: 611px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  padding: 20px 20px;
+
+  border-radius: 5px;
+
+  p {
+    width: 445px;
+    height: 40px;
+
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+
+    color: #707070;
+  }
+
+  input {
+    max-width: 503px;
+    width: 100%;
+    height: 30px;
+
+    border: none;
+
+    background: #efefef;
+    border-radius: 5px;
+  }
+
+  .body {
+    max-width: 502px;
+    width: 100%;
+    height: 66px;
+
+    margin-top: 5px;
+
+    background: #efefef;
+    border-radius: 5px;
+  }
+`;
+
+export const Button = styled.button`
+  width: 112px;
+  height: 31px;
+  position: relative;
+  left: 75%;
+  top: 10px;
+
+  background: #1877f2;
+  border: none;
+  border-radius: 5px;
+
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+
+  color: #ffffff;
+
+  cursor: pointer;
+`;
+
 export const PostHeader = styled.div`
   width: 100%;
   display: flex;
