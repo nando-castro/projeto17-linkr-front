@@ -25,7 +25,7 @@ import {
 } from "./styles";
 import { FaTrash, FaPencilAlt } from "react-icons/fa";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as LinkTo } from "react-router-dom";
 import Modal from "react-modal";
 import { useEffect, useState, useRef } from "react";
 import { api } from "../../services/api";
@@ -302,7 +302,9 @@ export default function Post({
       </Profile>
       <Body>
         <PostHeader>
-          <Name>{username}</Name>
+          <LinkTo to={`/user/${writerId}`}>
+            <Name>{username}</Name>
+          </LinkTo>
           {writerId === decoded.userId ? (
             <PostIcons>
               <FaPencilAlt onClick={() => editPost()} />
