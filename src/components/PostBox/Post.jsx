@@ -42,6 +42,7 @@ export default function Post({
   id,
   writerId,
   likesUsernames,
+  getPosts,
 }) {
   const customStyles = {
     content: {
@@ -79,6 +80,7 @@ export default function Post({
     setIsOpen(!modalIsOpen);
   }
   const navigate = useNavigate();
+
   function deletePost() {
     setIsLoading(true);
     const config = {
@@ -91,8 +93,10 @@ export default function Post({
       .then((res) => {
         setIsLoading(false);
         toogleModal();
+        getPosts();
       })
       .catch((err) => {
+        console.log(err);
         setIsLoading(false);
         toogleModal();
         alert("It was not possible to delete this post, please try again");

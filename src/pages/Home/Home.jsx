@@ -11,25 +11,24 @@ import { Container, Message, Posts, Timeline, Top } from "./styles";
 export default function Home() {
   const { timeline, setTimeline } = useAuth();
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    function getPostsTimeline() {
-      setLoading(true);
-      api
-        .get(`/timeline`)
-        .then((res) => {
-          setTimeline(res.data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          Swal.fire({
-            icon: "error",
-            title:
-              "An error occured while trying to fetch the posts, please refresh the page",
-          });
-          setLoading(false);
+  function getPostsTimeline() {
+    setLoading(true);
+    api
+      .get(`/timeline`)
+      .then((res) => {
+        setTimeline(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title:
+            "An error occured while trying to fetch the posts, please refresh the page",
         });
-    }
+        setLoading(false);
+      });
+  }
+  useEffect(() => {
     getPostsTimeline();
   }, []);
 
@@ -48,6 +47,7 @@ export default function Home() {
         id={i.postId}
         writerId={i.userId}
         likesUsernames={i.likesUsername}
+        getPosts={getPostsTimeline}
       />
     ));
   }
