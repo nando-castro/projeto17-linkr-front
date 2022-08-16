@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useScrollBy } from "react-use-window-scroll";
+import { useScrollTo } from "react-use-window-scroll";
 import { useNavigate, useParams } from "react-router-dom";
 import { HashtagBox } from "../../components/HashtagBox/HashtagBox";
 import { Header } from "../../components/Header";
@@ -21,7 +21,7 @@ import {
 export function UserPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const scrollBy = useScrollBy();
+  const scrollBy = useScrollTo();
   const { userToken, user } = useAuth();
 
   const [userPage, setUserPage] = useState({});
