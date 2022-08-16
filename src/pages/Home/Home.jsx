@@ -25,6 +25,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  let page = 1;
   function getPostsTimeline() {
     setLoading(true);
     if (!userToken || userToken === "null") {
@@ -32,7 +33,7 @@ export default function Home() {
       return;
     }
     api
-      .get(`/timeline`)
+      .get(`/timeline?page=${page}`)
       .then((res) => {
         setTimeline(res.data);
         setLoading(false);
