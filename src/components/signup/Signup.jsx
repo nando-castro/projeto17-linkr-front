@@ -35,34 +35,33 @@ export default function SignUp() {
 
     response
       .then(() => {
-        setTimeout(() => navigate("/"), 2600);
+        setTimeout(() => navigate('/'), 2600)
         Swal.fire({
-          position: "center",
-          icon: "success",
-          title:
-            "You have registed with sucess! You will redirect to login page",
-          showConfirmButton: false,
-          timer: 2500,
-          background: "#333333",
-          color: "#ffffff",
-        });
+            position: 'center',
+            icon: 'success',
+            title: 'You have registed with sucess! You will redirect to login page',
+            showConfirmButton: false,
+            timer: 2500,
+            background: '#333333',
+            color: '#ffffff'
+          })
       })
       .catch((err) => {
         let erro;
-        if (err.response.data === "Email already exists!") {
-          erro = err.response.data;
-        } else if (err.response.data === "Username already exists!") {
-          erro = err.response.data;
+        if (err.response.data === 'Email already exists!') {
+            erro = err.response.data;
+        } else if (err.response.data === 'Username already exists!') {
+            erro = err.response.data;
         }
 
         Swal.fire({
-          icon: "error",
-          title: erro,
-          text: "Try with another name",
-          confirmButtonColor: "#1877F2",
-          background: "#333333",
-          color: "#ffffff",
-        });
+            icon: 'error',
+            title: erro,
+            text: 'Try with another name',
+            confirmButtonColor: '#1877F2',
+            background: '#333333',
+            color: '#ffffff'
+          })
         setEnableButton(true);
       });
   }

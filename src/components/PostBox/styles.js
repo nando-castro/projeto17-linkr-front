@@ -68,7 +68,6 @@ export const Likes = styled.div`
   flex-direction: column;
   align-items: center;
   color: white;
-
   cursor: pointer;
   .likes {
     margin-top: 4px;
@@ -298,7 +297,6 @@ export const LoadingMessage = styled.div`
   line-height: 64px;
   color: #ffffff;
 `;
-
 export const Comments = styled.div`
   display: flex;
   flex-direction: column;

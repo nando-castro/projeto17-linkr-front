@@ -42,6 +42,7 @@ import axios from "axios";
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 import ReactTooltip from "react-tooltip";
 import Comment from "../Comment/Comment";
+
 export default function Post({
   picture,
   username,
@@ -90,6 +91,7 @@ export default function Post({
   const [comments, setComments] = useState();
   const [commentsIsOpen, setCommentsIsOpen] = useState(false);
   const [userComment, setUserComent] = useState("");
+
   const decoded = jwt_decode(userToken);
   function openUrl(url) {
     window.open(`${url}`);
