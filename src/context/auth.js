@@ -17,7 +17,6 @@ export const AuthProvider = (props) => {
   );
 
   useEffect(() => {
-    console.log('tashiro fofocas')
     if (userToken) {
       // const data = JSON.stringify(userToken);
       localStorage.setItem("token", userToken);
