@@ -26,7 +26,7 @@ export default function Signin() {
   const [enableButton, setEnableButton] = useState(true);
   const { userToken, setUserToken, setUser, setHoverProfile } = useAuth();
   useEffect(() => {
-    if (userToken && userToken.length !== 0 && userToken !== "null") {
+    if (userToken && userToken.length !== 0 && userToken !== "null" && localStorage.getItem('token')) {
       navigate("/timeline");
     }
 
