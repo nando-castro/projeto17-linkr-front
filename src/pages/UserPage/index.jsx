@@ -89,6 +89,7 @@ export function UserPage() {
                 username={post.username}
                 writerId={post.userId}
                 key={post.postId}
+                commentsCount={post.commentsCount}
                 getPosts={getPostsByUser}
               />
             ))}
