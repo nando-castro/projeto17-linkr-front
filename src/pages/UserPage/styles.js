@@ -274,7 +274,7 @@ const Icon = styled.img`
 export const UserDetails = styled.div`
   display: flex;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: space-between;
   max-width: 1000px;
   /* width: 100%; */
   margin-left: 1rem;
@@ -289,6 +289,38 @@ export const UserDetails = styled.div`
     @media (max-width: 611px) {
       margin-left: 0;
     }
+  }
+`;
+
+export const IconText = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Follow = styled.div`
+  width: 112px;
+  height: 31px;
+  margin-right: 10px;
+  background: ${({isFollowed}) => (isFollowed ? "#FFFFFF": "#1877f2")};
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 200ms ease-in;
+  /* filter: ${({buttonEnable}) => (buttonEnable ? "brightness(1)" : "brightness(1.4)")}; */
+
+
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  color: ${({isFollowed}) => (isFollowed ? "#1877f2": "#FFFFFF")};
+
+  :hover {
+    filter: brightness(1.2);
   }
 `;
 
