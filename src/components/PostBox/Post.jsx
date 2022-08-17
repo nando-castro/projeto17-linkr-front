@@ -22,6 +22,7 @@ import {
   ModalButton,
   Likes,
   Editing,
+  Shares,
 } from "./styles";
 import { FaTrash, FaPencilAlt } from "react-icons/fa";
 
@@ -33,7 +34,7 @@ import Loading from "../Loading/Loading";
 import { useAuth } from "../../context/auth";
 import axios from "axios";
 // import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
-import { RiHeartLine, RiHeartFill } from "react-icons/ri";
+import { RiHeartLine, RiHeartFill, RiRepeatLine } from "react-icons/ri";
 import ReactTooltip from "react-tooltip";
 
 export default function Post({
@@ -49,6 +50,7 @@ export default function Post({
   writerId,
   likesUsernames,
   getPosts,
+  shares,
 }) {
   const customStyles = {
     content: {
@@ -79,6 +81,9 @@ export default function Post({
   const [isLoading, setIsLoading] = useState(false);
   const [postLike, setPostLike] = useState(null);
   const [likesAmount, setLikesAmount] = useState(Number(likes));
+  const [shareDisabled, setShareDisabled] = useState(false);
+  const [shareAmount, setShareAmount] = useState(Number(shares));
+  const [shareModal, setShareModal] = useState(false);
 
   const decoded = jwt_decode(userToken);
   function openUrl(url) {
@@ -285,6 +290,30 @@ export default function Post({
       .catch((err) => {});
   }
 
+	function handleShare(e) {
+		e.preventDefault();
+		if(shareDisabled) return;
+		setShareDisabled(true);
+		const config = {
+			headers: {
+				Authorization: `Bearer ${userToken}`,
+			},
+		};
+		api.post(`/share/${id}`, {}, config)
+		.then((res) => {
+			setShareAmount((old) => old + 1);
+			setShareDisabled(false);
+			setShareModal(!shareModal)
+		})
+		.catch((err) => {
+			console.log(err.response)
+			setShareDisabled(false);
+			setShareModal(!shareModal);
+			if(err.response.data === "User alredy shared this post")
+				alert(err.response.data);
+		});
+	}
+
   return (
     <PostWrapper>
       <Profile>
@@ -299,6 +328,36 @@ export default function Post({
           )}
           <span className="likes">{likesAmount} likes</span>
         </Likes>
+		<Shares onClick={() => setShareModal(!shareModal)} disabled={shareDisabled}>
+			<RiRepeatLine color="white" fontSize={"20px"}></RiRepeatLine>
+			<span className="shares">{shareAmount} re-post</span>
+			<Modal
+                isOpen={shareModal}
+                style={customStyles}
+                contentLabel="Share Modal"
+              >
+                {isLoading ? (
+                  <StyledModal>
+                    <Loading />
+                  </StyledModal>
+                ) : (
+                  <StyledModal>
+                    <h1>Do you want to re-post this link?</h1>
+                    <ModalButtons>
+                      <ModalButton
+                        confirm={false}
+                        onClick={() => setShareModal(!shareModal)}
+                      >
+                        <p>No, cancel</p>
+                      </ModalButton>
+                      <ModalButton confirm={true} onClick={handleShare}>
+                        <p> Yes, share!</p>
+                      </ModalButton>
+                    </ModalButtons>
+                  </StyledModal>
+                )}
+              </Modal>
+		</Shares>
       </Profile>
       <Body>
         <PostHeader>

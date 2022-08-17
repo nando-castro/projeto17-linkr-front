@@ -76,6 +76,20 @@ export const Likes = styled.div`
   }
 `;
 
+export const Shares = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  .shares {
+    margin-top: 4px;
+    text-align: center;
+    font-size: 11px;
+    line-height: 13px;
+  }
+`;
+
 export const Body = styled.div`
   background: #171717;
   border-radius: 16px;
