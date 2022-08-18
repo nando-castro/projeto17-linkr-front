@@ -22,10 +22,16 @@ import {
   ModalButton,
   Likes,
   Editing,
+  Comments,
+  InputBox,
+  CommentBox,
+  CommentIcon,
+  SendButton,
 } from "./styles";
 import { FaTrash, FaPencilAlt } from "react-icons/fa";
-
-import { useNavigate } from "react-router-dom";
+import { BsChatDots } from "react-icons/bs";
+import { FiSend } from "react-icons/fi";
+import { useNavigate, Link as LinkTo } from "react-router-dom";
 import Modal from "react-modal";
 import { useEffect, useState, useRef } from "react";
 import { api } from "../../services/api";
@@ -35,6 +41,7 @@ import axios from "axios";
 // import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 import ReactTooltip from "react-tooltip";
+import Comment from "../Comment/Comment";
 
 export default function Post({
   picture,
@@ -49,6 +56,7 @@ export default function Post({
   writerId,
   likesUsernames,
   getPosts,
+  commentsCount,
 }) {
   const customStyles = {
     content: {
@@ -79,6 +87,10 @@ export default function Post({
   const [isLoading, setIsLoading] = useState(false);
   const [postLike, setPostLike] = useState(null);
   const [likesAmount, setLikesAmount] = useState(Number(likes));
+  const [commentsAmount, setCommentsAmount] = useState(Number(commentsCount));
+  const [comments, setComments] = useState();
+  const [commentsIsOpen, setCommentsIsOpen] = useState(false);
+  const [userComment, setUserComent] = useState("");
 
   const decoded = jwt_decode(userToken);
   function openUrl(url) {
@@ -186,7 +198,7 @@ export default function Post({
           },
         };
         const promisse = axios.put(
-          `https://linkr1.herokuapp.com/post/${id}`,
+          `http://localhost:4000/post/${id}`,
           { description: editText },
           config
         );
@@ -282,73 +294,152 @@ export default function Post({
           return setLike(false);
         }
       })
+      .catch((err) => {});
+  }
+  function getComments() {
+    api
+      .get(`/comment/${id}`)
+      .then((res) => {
+        setComments(res.data);
+        setCommentsIsOpen(true);
+      })
       .catch((err) => {
+        console.log(err);
       });
   }
+  function postComment() {
+    if (isLoading) return;
+    setIsLoading(true);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
+    const body = {
+      comment: userComment,
+    };
 
+    api
+      .post(`/comment/${id}`, body, config)
+      .then((res) => {
+        setUserComent("");
+        getComments();
+        setCommentsAmount((old) => old + 1);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+      });
+  }
   return (
-    <PostWrapper>
-      <Profile>
-        <Icon src={picture} />
+    <div>
+      <PostWrapper>
+        <Profile>
+          <Icon src={picture} />
 
-        <Likes data-tip={likedText} onClick={handleLike}>
-          <ReactTooltip />
-          {like === false ? (
-            <RiHeartLine color="white" fontSize={"20px"} />
-          ) : (
-            <RiHeartFill fontSize={"20px"} className="active-like" />
-          )}
-          <span className="likes">{likesAmount} likes</span>
-        </Likes>
-      </Profile>
-      <Body>
-        <PostHeader>
-          <Name>{username}</Name>
-          {writerId === decoded.userId ? (
-            <PostIcons>
-              <FaPencilAlt onClick={() => editPost()} />
-              <FaTrash onClick={() => toogleModal()} />
-              <Modal
-                isOpen={modalIsOpen}
-                style={customStyles}
-                contentLabel="Example Modal"
-              >
-                {isLoading ? (
-                  <StyledModal>
-                    <Loading />
-                  </StyledModal>
-                ) : (
-                  <StyledModal>
-                    <h1>Are you sure you want to delete this post?</h1>
-                    <ModalButtons>
-                      <ModalButton
-                        confirm={false}
-                        onClick={() => toogleModal()}
-                      >
-                        <p>No, go back</p>
-                      </ModalButton>
-                      <ModalButton confirm={true} onClick={() => deletePost()}>
-                        <p> Yes, delete it</p>
-                      </ModalButton>
-                    </ModalButtons>
-                  </StyledModal>
-                )}
-              </Modal>
-            </PostIcons>
-          ) : (
-            <></>
-          )}
-        </PostHeader>
-        {isEditing ? editingComponent() : descriptionComponent()}
-        <Link onClick={() => openUrl(url)}>
-          <UrlContent>
-            <Title>{urlTitle}</Title>
-            <Article>{urlDescription}</Article>
-            <Url>{url}</Url>
-          </UrlContent>
-          <Image src={urlImage} />
-        </Link>
-      </Body>
-    </PostWrapper>
+          <Likes data-tip={likedText} onClick={handleLike}>
+            <ReactTooltip />
+            {like === false ? (
+              <RiHeartLine color="white" fontSize={"20px"} />
+            ) : (
+              <RiHeartFill fontSize={"20px"} className="active-like" />
+            )}
+            <span className="likes">{likesAmount} likes</span>
+          </Likes>
+          <Comments
+            onClick={() => {
+              if (commentsIsOpen) {
+                return setCommentsIsOpen(false);
+              }
+              getComments();
+            }}
+          >
+            <BsChatDots />
+            <span>{commentsAmount} comments</span>
+          </Comments>
+        </Profile>
+        <Body>
+          <PostHeader>
+            <LinkTo to={`/user/${writerId}`}>
+              <Name>{username}</Name>
+            </LinkTo>
+            {writerId === decoded.userId ? (
+              <PostIcons>
+                <FaPencilAlt onClick={() => editPost()} />
+                <FaTrash onClick={() => toogleModal()} />
+                <Modal
+                  isOpen={modalIsOpen}
+                  style={customStyles}
+                  contentLabel="Example Modal"
+                >
+                  {isLoading ? (
+                    <StyledModal>
+                      <Loading />
+                    </StyledModal>
+                  ) : (
+                    <StyledModal>
+                      <h1>Are you sure you want to delete this post?</h1>
+                      <ModalButtons>
+                        <ModalButton
+                          confirm={false}
+                          onClick={() => toogleModal()}
+                        >
+                          <p>No, go back</p>
+                        </ModalButton>
+                        <ModalButton
+                          confirm={true}
+                          onClick={() => deletePost()}
+                        >
+                          <p> Yes, delete it</p>
+                        </ModalButton>
+                      </ModalButtons>
+                    </StyledModal>
+                  )}
+                </Modal>
+              </PostIcons>
+            ) : (
+              <></>
+            )}
+          </PostHeader>
+          {isEditing ? editingComponent() : descriptionComponent()}
+          <Link onClick={() => openUrl(url)}>
+            <UrlContent>
+              <Title>{urlTitle}</Title>
+              <Article>{urlDescription}</Article>
+              <Url>{url}</Url>
+            </UrlContent>
+            <Image src={urlImage} />
+          </Link>
+        </Body>
+      </PostWrapper>
+      {commentsIsOpen ? (
+        <CommentBox>
+          {comments?.map((comment) => (
+            <Comment
+              key={comment.id}
+              picture={comment.picture}
+              username={comment.username}
+              comment={comment.comment}
+            />
+          ))}
+          <InputBox>
+            <CommentIcon>
+              <img src={user.userPicture} />
+            </CommentIcon>
+            <input
+              type="text"
+              placeholder="write a comment..."
+              value={userComment}
+              onChange={(e) => setUserComent(e.target.value)}
+            />
+            <SendButton onClick={() => postComment()}>
+              <FiSend />
+            </SendButton>
+          </InputBox>
+        </CommentBox>
+      ) : (
+        <></>
+      )}
+    </div>
   );
 }

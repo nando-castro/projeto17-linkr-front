@@ -7,7 +7,11 @@ export const Container = styled.div`
   border-radius: 15px;
   width: 300px;
   max-height: 580px;
-  @media (max-width: 610px) {
+  height: 100%;
+  position: sticky;
+  top: 110px;
+  margin-right: 10px;
+  @media (max-width: 805px) {
     display: none;
   }
 `;

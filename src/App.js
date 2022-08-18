@@ -7,6 +7,7 @@ import HomeScreen from "./pages/Home";
 import HashtagPage from "./pages/HashtagPage";
 import { UserPage } from "./pages/UserPage";
 import Modal from "react-modal";
+import { AuthProvider } from "./context/auth";
 
 Modal.setAppElement(".root");
 
@@ -15,14 +16,16 @@ function App() {
     <BrowserRouter>
       <ResetCSS />
       <GlobalStyle />
-      <Routes>
-        <Route path="/user/:id" element={<UserPage />} />
-        <Route path="/timeline" element={<HomeScreen />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/" element={<Signin />} />
-        <Route path="/hashtag/:hashtag" element={<HashtagPage />} />
-        <Route path="/user/:id" element={<UserPage />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/user/:id" element={<UserPage />} />
+          <Route path="/timeline" element={<HomeScreen />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/" element={<Signin />} />
+          <Route path="/hashtag/:hashtag" element={<HashtagPage />} />
+          <Route path="/user/:id" element={<UserPage />} />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

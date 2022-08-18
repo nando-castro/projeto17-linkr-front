@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = React.createContext({});
 
 export const AuthProvider = (props) => {
+  const navigate = useNavigate();
   const [userToken, setUserToken] = React.useState(
     localStorage.getItem("token")
   );
@@ -20,7 +22,9 @@ export const AuthProvider = (props) => {
       localStorage.setItem("token", userToken);
     } else {
       localStorage.setItem("token", null);
+      navigate("/")
     }
+    // eslint-disable-next-line
   }, [userToken]);
 
   return (

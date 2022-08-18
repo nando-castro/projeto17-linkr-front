@@ -64,11 +64,10 @@ export default function Home() {
       });
   }
 
-
   useEffect(() => {
     getPostsTimeline();
   }, []);
-/*   const getNewPosts = () => {
+  /*   const getNewPosts = () => {
     let posts = [];
 
   } */
@@ -83,9 +82,8 @@ export default function Home() {
     } else {
       setOk("Não tem novos posts");
     }
-    console.log(ok)
+    console.log(ok);
   }, 3000);
-
 
   /*   const handdleLoadMore = useCallback(() => {
     getPostsTimeline();
@@ -112,61 +110,26 @@ export default function Home() {
           <Message>There are no posts yet</Message>
         ) : (
           <TimelineWrapper>
-            {
-              <Posts>
-                {timeline?.map((post) => (
-                  <Post
-                    key={post.postId}
-                    picture={post.picture}
-                    username={post.username}
-                    description={post.description}
-                    url={post.url}
-                    urlDescription={post.urlDescription}
-                    urlTitle={post.urlTitle}
-                    urlImage={post.urlImage}
-                    writerId={post.userId}
-                    id={post.postId}
-                    getPosts={getPostsTimeline}
-                    likesUsernames={post.likesUsername}
-                    likes={post.likes}
-                  />
-                ))}
-              </Posts>
-            }
-            {/* 
-            <InfiniteScroll
-              pageStart={0}
-              loadMore={handdleLoadMore}
-              hasMore={hasMoreItems}
-              loader={
-                <div className="loader" key={0}>
-                  Loading...
-                </div>
-              }
-              useWindow={false}
-            >
-              {
-                <Posts>
-                  {timeline?.map((post) => (
-                    <Post
-                      key={post.postId}
-                      picture={post.picture}
-                      username={post.username}
-                      description={post.description}
-                      url={post.url}
-                      urlDescription={post.urlDescription}
-                      urlTitle={post.urlTitle}
-                      urlImage={post.urlImage}
-                      writerId={post.userId}
-                      id={post.postId}
-                      getPosts={getPostsTimeline}
-                      likesUsernames={post.likesUsername}
-                      likes={post.likes}
-                    />
-                  ))}
-                </Posts>
-              }
-            </InfiniteScroll> */}
+            <Posts>
+              {timeline?.map((post) => (
+                <Post
+                  key={post.postId}
+                  picture={post.picture}
+                  username={post.username}
+                  description={post.description}
+                  url={post.url}
+                  urlDescription={post.urlDescription}
+                  urlTitle={post.urlTitle}
+                  urlImage={post.urlImage}
+                  writerId={post.userId}
+                  id={post.postId}
+                  getPosts={getPostsTimeline}
+                  likesUsernames={post.likesUsername}
+                  likes={post.likes}
+                  commentsCount={post.commentsCount}
+                />
+              ))}
+            </Posts>
             <HashtagBox />
           </TimelineWrapper>
         )}

@@ -25,6 +25,7 @@ export default function FormPost() {
   });
 
   //const URL = `https://linkr1.herokuapp.com/posts`;
+
   const URL = `http://localhost:4000/posts`;
 
   function createPost(e) {
