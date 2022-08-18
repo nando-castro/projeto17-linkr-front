@@ -66,9 +66,8 @@ export default function FormPost() {
   }
 
   function getPostsTimeline() {
-    let page = 1;
     api
-      .get(`/timeline?page=${page}`)
+      .get(`/timeline`)
       .then((res) => {
         setTimeline(res.data);
         setPost({

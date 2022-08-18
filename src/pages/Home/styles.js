@@ -44,6 +44,8 @@ export const Timeline = styled.div`
 `;
 
 export const Posts = styled.div`
+  height: auto;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   row-gap: 30px;
@@ -193,6 +195,8 @@ export const LoaderWrapper = styled.div`
 `;
 
 export const TimelineWrapper = styled.div`
+  height: auto;
+  overflow: auto;
   display: flex;
   justify-content: space-between;
   margin-top: 50px;
