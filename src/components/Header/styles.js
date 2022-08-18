@@ -98,6 +98,16 @@ export const SearchUser = styled.li`
   background-color: #e7e7e7;
   overflow: hidden;
 
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 23px;
+
+  /* identical to box height */
+
+  color: #515151;
+
   cursor: pointer;
 
   &:first-of-type {
@@ -111,8 +121,13 @@ export const SearchUser = styled.li`
     background-color: red;
   }
 
-  span {
+  .search-username {
     margin-left: 1rem;
+  }
+
+  .search-following {
+    margin-left: 8px;
+    color: #c5c5c5;
   }
 `;
 
