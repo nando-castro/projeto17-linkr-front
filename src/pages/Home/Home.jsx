@@ -76,6 +76,18 @@ export default function Home() {
     }
   };
 
+  function loadNewPosts() {
+    api
+      .get(`timeline?page=1`)
+      .then((res) => {
+        setTimeline(res.data);
+        setNewPosts(0);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   useInterval(() => {
     getNewPosts();
   }, 15000);
@@ -102,7 +114,7 @@ export default function Home() {
           <TimelineWrapper>
             <Posts>
               {newPosts > 0 ? (
-                <UpdateContent>
+                <UpdateContent onClick={loadNewPosts}>
                   {newPosts} new posts, load more!{" "}
                   <BsArrowRepeat className="icon" />
                 </UpdateContent>
