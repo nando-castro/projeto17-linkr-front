@@ -252,6 +252,7 @@ export function UserPage() {
                     username={userPage.userName}
                     writerId={post.userId}
                     key={post.postId}
+                    commentsCount={post.commentsCount}
                     getPosts={getPostsByUser}
                   />
                 ))}

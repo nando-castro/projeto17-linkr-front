@@ -86,6 +86,7 @@ export default function Home() {
                   getPosts={getPostsTimeline}
                   likesUsernames={post.likesUsername}
                   likes={post.likes}
+                  commentsCount={post.commentsCount}
                 />
               ))}
             </Posts>
