@@ -202,3 +202,29 @@ export const TimelineWrapper = styled.div`
   margin-top: 50px;
   width: 100%;
 `;
+
+export const UpdateContent = styled.div`
+  height: 61px;
+  background: #1877f2;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #ffffff;
+
+  .icon {
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+`;

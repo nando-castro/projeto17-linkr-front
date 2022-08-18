@@ -1,6 +1,4 @@
-import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
-import InfiniteScroll from "react-infinite-scroller";
+import { useEffect, useState } from "react";
 import useInterval from "use-interval";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -20,23 +18,17 @@ import {
   Top,
   LoaderWrapper,
   TimelineWrapper,
+  UpdateContent,
 } from "./styles";
+import { BsArrowRepeat } from "react-icons/bs";
 
 export default function Home() {
-  const { timeline, setTimeline, setUserToken, user, userToken, update } =
-    useAuth();
+  const { timeline, setTimeline, user, userToken } = useAuth();
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
-  const itemsPerPage = 10;
-  //const [currentPage, setCurrentPage] = useState(1);
+  const [newPosts, setNewPosts] = useState(0);
   let currentPage = 1;
-  const [hasMoreItems, setHasMoreItems] = useState(true);
-  const [records, setRecords] = useState(0);
   const navigate = useNavigate();
-  let [count, setCount] = useState(0);
-  let [ok, setOk] = useState("");
-
-  console.log(hasMoreItems);
 
   function getPostsTimeline() {
     if (loading) return;
@@ -67,28 +59,26 @@ export default function Home() {
   useEffect(() => {
     getPostsTimeline();
   }, []);
-  /*   const getNewPosts = () => {
-    let posts = [];
 
-  } */
-
-  let newPosts = 0;
-  let postsLength = 1;
+  const getNewPosts = () => {
+    api
+      .get(`timeline?page=1`)
+      .then((res) => {
+        setPosts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    if (posts.length > 0) {
+      let lastPost = posts[0];
+      let firstPosttimeline = timeline[0];
+      setNewPosts(lastPost.postId - firstPosttimeline.postId);
+    }
+  };
 
   useInterval(() => {
-    if (timeline.length + postsLength > timeline.length) {
-      newPosts = postsLength;
-      setOk(`sim tem mais ${newPosts} novos posts`);
-    } else {
-      setOk("Não tem novos posts");
-    }
-    console.log(ok);
-  }, 3000);
-
-  /*   const handdleLoadMore = useCallback(() => {
-    getPostsTimeline();
-  }, [timeline, isLoading]);
- */
+    getNewPosts();
+  }, 15000);
 
   if (!user) {
     return <Loading />;
@@ -111,6 +101,18 @@ export default function Home() {
         ) : (
           <TimelineWrapper>
             <Posts>
+              {newPosts > 0 ? (
+                <UpdateContent>
+                  {newPosts} new posts, load more!{" "}
+                  <BsArrowRepeat className="icon" />
+                </UpdateContent>
+              ) : (
+                <UpdateContent
+                  style={{
+                    display: "none",
+                  }}
+                ></UpdateContent>
+              )}
               {timeline?.map((post) => (
                 <Post
                   key={post.postId}
