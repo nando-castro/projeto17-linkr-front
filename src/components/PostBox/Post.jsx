@@ -22,6 +22,9 @@ import {
   ModalButton,
   Likes,
   Editing,
+  Shares,
+  RepostedDiv,
+  RespostedText,
   Comments,
   InputBox,
   CommentBox,
@@ -39,7 +42,7 @@ import Loading from "../Loading/Loading";
 import { useAuth } from "../../context/auth";
 import axios from "axios";
 // import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
-import { RiHeartLine, RiHeartFill } from "react-icons/ri";
+import { RiHeartLine, RiHeartFill, RiRepeatLine } from "react-icons/ri";
 import ReactTooltip from "react-tooltip";
 import Comment from "../Comment/Comment";
 
@@ -56,6 +59,8 @@ export default function Post({
   writerId,
   likesUsernames,
   getPosts,
+  shares,
+  reposted,
   commentsCount,
 }) {
   const customStyles = {
@@ -87,6 +92,9 @@ export default function Post({
   const [isLoading, setIsLoading] = useState(false);
   const [postLike, setPostLike] = useState(null);
   const [likesAmount, setLikesAmount] = useState(Number(likes));
+  const [shareDisabled, setShareDisabled] = useState(false);
+  const [shareAmount, setShareAmount] = useState(Number(shares));
+  const [shareModal, setShareModal] = useState(false);
   const [commentsAmount, setCommentsAmount] = useState(Number(commentsCount));
   const [comments, setComments] = useState();
   const [commentsIsOpen, setCommentsIsOpen] = useState(false);
@@ -297,8 +305,13 @@ export default function Post({
       .catch((err) => {});
   }
   function getComments() {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     api
-      .get(`/comment/${id}`)
+      .get(`/comment/${id}`, config)
       .then((res) => {
         setComments(res.data);
         setCommentsIsOpen(true);
@@ -318,21 +331,54 @@ export default function Post({
     const body = {
       comment: userComment,
     };
-
-    api
-      .post(`/comment/${id}`, body, config)
-      .then((res) => {
-        setUserComent("");
-        getComments();
-        setCommentsAmount((old) => old + 1);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setIsLoading(false);
-      });
-  }
+  api
+  .post(`/comment/${id}`, body, config)
+  .then((res) => {
+    setUserComent("");
+    getComments();
+    setCommentsAmount((old) => old + 1);
+    setIsLoading(false);
+  })
+  .catch((err) => {
+    setIsLoading(false);
+  });
+}
+	function handleShare(e) {
+		e.preventDefault();
+		if(shareDisabled) return;
+		setShareDisabled(true);
+		const config = {
+			headers: {
+				Authorization: `Bearer ${userToken}`,
+			},
+		};
+		api.post(`/share/${id}`, {}, config)
+		.then((res) => {
+			setShareAmount((old) => old + 1);
+			setShareDisabled(false);
+			setShareModal(!shareModal);
+			getPosts();
+		})
+		.catch((err) => {
+			setShareDisabled(false);
+			setShareModal(!shareModal);
+			if(err.response.data === "User alredy shared this post")
+				Swal.fire(err.response.data);
+		});
+	}
+    
   return (
     <div>
+    {
+			(reposted === null) ? 
+			<></> :
+			<RepostedDiv>
+				<RiRepeatLine color="white" fontSize={"20px"}></RiRepeatLine>
+				<RespostedText>Re-posted by {
+					reposted === username ? 'you' : reposted
+				}</RespostedText>
+			</RepostedDiv>
+		}
       <PostWrapper>
         <Profile>
           <Icon src={picture} />
@@ -357,6 +403,36 @@ export default function Post({
             <BsChatDots />
             <span>{commentsAmount} comments</span>
           </Comments>
+          <Shares onClick={() => setShareModal(!shareModal)} disabled={shareDisabled}>
+				<RiRepeatLine color="white" fontSize={"20px"}></RiRepeatLine>
+				<span className="shares">{shareAmount} re-post</span>
+				<Modal
+					isOpen={shareModal}
+					style={customStyles}
+					contentLabel="Share Modal"
+				>
+					{isLoading ? (
+					<StyledModal>
+						<Loading />
+					</StyledModal>
+					) : (
+					<StyledModal>
+						<h1>Do you want to re-post this link?</h1>
+						<ModalButtons>
+						<ModalButton
+							confirm={false}
+							onClick={() => setShareModal(!shareModal)}
+						>
+							<p>No, cancel</p>
+						</ModalButton>
+						<ModalButton confirm={true} onClick={handleShare}>
+							<p> Yes, share!</p>
+						</ModalButton>
+						</ModalButtons>
+					</StyledModal>
+					)}
+				</Modal>
+			</Shares>
         </Profile>
         <Body>
           <PostHeader>
@@ -420,6 +496,9 @@ export default function Post({
               picture={comment.picture}
               username={comment.username}
               comment={comment.comment}
+              writerId={comment.commentWriterId}
+              postAuthorId={writerId}
+              isFollowing={comment.isFollowing}
             />
           ))}
           <InputBox>

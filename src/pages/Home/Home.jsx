@@ -1,3 +1,4 @@
+import useInterval from "use-interval";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -21,22 +22,31 @@ import {
   Top,
   LoaderWrapper,
   TimelineWrapper,
+  UpdateContent,
   InfiniteScrollWrapper,
 } from "./styles";
+import { BsArrowRepeat } from "react-icons/bs";
 
 export default function Home() {
-  const { timeline, setTimeline, setUserToken, user, userToken, update } =
-    useAuth();
+  const { timeline, setTimeline, user, userToken } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [newPosts, setNewPosts] = useState(0);
   const [isFetching, setIsFetching] = useState(false);
   const [Nextpage, setNextPage] = useState(1);
   const [followSomeone, setFollowSomeone] = useState();
   const hasMorePosts = useRef(true);
+
   const scrollTo = useScrollTo();
 
+
+
   const navigate = useNavigate();
+
   function getPostsTimeline(page = 1) {
-    console.log("useEffect");
+
+    if (loading) return;
+
     setLoading(true);
     if (!userToken || userToken === "null") {
       navigate("/");
@@ -67,8 +77,11 @@ export default function Home() {
           title:
             "An error occured while trying to fetch the posts, please refresh the page",
         });
+        setLoading(false);
       });
   }
+
+  console.log(Nextpage);
 
   const handleLoadMore = useCallback(
     (page) => {
@@ -82,14 +95,13 @@ export default function Home() {
       if (isFetching) return;
       setIsFetching(false);
 
+
       api
-        .get(`/timeline?page=${page}`)
+        .get(`/timeline?page=${page}&postId=${timeline[0].postId}`)
         .then((res) => {
           hasMorePosts.current = res.data.hasMorePosts;
-
           setTimeline([...timeline, ...res.data.posts]);
           setNextPage((prev) => prev + 1);
-
           setIsFetching(false);
         })
         .catch((err) => {
@@ -106,16 +118,58 @@ export default function Home() {
   );
   useEffect(() => {
     getPostsTimeline();
-  }, [update]);
+  }, []);
+
+  const getNewPosts = () => {
+    api
+      .get(`timeline/${timeline[0].postId}`)
+      .then((res) => {
+        console.log(res.data.posts);
+        setNewPosts(res.data.posts.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    /* if (posts.length > 0) {
+      let lastPost = posts[0];
+      let firstPosttimeline = timeline[0];
+      setNewPosts(lastPost.postId - firstPosttimeline.postId);
+    } */
+  };
+
+  function loadNewPosts() {
+    api
+      .get(`timeline/${timeline[0].postId}`)
+      .then((res) => {
+        setTimeline([...res.data.posts, ...timeline]);
+        setNewPosts(0);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  useInterval(() => {
+    getNewPosts();
+  }, 15000);
+
   if (!user) {
     return <Loading />;
   }
+
   return (
     <Container>
       <Header />
       <Timeline style={{ height: "auto" }}>
         <Top>timeline</Top>
         <FormPost />
+        {newPosts > 0 ? (
+          <UpdateContent onClick={loadNewPosts}>
+            {newPosts} new posts, load more! <BsArrowRepeat className="icon" />
+          </UpdateContent>
+        ) : (
+          <></>
+        )}
         {loading ? (
           <LoaderWrapper>
             <Loader />
@@ -141,9 +195,9 @@ export default function Home() {
                 }}
               >
                 <Posts>
-                  {timeline?.map((post) => (
+                  {timeline?.map((post, index) => (
                     <Post
-                      key={post.postId}
+                      key={index}
                       picture={post.picture}
                       username={post.username}
                       description={post.description}
@@ -157,6 +211,8 @@ export default function Home() {
                       likesUsernames={post.likesUsername}
                       likes={post.likes}
                       commentsCount={post.commentsCount}
+                      shares={post.shares}
+                      reposted={post.sharedBy}
                     />
                   ))}
                 </Posts>

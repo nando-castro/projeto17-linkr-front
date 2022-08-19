@@ -94,8 +94,8 @@ const Posts = styled.div`
   padding: 18px;
   display: flex;
   flex-direction: column;
+  gap: 1.8rem;
   align-items: ${({ isLoading }) => (isLoading ? "center" : "flex-start")};
-  gap: 1rem;
 
   @media (max-width: 611px) {
     border-radius: 0px;
