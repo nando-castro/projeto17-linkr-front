@@ -39,12 +39,9 @@ export default function Home() {
 
   const scrollTo = useScrollTo();
 
-
-
   const navigate = useNavigate();
 
   function getPostsTimeline(page = 1) {
-
     if (loading) return;
 
     setLoading(true);
@@ -61,10 +58,10 @@ export default function Home() {
       .get(`/timeline?page=${page}`, config)
       .then((res) => {
         hasMorePosts.current = res.data.hasMorePosts;
-        setTimeline([ ...res.data.posts]);
+        setTimeline([...res.data.posts]);
         setFollowSomeone(res.data.followSomeone);
         setLoading(false);
-        scrollTo(0,0)
+        scrollTo(0, 0);
       })
       .catch((err) => {
         if (err.response.status === 404) {
@@ -81,12 +78,8 @@ export default function Home() {
       });
   }
 
-  console.log(Nextpage);
-
   const handleLoadMore = useCallback(
     (page) => {
-    console.log("callback" + page);
-
       if (!userToken || userToken === "null") {
         navigate("/");
         return;
@@ -94,7 +87,6 @@ export default function Home() {
 
       if (isFetching) return;
       setIsFetching(false);
-
 
       api
         .get(`/timeline?page=${page}&postId=${timeline[0].postId}`)
@@ -124,7 +116,6 @@ export default function Home() {
     api
       .get(`timeline/${timeline[0].postId}`)
       .then((res) => {
-        console.log(res.data.posts);
         setNewPosts(res.data.posts.length);
       })
       .catch((err) => {
@@ -180,7 +171,9 @@ export default function Home() {
           followSomeone ? (
             <Message>No posts found from your friends</Message>
           ) : (
-            <Message>You don't follow anyone yet. Search for new friends!</Message>
+            <Message>
+              You don't follow anyone yet. Search for new friends!
+            </Message>
           )
         ) : (
           <TimelineWrapper>
@@ -189,7 +182,7 @@ export default function Home() {
                 pageStart={Nextpage}
                 loadMore={handleLoadMore}
                 hasMore={hasMorePosts.current}
-                loader={<LoadingPost  key={0}/>}
+                loader={<LoadingPost key={0} />}
                 style={{
                   width: "100%",
                 }}
