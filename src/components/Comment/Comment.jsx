@@ -11,6 +11,7 @@ export default function Comment({
   comment,
   postAuthorId,
   writerId,
+  isFollowing,
 }) {
   return (
     <CommentWrapper>
@@ -20,7 +21,11 @@ export default function Comment({
       <CommentContent>
         <CommentOwner>
           <h1>{username} </h1>
-          {postAuthorId === writerId ? <span>• post's author</span> : <></>}
+          {postAuthorId === writerId ? (
+            <span>• post's author</span>
+          ) : (
+            <span>{isFollowing ? "• following" : <></>}</span>
+          )}
         </CommentOwner>
         <p>{comment}</p>
       </CommentContent>

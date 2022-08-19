@@ -297,8 +297,13 @@ export default function Post({
       .catch((err) => {});
   }
   function getComments() {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     api
-      .get(`/comment/${id}`)
+      .get(`/comment/${id}`, config)
       .then((res) => {
         setComments(res.data);
         setCommentsIsOpen(true);
@@ -422,6 +427,7 @@ export default function Post({
               comment={comment.comment}
               writerId={comment.commentWriterId}
               postAuthorId={writerId}
+              isFollowing={comment.isFollowing}
             />
           ))}
           <InputBox>
