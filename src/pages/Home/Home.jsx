@@ -46,7 +46,6 @@ export default function Home() {
     api
       .get(`/timeline?page=${page}`)
       .then((res) => {
-        console.log(res.data);
         hasMorePosts.current = res.data.hasMorePosts;
         setTimeline([...timeline, ...res.data.posts]);
         setLoading(false);
@@ -62,6 +61,8 @@ export default function Home() {
       });
   }
 
+  console.log(Nextpage);
+
   const handleLoadMore = useCallback(
     (page) => {
       if (!userToken || userToken === "null") {
@@ -76,7 +77,6 @@ export default function Home() {
         .get(`/timeline?page=${page}`)
         .then((res) => {
           hasMorePosts.current = res.data.hasMorePosts;
-
           setTimeline([...timeline, ...res.data.posts]);
           setNextPage((prev) => prev + 1);
 
@@ -99,25 +99,30 @@ export default function Home() {
 
   const getNewPosts = () => {
     api
-      .get(`timeline?page=1`)
+      .get(`timeline/${timeline[0].postId}`)
       .then((res) => {
-        setPosts(res.data.posts);
+        console.log(res.data.posts)
+        setNewPosts(res.data.posts.length);
       })
       .catch((err) => {
         console.log(err);
       });
-    if (posts.length > 0) {
+    /* if (posts.length > 0) {
       let lastPost = posts[0];
       let firstPosttimeline = timeline[0];
       setNewPosts(lastPost.postId - firstPosttimeline.postId);
-    }
+    } */
   };
 
   function loadNewPosts() {
     api
-      .get(`timeline?page=1`)
+      .get(`timeline/${timeline[0].postId}`)
       .then((res) => {
-        setTimeline(res.data.posts);
+        console.log(res.data.posts)
+        setPosts([...res.data.posts, ...timeline]);
+        console.log([...res.data.posts, ...timeline])
+        setTimeline([]);
+        setTimeline([...res.data.posts, ...timeline])
         setNewPosts(0);
       })
       .catch((err) => {
