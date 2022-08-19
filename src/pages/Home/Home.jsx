@@ -87,6 +87,7 @@ export default function Home() {
                   likesUsernames={post.likesUsername}
                   likes={post.likes}
 				  shares={post.shares}
+				  reposted={post.sharedBy}
                 />
               ))}
             </Posts>

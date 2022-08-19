@@ -23,6 +23,8 @@ import {
   Likes,
   Editing,
   Shares,
+  RepostedDiv,
+  RespostedText,
 } from "./styles";
 import { FaTrash, FaPencilAlt } from "react-icons/fa";
 
@@ -51,6 +53,7 @@ export default function Post({
   likesUsernames,
   getPosts,
   shares,
+  reposted,
 }) {
   const customStyles = {
     content: {
@@ -191,7 +194,8 @@ export default function Post({
           },
         };
         const promisse = axios.put(
-          `https://linkr1.herokuapp.com/post/${id}`,
+        //   `https://linkr1.herokuapp.com/post/${id}`,
+		`http://localhost:4000/post/${id}`,
           { description: editText },
           config
         );
@@ -315,100 +319,112 @@ export default function Post({
 	}
 
   return (
-    <PostWrapper>
-      <Profile>
-        <Icon src={picture} />
+	<>
+		{
+			(reposted === null) ? 
+			<></> :
+			<RepostedDiv>
+				<RiRepeatLine color="white" fontSize={"20px"}></RiRepeatLine>
+				<RespostedText>Re-posted by {
+					reposted === username ? 'you' : reposted
+				}</RespostedText>
+			</RepostedDiv>
+		}
+		<PostWrapper>
+		<Profile>
+			<Icon src={picture} />
 
-        <Likes data-tip={likedText} onClick={handleLike}>
-          <ReactTooltip />
-          {like === false ? (
-            <RiHeartLine color="white" fontSize={"20px"} />
-          ) : (
-            <RiHeartFill fontSize={"20px"} className="active-like" />
-          )}
-          <span className="likes">{likesAmount} likes</span>
-        </Likes>
-		<Shares onClick={() => setShareModal(!shareModal)} disabled={shareDisabled}>
-			<RiRepeatLine color="white" fontSize={"20px"}></RiRepeatLine>
-			<span className="shares">{shareAmount} re-post</span>
-			<Modal
-                isOpen={shareModal}
-                style={customStyles}
-                contentLabel="Share Modal"
-              >
-                {isLoading ? (
-                  <StyledModal>
-                    <Loading />
-                  </StyledModal>
-                ) : (
-                  <StyledModal>
-                    <h1>Do you want to re-post this link?</h1>
-                    <ModalButtons>
-                      <ModalButton
-                        confirm={false}
-                        onClick={() => setShareModal(!shareModal)}
-                      >
-                        <p>No, cancel</p>
-                      </ModalButton>
-                      <ModalButton confirm={true} onClick={handleShare}>
-                        <p> Yes, share!</p>
-                      </ModalButton>
-                    </ModalButtons>
-                  </StyledModal>
-                )}
-              </Modal>
-		</Shares>
-      </Profile>
-      <Body>
-        <PostHeader>
-          <LinkTo to={`/user/${writerId}`}>
-            <Name>{username}</Name>
-          </LinkTo>
-          {writerId === decoded.userId ? (
-            <PostIcons>
-              <FaPencilAlt onClick={() => editPost()} />
-              <FaTrash onClick={() => toogleModal()} />
-              <Modal
-                isOpen={modalIsOpen}
-                style={customStyles}
-                contentLabel="Example Modal"
-              >
-                {isLoading ? (
-                  <StyledModal>
-                    <Loading />
-                  </StyledModal>
-                ) : (
-                  <StyledModal>
-                    <h1>Are you sure you want to delete this post?</h1>
-                    <ModalButtons>
-                      <ModalButton
-                        confirm={false}
-                        onClick={() => toogleModal()}
-                      >
-                        <p>No, go back</p>
-                      </ModalButton>
-                      <ModalButton confirm={true} onClick={() => deletePost()}>
-                        <p> Yes, delete it</p>
-                      </ModalButton>
-                    </ModalButtons>
-                  </StyledModal>
-                )}
-              </Modal>
-            </PostIcons>
-          ) : (
-            <></>
-          )}
-        </PostHeader>
-        {isEditing ? editingComponent() : descriptionComponent()}
-        <Link onClick={() => openUrl(url)}>
-          <UrlContent>
-            <Title>{urlTitle}</Title>
-            <Article>{urlDescription}</Article>
-            <Url>{url}</Url>
-          </UrlContent>
-          <Image src={urlImage} />
-        </Link>
-      </Body>
-    </PostWrapper>
+			<Likes data-tip={likedText} onClick={handleLike}>
+			<ReactTooltip />
+			{like === false ? (
+				<RiHeartLine color="white" fontSize={"20px"} />
+			) : (
+				<RiHeartFill fontSize={"20px"} className="active-like" />
+			)}
+			<span className="likes">{likesAmount} likes</span>
+			</Likes>
+			<Shares onClick={() => setShareModal(!shareModal)} disabled={shareDisabled}>
+				<RiRepeatLine color="white" fontSize={"20px"}></RiRepeatLine>
+				<span className="shares">{shareAmount} re-post</span>
+				<Modal
+					isOpen={shareModal}
+					style={customStyles}
+					contentLabel="Share Modal"
+				>
+					{isLoading ? (
+					<StyledModal>
+						<Loading />
+					</StyledModal>
+					) : (
+					<StyledModal>
+						<h1>Do you want to re-post this link?</h1>
+						<ModalButtons>
+						<ModalButton
+							confirm={false}
+							onClick={() => setShareModal(!shareModal)}
+						>
+							<p>No, cancel</p>
+						</ModalButton>
+						<ModalButton confirm={true} onClick={handleShare}>
+							<p> Yes, share!</p>
+						</ModalButton>
+						</ModalButtons>
+					</StyledModal>
+					)}
+				</Modal>
+			</Shares>
+		</Profile>
+		<Body>
+			<PostHeader>
+			<LinkTo to={`/user/${writerId}`}>
+				<Name>{username}</Name>
+			</LinkTo>
+			{writerId === decoded.userId ? (
+				<PostIcons>
+				<FaPencilAlt onClick={() => editPost()} />
+				<FaTrash onClick={() => toogleModal()} />
+				<Modal
+					isOpen={modalIsOpen}
+					style={customStyles}
+					contentLabel="Example Modal"
+				>
+					{isLoading ? (
+					<StyledModal>
+						<Loading />
+					</StyledModal>
+					) : (
+					<StyledModal>
+						<h1>Are you sure you want to delete this post?</h1>
+						<ModalButtons>
+						<ModalButton
+							confirm={false}
+							onClick={() => toogleModal()}
+						>
+							<p>No, go back</p>
+						</ModalButton>
+						<ModalButton confirm={true} onClick={() => deletePost()}>
+							<p> Yes, delete it</p>
+						</ModalButton>
+						</ModalButtons>
+					</StyledModal>
+					)}
+				</Modal>
+				</PostIcons>
+			) : (
+				<></>
+			)}
+			</PostHeader>
+			{isEditing ? editingComponent() : descriptionComponent()}
+			<Link onClick={() => openUrl(url)}>
+			<UrlContent>
+				<Title>{urlTitle}</Title>
+				<Article>{urlDescription}</Article>
+				<Url>{url}</Url>
+			</UrlContent>
+			<Image src={urlImage} />
+			</Link>
+		</Body>
+		</PostWrapper>
+	</>
   );
 }
