@@ -71,9 +71,9 @@ export default function FormPost() {
       },
     };
     api
-      .get(`/timeline`, config)
+      .get(`/timeline?page=1`, config)
       .then((res) => {
-        setTimeline(res.data);
+        setTimeline(res.data.posts);
         setPost({
           url: "",
           description: "",
