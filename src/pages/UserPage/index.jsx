@@ -312,7 +312,7 @@ export function UserPage() {
                 <Posts isLoading={isLoading}>
                   {isLoading
                     ? Loader(Oval, 40, 40)
-                    : posts?.map((post) => (
+                    : posts?.map((post, index) => (
                         <Post
                           description={post.description}
                           id={post.postId}
@@ -325,9 +325,11 @@ export function UserPage() {
                           urlTitle={post.urlTitle}
                           username={userPage.userName}
                           writerId={post.userId}
-                          key={post.postId}
+                          key={index}
                           commentsCount={post.commentsCount}
                           getPosts={getPostsByUser}
+                          shares={post.shares}
+                          reposted={post.sharedBy ? post.sharedBy : null}
                         />
                       ))}
                 </Posts>

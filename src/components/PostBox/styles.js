@@ -15,6 +15,29 @@ export const PostWrapper = styled.div`
   }
 `;
 
+export const RepostedDiv = styled.div`
+  max-width: 600px;
+  width: 100%;
+  /* height: 100%; */
+  display: flex;
+  border-radius: 16px;
+  background-color: #1E1E1E;
+  padding: 10px 30px 20px 20px;
+  margin-bottom: -50px;
+  @media (max-width: 611px) {
+    border-radius: 0px;
+    padding: 10px;
+  }
+`;
+
+export const RespostedText = styled.p`
+	font-family: "Lato";
+	font-weight: 400;
+	font-size: 11px;
+	color: white;
+	margin-left: 10px;
+`;
+
 export const Article = styled.span`
   width: 100%;
   font-family: "Lato";
@@ -77,6 +100,20 @@ export const Likes = styled.div`
   }
   .active-like {
     color: red;
+  }
+`;
+
+export const Shares = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  .shares {
+    margin-top: 4px;
+    text-align: center;
+    font-size: 11px;
+    line-height: 13px;
   }
 `;
 
@@ -313,6 +350,7 @@ export const Comments = styled.div`
 `;
 
 export const CommentBox = styled.div`
+  max-width: 600px;
   margin-top: -20px;
   display: flex;
   flex-direction: column;
