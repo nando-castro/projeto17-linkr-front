@@ -31,13 +31,23 @@ export default function Home() {
       navigate("/");
       return;
     }
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     api
-      .get(`/timeline`)
+      .get(`/timeline`, config)
       .then((res) => {
         setTimeline(res.data);
         setLoading(false);
       })
       .catch((err) => {
+        if (err.response.status === 404) {
+          localStorage.removeItem("token");
+          navigate("/");
+          return;
+        }
         Swal.fire({
           icon: "error",
           title:
@@ -50,7 +60,6 @@ export default function Home() {
   useEffect(() => {
     getPostsTimeline();
   }, [update]);
-
   if (!user) {
     return <Loading />;
   }

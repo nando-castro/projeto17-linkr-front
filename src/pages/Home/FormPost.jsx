@@ -65,8 +65,13 @@ export default function FormPost() {
   }
 
   function getPostsTimeline() {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     api
-      .get(`/timeline`)
+      .get(`/timeline`, config)
       .then((res) => {
         setTimeline(res.data);
         setPost({
