@@ -204,6 +204,7 @@ export const TimelineWrapper = styled.div`
 `;
 
 export const UpdateContent = styled.div`
+max-width: 600px;
   height: 61px;
   background: #1877f2;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -227,4 +228,9 @@ export const UpdateContent = styled.div`
     font-size: 20px;
     font-weight: bold;
   }
+`;
+
+export const InfiniteScrollWrapper = styled.div`
+  width: 100%;
+  display: flex;
 `;
