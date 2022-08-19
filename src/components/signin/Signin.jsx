@@ -17,7 +17,10 @@ import Swal from "sweetalert2";
 import { useAuth } from "../../context/auth";
 
 export default function Signin() {
-  const URL = "https://linkr1.herokuapp.com"; // alterar pra context depois
+  //const URL = "https://linkr1.herokuapp.com"; // alterar pra context depois
+  // const URL = "http://localhost:4000";
+  const URL = "https://linkr1.herokuapp.com";
+
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
     email: "",
@@ -26,7 +29,12 @@ export default function Signin() {
   const [enableButton, setEnableButton] = useState(true);
   const { userToken, setUserToken, setUser, setHoverProfile } = useAuth();
   useEffect(() => {
-    if (userToken && userToken.length !== 0 && userToken !== "null") {
+    if (
+      userToken &&
+      userToken.length !== 0 &&
+      userToken !== "null" &&
+      localStorage.getItem("token")
+    ) {
       navigate("/timeline");
     }
 

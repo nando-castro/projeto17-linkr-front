@@ -15,6 +15,29 @@ export const PostWrapper = styled.div`
   }
 `;
 
+export const RepostedDiv = styled.div`
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  border-radius: 16px 16px 0px 0px;
+  background-color: #1E1E1E;
+  padding: 10px 10px 20px 20px;
+  margin-bottom: -35px;
+  @media (max-width: 611px) {
+    border-radius: 0px;
+    padding: 10px;
+  }
+`;
+
+export const RespostedText = styled.p`
+	font-family: "Lato";
+	font-weight: 400;
+	font-size: 11px;
+	color: white;
+	margin-left: 10px;
+	margin-bottom: 30px;
+`;
+
 export const Article = styled.span`
   width: 100%;
   font-family: "Lato";
@@ -41,12 +64,16 @@ export const Message = styled.span`
   max-width: 100%;
 `;
 export const Profile = styled.div`
+  font-family: "Lato";
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  color: #ffffff;
   gap: 20px;
+  font-size: 20px;
+  width: 80px;
 `;
 export const Icon = styled.img`
   width: 50px;
@@ -73,6 +100,20 @@ export const Likes = styled.div`
   }
   .active-like {
     color: red;
+  }
+`;
+
+export const Shares = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  .shares {
+    margin-top: 4px;
+    text-align: center;
+    font-size: 11px;
+    line-height: 13px;
   }
 `;
 
@@ -292,4 +333,71 @@ export const LoadingMessage = styled.div`
   font-size: 33px;
   line-height: 64px;
   color: #ffffff;
+`;
+export const Comments = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+
+  cursor: pointer;
+  span {
+    margin-top: 4px;
+    text-align: center;
+    font-size: 11px;
+    line-height: 13px;
+  }
+`;
+
+export const CommentBox = styled.div`
+  max-width: 600px;
+  margin-top: -20px;
+  display: flex;
+  flex-direction: column;
+  background-color: #1e1e1e;
+  border-radius: 0 0 16px 16px;
+  width: 100%;
+  padding: 0 30px;
+`;
+export const CommentIcon = styled.div`
+  border-radius: 50%;
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+`;
+export const InputBox = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+  justify-content: space-between;
+  column-gap: 20px;
+  position: relative;
+  input {
+    width: 100%;
+    background-color: #252525;
+    height: 100%;
+    border-radius: 10px;
+    padding: 15px 10px;
+    color: #ffffff;
+  }
+  input::placeholder {
+    font-family: "Lato";
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 400;
+    color: #575757;
+  }
+`;
+export const SendButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 20px;
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
 `;

@@ -24,7 +24,12 @@ export default function FormPost() {
     description: "",
   });
 
+  //const URL = `https://linkr1.herokuapp.com/posts`;
+
   const URL = `https://linkr1.herokuapp.com/posts`;
+
+  //const URL = "https://linkr1.herokuapp.com/posts";
+
 
   function createPost(e) {
     e.preventDefault();
@@ -65,10 +70,15 @@ export default function FormPost() {
   }
 
   function getPostsTimeline() {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     api
-      .get(`/timeline`)
+      .get(`/timeline?page=1`, config)
       .then((res) => {
-        setTimeline(res.data);
+        setTimeline(res.data.posts);
         setPost({
           url: "",
           description: "",
@@ -85,6 +95,7 @@ export default function FormPost() {
 
   useEffect(() => {
     getPostsTimeline();
+    // eslint-disable-next-line
   }, [update]);
 
   function validatePost() {

@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
+  height: 100%;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -88,11 +90,12 @@ const Form = styled.div`
 
 const Posts = styled.div`
   width: 100%;
-  margin-top: 40px;
+  /* margin-top: 40px; */
   padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.8rem;
+  align-items: ${({ isLoading }) => (isLoading ? "center" : "flex-start")};
 
   @media (max-width: 611px) {
     border-radius: 0px;
@@ -161,7 +164,7 @@ const Image = styled.img`
   height: 155px;
   left: 355px;
   top: -68px;
-
+  /* object-fit: cover; */
   background: #fff;
   border-radius: 0px 12px 13px 0px;
 `;
@@ -263,15 +266,19 @@ const Icon = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 999px;
+  object-fit: cover;
 
   background: #999;
 `;
 
 export const UserDetails = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: space-between;
+  max-width: 1000px;
+  /* width: 100%; */
   margin-left: 1rem;
+  margin-bottom: 40px;
 
   .username {
     margin-left: 1rem;
@@ -285,21 +292,58 @@ export const UserDetails = styled.div`
   }
 `;
 
+export const IconText = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Follow = styled.div`
+  width: 112px;
+  height: 31px;
+  margin-right: 10px;
+  background: ${({ isFollowed }) => (isFollowed ? "#FFFFFF" : "#1877f2")};
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 200ms ease-in;
+  /* filter: ${({ buttonEnable }) =>
+    buttonEnable ? "brightness(1)" : "brightness(1.4)"}; */
+
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  color: ${({ isFollowed }) => (isFollowed ? "#1877f2" : "#FFFFFF")};
+
+  :hover {
+    filter: brightness(1.2);
+  }
+`;
+
 export const Content = styled.main`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: flex-start;
-  justify-content: center;
-
+  justify-content: space-between;
+  max-width: 1000px;
+  width: 100%;
   @media (max-width: 611px) {
     width: 100%;
+    justify-content: center;
   }
 `;
 
 export const Main = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+  /* align-items: center; */
   gap: 25px;
+  max-width: 1000px;
   width: 100%;
 
   margin-top: 45px;
@@ -309,11 +353,47 @@ export const Main = styled.div`
   }
 `;
 
+const PostAside = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 611px;
+`;
+
+export const LoaderWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 100%;
+`;
+
+export const MessagePost = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 33px;
+  line-height: 64px;
+  color: #ffffff;
+`;
+
+export const InfiniteScrollWrapper = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
 export {
   Container,
   Timeline,
   Top,
   Posts,
+  PostAside,
   Form,
   Icon,
   Profile,
