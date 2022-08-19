@@ -60,8 +60,9 @@ export default function HashtagPage() {
                 getPosts={getPostsByHashtag}
                 likesUsernames={post.likesUsername}
                 likes={post.likes}
-				shares={post.shares}
-  				reposted={null}
+				        shares={post.shares}
+  				      reposted={null}
+                commentsCount={post.commentsCount}
               />
             ))}
           </Posts>

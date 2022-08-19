@@ -16,7 +16,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 export default function SignUp() {
-  const URL = 'http://localhost:4000'; // alterar pra context depois
+  const URL = "http://localhost:4000"; // alterar pra context depois
   const navigate = useNavigate();
   const [cadastroData, setCadastroData] = useState({
     email: "",

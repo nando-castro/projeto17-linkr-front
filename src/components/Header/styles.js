@@ -20,7 +20,7 @@ export const Logo = styled.h1`
   font-size: 2rem;
   font-weight: bold;
   letter-spacing: -0.05rem;
-  width: 16rem;
+  width: 6rem;
   color: #fff;
   cursor: pointer;
   span {

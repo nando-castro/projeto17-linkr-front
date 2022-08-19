@@ -24,7 +24,7 @@ export default function FormPost() {
     description: "",
   });
 
-  const URL = `https://linkr1.herokuapp.com/posts`;
+  const URL = `http://localhost:4000/posts`;
 
   function createPost(e) {
     e.preventDefault();
@@ -66,9 +66,9 @@ export default function FormPost() {
 
   function getPostsTimeline() {
     api
-      .get(`/timeline`)
+      .get(`/timeline?page=1`)
       .then((res) => {
-        setTimeline(res.data);
+        setTimeline(res.data.posts);
         setPost({
           url: "",
           description: "",
