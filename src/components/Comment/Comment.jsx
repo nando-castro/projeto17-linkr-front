@@ -5,7 +5,14 @@ import {
   CommentWrapper,
 } from "./styles";
 
-export default function Comment({ picture, username, comment }) {
+export default function Comment({
+  picture,
+  username,
+  comment,
+  postAuthorId,
+  writerId,
+  isFollowing,
+}) {
   return (
     <CommentWrapper>
       <CommentIcon>
@@ -14,7 +21,11 @@ export default function Comment({ picture, username, comment }) {
       <CommentContent>
         <CommentOwner>
           <h1>{username} </h1>
-          <span> • teste</span>
+          {postAuthorId === writerId ? (
+            <span>• post's author</span>
+          ) : (
+            <span>{isFollowing ? "• following" : <></>}</span>
+          )}
         </CommentOwner>
         <p>{comment}</p>
       </CommentContent>

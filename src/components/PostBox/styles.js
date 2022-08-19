@@ -350,6 +350,7 @@ export const Comments = styled.div`
 `;
 
 export const CommentBox = styled.div`
+  max-width: 600px;
   margin-top: -20px;
   display: flex;
   flex-direction: column;
