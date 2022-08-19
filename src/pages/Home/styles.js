@@ -198,3 +198,8 @@ export const TimelineWrapper = styled.div`
   margin-top: 50px;
   width: 100%;
 `;
+
+export const InfiniteScrollWrapper = styled.div`
+  width: 100%;
+  display: flex;
+`;

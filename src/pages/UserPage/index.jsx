@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useScrollTo } from "react-use-window-scroll";
 import { useNavigate, useParams } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroller";
 import { HashtagBox } from "../../components/HashtagBox/HashtagBox";
 import { Header } from "../../components/Header";
 import Loading from "../../components/Loading/Loading";
 import Post from "../../components/PostBox/Post";
+import { LoadingPost } from "../../components/LoadingPost";
 import { useAuth } from "../../context/auth";
 import { api } from "../../services/api";
 import { Oval, ThreeDots } from "react-loader-spinner";
@@ -20,6 +22,9 @@ import {
   Main,
   IconText,
   Follow,
+  InfiniteScrollWrapper,
+  LoaderWrapper,
+  MessagePost,
 } from "./styles";
 import Swal from "sweetalert2";
 
@@ -27,13 +32,21 @@ export function UserPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const scrollBy = useScrollTo();
+
   const { userToken, user } = useAuth();
+
   const [isLoading, setIsLoading] = useState(false);
   const [enableButton, setEnableButton] = useState(true);
-  const decoded = jwt_decode(userToken);
   const [userPage, setUserPage] = useState({});
   const [posts, setPosts] = useState([]);
-  function getPostsByUser() {
+  const [isFetching, setIsFetching] = useState(false);
+  const [Nextpage, setNextPage] = useState(1);
+
+  const hasMorePosts = useRef(true);
+
+  const decoded = jwt_decode(userToken);
+
+  function getPostsByUser(page = 1) {
     setIsLoading(true);
     const config = {
       headers: {
@@ -41,25 +54,29 @@ export function UserPage() {
       },
     };
     if (!userToken || userToken === "null") {
-      setIsLoading(false);
       navigate("/");
       return;
     }
+
+    if (isFetching) return;
+    setIsLoading(false);
+
     api
-      .get(`/user/${id}`, config)
+      .get(`/user/${id}?page=${page}`, config)
       .then((response) => {
         if (response.status === 200) {
           const { data } = response;
+          hasMorePosts.current = data.hasMorePosts;
           const user = {
             userName: data.username,
             userPicture: data.picture,
             userId: data.userId,
             isFollowed: data.isFollowed,
           };
+
           setUserPage(user);
-          setPosts(data.postsInfo);
+          setPosts([...posts, ...data.postsInfo]);
           setIsLoading(false);
-          scrollBy(0, 0);
         }
       })
       .catch((err) => {
@@ -68,6 +85,43 @@ export function UserPage() {
         navigate("/");
       });
   }
+
+  const handleLoadMore = useCallback(
+    (page) => {
+      if (!userToken || userToken === "null") {
+        navigate("/");
+        return;
+      }
+
+      if (isFetching) return;
+      setIsFetching(false);
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      };
+
+      api
+        .get(`/user/${id}?page=${page}`, config)
+        .then((res) => {
+          hasMorePosts.current = res.data.hasMorePosts;
+          setPosts([...posts, ...res.data.postsInfo]);
+          setNextPage((prev) => prev + 1);
+
+          setIsFetching(false);
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: "error",
+            title:
+              "An error occured while trying to fetch the posts, please refresh the page",
+          });
+        });
+    },
+    [isFetching, posts, hasMorePosts]
+  );
+
   useEffect(() => {
     getPostsByUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -216,11 +270,12 @@ export function UserPage() {
   if (!user) {
     return <Loading />;
   }
+
   return (
     <Container>
       <Header />
 
-      <Main>
+      <Main style={{ height: "auto" }}>
         <UserDetails>
           <IconText>
             <Profile>
@@ -234,31 +289,53 @@ export function UserPage() {
           </IconText>
           {FollowButton(Number(id), decoded.userId)}
         </UserDetails>
-        <Content>
-          <Posts isLoading={isLoading}>
-            {isLoading
-              ? Loader(Oval, 40, 40)
-              : posts?.map((post) => (
-                  <Post
-                    description={post.description}
-                    id={post.postId}
-                    picture={userPage.userPicture}
-                    url={post.url}
-                    likes={post.likes}
-                    likesUsernames={post.likesUsername}
-                    urlDescription={post.urlDescription}
-                    urlImage={post.urlImage}
-                    urlTitle={post.urlTitle}
-                    username={userPage.userName}
-                    writerId={post.userId}
-                    key={post.postId}
-                    commentsCount={post.commentsCount}
-                    getPosts={getPostsByUser}
-                  />
-                ))}
-          </Posts>
-          <HashtagBox />
-        </Content>
+        {isLoading ? (
+          <LoaderWrapper>
+            <Loader />
+            <MessagePost>Loading...</MessagePost>
+            <br></br>
+          </LoaderWrapper>
+        ) : posts?.length === 0 ? (
+          <MessagePost>There are no posts yet</MessagePost>
+        ) : (
+          <Content>
+            <InfiniteScrollWrapper>
+              <InfiniteScroll
+                pageStart={Nextpage}
+                loadMore={handleLoadMore}
+                hasMore={hasMorePosts.current}
+                loader={<LoadingPost key={0} />}
+                style={{
+                  width: "100%",
+                }}
+              >
+                <Posts isLoading={isLoading}>
+                  {isLoading
+                    ? Loader(Oval, 40, 40)
+                    : posts?.map((post) => (
+                        <Post
+                          description={post.description}
+                          id={post.postId}
+                          picture={userPage.userPicture}
+                          url={post.url}
+                          likes={post.likes}
+                          likesUsernames={post.likesUsername}
+                          urlDescription={post.urlDescription}
+                          urlImage={post.urlImage}
+                          urlTitle={post.urlTitle}
+                          username={userPage.userName}
+                          writerId={post.userId}
+                          key={post.postId}
+                          commentsCount={post.commentsCount}
+                          getPosts={getPostsByUser}
+                        />
+                      ))}
+                </Posts>
+              </InfiniteScroll>
+              <HashtagBox />
+            </InfiniteScrollWrapper>
+          </Content>
+        )}
       </Main>
     </Container>
   );
