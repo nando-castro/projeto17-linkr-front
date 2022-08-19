@@ -87,9 +87,14 @@ export default function Home() {
 
       if (isFetching) return;
       setIsFetching(false);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      };
 
       api
-        .get(`/timeline?page=${page}&postId=${timeline[0].postId}`)
+        .get(`/timeline?page=${page}&postId=${timeline[0].postId}`, config)
         .then((res) => {
           hasMorePosts.current = res.data.hasMorePosts;
           setTimeline([...timeline, ...res.data.posts]);
