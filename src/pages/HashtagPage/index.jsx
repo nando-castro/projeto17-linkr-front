@@ -28,7 +28,11 @@ export default function HashtagPage() {
         navigate("/");
       });
   }
-  useEffect(() => getPostsByHashtag(), [hashtag]);
+  useEffect(
+    () => getPostsByHashtag(),
+    // eslint-disable-next-line
+    [hashtag]
+  );
 
   if (!posts) {
     return (

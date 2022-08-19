@@ -90,6 +90,7 @@ export default function FormPost() {
 
   useEffect(() => {
     getPostsTimeline();
+    // eslint-disable-next-line
   }, [update]);
 
   function validatePost() {

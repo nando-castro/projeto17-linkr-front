@@ -12,6 +12,7 @@ import { LoadingPost } from "../../components/LoadingPost";
 import { useAuth } from "../../context/auth";
 import { api } from "../../services/api";
 import FormPost from "./FormPost";
+import { useScrollTo } from "react-use-window-scroll";
 import {
   Container,
   Message,
@@ -29,10 +30,13 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [Nextpage, setNextPage] = useState(1);
+  const [followSomeone, setFollowSomeone] = useState();
   const hasMorePosts = useRef(true);
+  const scrollTo = useScrollTo();
 
   const navigate = useNavigate();
   function getPostsTimeline(page = 1) {
+    console.log("useEffect");
     setLoading(true);
     if (!userToken || userToken === "null") {
       navigate("/");
@@ -47,8 +51,10 @@ export default function Home() {
       .get(`/timeline?page=${page}`, config)
       .then((res) => {
         hasMorePosts.current = res.data.hasMorePosts;
-        setTimeline([...timeline, ...res.data.posts]);
+        setTimeline([ ...res.data.posts]);
+        setFollowSomeone(res.data.followSomeone);
         setLoading(false);
+        scrollTo(0,0)
       })
       .catch((err) => {
         if (err.response.status === 404) {
@@ -66,6 +72,8 @@ export default function Home() {
 
   const handleLoadMore = useCallback(
     (page) => {
+    console.log("callback" + page);
+
       if (!userToken || userToken === "null") {
         navigate("/");
         return;
@@ -92,9 +100,10 @@ export default function Home() {
           });
         });
     },
+
+    // eslint-disable-next-line
     [isFetching, timeline, hasMorePosts]
   );
-
   useEffect(() => {
     getPostsTimeline();
   }, [update]);
@@ -114,7 +123,11 @@ export default function Home() {
             <br></br>
           </LoaderWrapper>
         ) : timeline?.length === 0 ? (
-          <Message>There are no posts yet</Message>
+          followSomeone ? (
+            <Message>No posts found from your friends</Message>
+          ) : (
+            <Message>You don't follow anyone yet. Search for new friends!</Message>
+          )
         ) : (
           <TimelineWrapper>
             <InfiniteScrollWrapper>
@@ -122,7 +135,7 @@ export default function Home() {
                 pageStart={Nextpage}
                 loadMore={handleLoadMore}
                 hasMore={hasMorePosts.current}
-                loader={<LoadingPost key={0} />}
+                loader={<LoadingPost  key={0}/>}
                 style={{
                   width: "100%",
                 }}

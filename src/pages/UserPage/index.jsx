@@ -60,7 +60,7 @@ export function UserPage() {
 
     if (isFetching) return;
     setIsLoading(false);
-
+    
     api
       .get(`/user/${id}?page=${page}`, config)
       .then((response) => {
@@ -75,7 +75,7 @@ export function UserPage() {
           };
 
           setUserPage(user);
-          setPosts([...posts, ...data.postsInfo]);
+          setPosts([...data.postsInfo]);
           setIsLoading(false);
         }
       })
@@ -101,7 +101,6 @@ export function UserPage() {
           Authorization: `Bearer ${userToken}`,
         },
       };
-
       api
         .get(`/user/${id}?page=${page}`, config)
         .then((res) => {
@@ -119,6 +118,8 @@ export function UserPage() {
           });
         });
     },
+
+    // eslint-disable-next-line
     [isFetching, posts, hasMorePosts]
   );
 
