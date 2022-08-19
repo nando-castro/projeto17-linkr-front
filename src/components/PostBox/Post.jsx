@@ -420,6 +420,8 @@ export default function Post({
               picture={comment.picture}
               username={comment.username}
               comment={comment.comment}
+              writerId={comment.commentWriterId}
+              postAuthorId={writerId}
             />
           ))}
           <InputBox>
