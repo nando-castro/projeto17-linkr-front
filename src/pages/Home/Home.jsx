@@ -47,7 +47,7 @@ export default function Home() {
       .get(`/timeline?page=${page}`)
       .then((res) => {
         hasMorePosts.current = res.data.hasMorePosts;
-        setTimeline([...timeline, ...res.data.posts]);
+        setTimeline([...res.data.posts]);
         setLoading(false);
       })
       .catch((err) => {
@@ -73,13 +73,13 @@ export default function Home() {
       if (isFetching) return;
       setIsFetching(false);
 
+
       api
-        .get(`/timeline?page=${page}`)
+        .get(`/timeline?page=${page}&postId=${timeline[0].postId}`)
         .then((res) => {
           hasMorePosts.current = res.data.hasMorePosts;
           setTimeline([...timeline, ...res.data.posts]);
           setNextPage((prev) => prev + 1);
-
           setIsFetching(false);
         })
         .catch((err) => {
@@ -101,7 +101,7 @@ export default function Home() {
     api
       .get(`timeline/${timeline[0].postId}`)
       .then((res) => {
-        console.log(res.data.posts)
+        console.log(res.data.posts);
         setNewPosts(res.data.posts.length);
       })
       .catch((err) => {
@@ -118,11 +118,7 @@ export default function Home() {
     api
       .get(`timeline/${timeline[0].postId}`)
       .then((res) => {
-        console.log(res.data.posts)
-        setPosts([...res.data.posts, ...timeline]);
-        console.log([...res.data.posts, ...timeline])
-        setTimeline([]);
-        setTimeline([...res.data.posts, ...timeline])
+        setTimeline([...res.data.posts, ...timeline]);
         setNewPosts(0);
       })
       .catch((err) => {
@@ -132,7 +128,7 @@ export default function Home() {
 
   useInterval(() => {
     getNewPosts();
-  }, 5000);
+  }, 15000);
 
   if (!user) {
     return <Loading />;
