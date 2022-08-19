@@ -18,8 +18,8 @@ import { useAuth } from "../../context/auth";
 
 export default function Signin() {
   //const URL = "https://linkr1.herokuapp.com"; // alterar pra context depois
-  const URL = "http://localhost:4000";
-  //const URL = "https://linkr1.herokuapp.com";
+  // const URL = "http://localhost:4000";
+  const URL = "https://linkr1.herokuapp.com";
 
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState({

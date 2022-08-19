@@ -206,7 +206,7 @@ export default function Post({
           },
         };
         const promisse = axios.put(
-          `http://localhost:4000/post/${id}`,
+          `https://linkr1.herokuapp.com/post/${id}`,
           { description: editText },
           config
         );
