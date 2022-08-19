@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   height: 100%;
   margin-bottom: 20px;
   display: flex;
@@ -302,22 +302,22 @@ export const Follow = styled.div`
   width: 112px;
   height: 31px;
   margin-right: 10px;
-  background: ${({isFollowed}) => (isFollowed ? "#FFFFFF": "#1877f2")};
+  background: ${({ isFollowed }) => (isFollowed ? "#FFFFFF" : "#1877f2")};
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: 200ms ease-in;
-  /* filter: ${({buttonEnable}) => (buttonEnable ? "brightness(1)" : "brightness(1.4)")}; */
-
+  /* filter: ${({ buttonEnable }) =>
+    buttonEnable ? "brightness(1)" : "brightness(1.4)"}; */
 
   font-family: "Lato";
   font-style: normal;
   font-weight: 700;
   font-size: 14px;
   line-height: 17px;
-  color: ${({isFollowed}) => (isFollowed ? "#1877f2": "#FFFFFF")};
+  color: ${({ isFollowed }) => (isFollowed ? "#1877f2" : "#FFFFFF")};
 
   :hover {
     filter: brightness(1.2);
@@ -358,6 +358,34 @@ const PostAside = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   max-width: 611px;
+`;
+
+export const LoaderWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 100%;
+`;
+
+export const MessagePost = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 33px;
+  line-height: 64px;
+  color: #ffffff;
+`;
+
+export const InfiniteScrollWrapper = styled.div`
+  width: 100%;
+  display: flex;
 `;
 
 export {
