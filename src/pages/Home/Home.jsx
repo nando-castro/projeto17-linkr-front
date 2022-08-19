@@ -120,9 +120,9 @@ export default function Home() {
                 }}
               >
                 <Posts>
-                  {timeline?.map((post) => (
+                  {timeline?.map((post, index) => (
                     <Post
-                      key={post.postId}
+                      key={index}
                       picture={post.picture}
                       username={post.username}
                       description={post.description}
@@ -136,6 +136,8 @@ export default function Home() {
                       likesUsernames={post.likesUsername}
                       likes={post.likes}
                       commentsCount={post.commentsCount}
+                      shares={post.shares}
+                      reposted={post.sharedBy}
                     />
                   ))}
                 </Posts>
