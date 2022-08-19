@@ -45,7 +45,7 @@ export default function HashtagPage() {
         <Top># {hashtag}</Top>
         <Content>
           <Posts>
-            {posts?.map((post) => (
+            {posts?.map((post, index) => (
               <Post
                 picture={post.picture}
                 username={post.username}
@@ -54,12 +54,14 @@ export default function HashtagPage() {
                 urlDescription={post.urlDescription}
                 urlTitle={post.urlTitle}
                 urlImage={post.urlImage}
-                key={post.id}
+                key={index}
                 writerId={post.writerId}
                 id={post.id}
                 getPosts={getPostsByHashtag}
                 likesUsernames={post.likesUsername}
                 likes={post.likes}
+				shares={post.shares}
+  				reposted={null}
               />
             ))}
           </Posts>

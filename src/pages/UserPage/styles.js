@@ -92,7 +92,7 @@ const Posts = styled.div`
   padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.8rem;
 
   @media (max-width: 611px) {
     border-radius: 0px;

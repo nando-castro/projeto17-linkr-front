@@ -75,7 +75,7 @@ export function UserPage() {
           </UserDetails>
 
           <Posts>
-            {posts?.map((post) => (
+            {posts?.map((post, index) => (
               <Post
                 description={post.description}
                 id={post.postId}
@@ -88,8 +88,10 @@ export function UserPage() {
                 urlTitle={post.urlTitle}
                 username={post.username}
                 writerId={post.userId}
-                key={post.postId}
+                key={index}
                 getPosts={getPostsByUser}
+				shares={post.shares}
+				reposted={post.sharedBy ? post.sharedBy : null}
               />
             ))}
           </Posts>

@@ -71,9 +71,9 @@ export default function Home() {
         ) : (
           <TimelineWrapper>
             <Posts>
-              {timeline?.map((post) => (
+              {timeline?.map((post, index) => (
                 <Post
-                  key={post.postId}
+                  key={index}
                   picture={post.picture}
                   username={post.username}
                   description={post.description}
