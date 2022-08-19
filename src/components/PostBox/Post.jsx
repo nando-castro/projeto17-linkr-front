@@ -356,14 +356,14 @@ export default function Post({
 		.then((res) => {
 			setShareAmount((old) => old + 1);
 			setShareDisabled(false);
-			setShareModal(!shareModal)
+			setShareModal(!shareModal);
+			getPosts();
 		})
 		.catch((err) => {
-			console.log(err.response)
 			setShareDisabled(false);
 			setShareModal(!shareModal);
 			if(err.response.data === "User alredy shared this post")
-				alert(err.response.data);
+				Swal.fire(err.response.data);
 		});
 	}
     

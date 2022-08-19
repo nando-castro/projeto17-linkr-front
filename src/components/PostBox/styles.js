@@ -18,12 +18,11 @@ export const PostWrapper = styled.div`
 export const RepostedDiv = styled.div`
   max-width: 600px;
   width: 100%;
-  /* height: 100%; */
   display: flex;
-  border-radius: 16px;
+  border-radius: 16px 16px 0px 0px;
   background-color: #1E1E1E;
-  padding: 10px 30px 20px 20px;
-  margin-bottom: -50px;
+  padding: 10px 10px 20px 20px;
+  margin-bottom: -35px;
   @media (max-width: 611px) {
     border-radius: 0px;
     padding: 10px;
@@ -36,6 +35,7 @@ export const RespostedText = styled.p`
 	font-size: 11px;
 	color: white;
 	margin-left: 10px;
+	margin-bottom: 30px;
 `;
 
 export const Article = styled.span`
