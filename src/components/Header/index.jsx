@@ -26,7 +26,9 @@ export function Header() {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const { userToken, setUserToken, hoverProfile, setHoverProfile, user } =
     useAuth();
+  const [hoverSearch, setHoverSearch] = useState(true);
   const hoverProfileRef = useRef(null);
+  const hoverSearchRef = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -35,6 +37,13 @@ export function Header() {
         !hoverProfileRef.current.contains(event.target)
       ) {
         setHoverProfile(false);
+      }
+
+      if (
+        hoverSearchRef.current &&
+        !hoverSearchRef.current.contains(event.target)
+      ) {
+        setHoverSearch(false);
       }
     }
 
@@ -47,6 +56,7 @@ export function Header() {
   }, []);
 
   function handleSearchUser(query) {
+    setHoverSearch(true);
     if (!query) return setFilteredUsers([]);
 
     const config = {
@@ -72,7 +82,7 @@ export function Header() {
     <Container>
       <Logo onClick={() => navigate("/timeline")}>linkr</Logo>
 
-      <SearchBarContainer>
+      <SearchBarContainer ref={hoverSearchRef}>
         <SearchBar>
           <DebounceInput
             debounceTimeout={300}
@@ -91,25 +101,27 @@ export function Header() {
           <RiSearchLine />
         </SearchBar>
 
-        <UserList>
-          {filteredUsers.map((user) => (
-            <Link key={user.username} to={`/user/${user.id}`}>
-              <SearchUser>
-                <img
-                  src={user.picture}
-                  alt="user profile"
-                  className="searchUserImage"
-                />
+        {hoverSearch && (
+          <UserList>
+            {filteredUsers.map((user) => (
+              <Link key={user.username} to={`/user/${user.id}`}>
+                <SearchUser>
+                  <img
+                    src={user.picture}
+                    alt="user profile"
+                    className="searchUserImage"
+                  />
 
-                <span className="search-username">{user.username}</span>
+                  <span className="search-username">{user.username}</span>
 
-                {user.isFollowing && (
-                  <span className="search-following"> • following</span>
-                )}
-              </SearchUser>
-            </Link>
-          ))}
-        </UserList>
+                  {user.isFollowing && (
+                    <span className="search-following"> • following</span>
+                  )}
+                </SearchUser>
+              </Link>
+            ))}
+          </UserList>
+        )}
       </SearchBarContainer>
 
       <Profile
