@@ -15,6 +15,8 @@ export function HashtagBox() {
       .catch((err) => {
         navigate("/");
       });
+
+    // eslint-disable-next-line
   }, []);
   if (!hashtags) {
     return (
@@ -34,7 +36,7 @@ export function HashtagBox() {
       </Title>
       <Content>
         {hashtags?.map((hashtag, i) => (
-          <Link to={`/hashtag/${hashtag.name}`} key={i}>
+          <Link to={`/hashtag/${hashtag.name}`} key={hashtag.id}>
             <p># {hashtag.name}</p>
           </Link>
         ))}

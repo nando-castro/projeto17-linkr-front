@@ -70,8 +70,13 @@ export default function FormPost() {
   }
 
   function getPostsTimeline() {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     api
-      .get(`/timeline?page=1`)
+      .get(`/timeline?page=1`, config)
       .then((res) => {
         setTimeline(res.data.posts);
         setPost({
@@ -90,6 +95,7 @@ export default function FormPost() {
 
   useEffect(() => {
     getPostsTimeline();
+    // eslint-disable-next-line
   }, [update]);
 
   function validatePost() {

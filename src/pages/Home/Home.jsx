@@ -13,6 +13,7 @@ import { LoadingPost } from "../../components/LoadingPost";
 import { useAuth } from "../../context/auth";
 import { api } from "../../services/api";
 import FormPost from "./FormPost";
+import { useScrollTo } from "react-use-window-scroll";
 import {
   Container,
   Message,
@@ -33,25 +34,44 @@ export default function Home() {
   const [newPosts, setNewPosts] = useState(0);
   const [isFetching, setIsFetching] = useState(false);
   const [Nextpage, setNextPage] = useState(1);
+  const [followSomeone, setFollowSomeone] = useState();
   const hasMorePosts = useRef(true);
+
+  const scrollTo = useScrollTo();
+
+
+
   const navigate = useNavigate();
 
   function getPostsTimeline(page = 1) {
+
     if (loading) return;
+
     setLoading(true);
     if (!userToken || userToken === "null") {
       navigate("/");
       return;
     }
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     api
-      .get(`/timeline?page=${page}`)
+      .get(`/timeline?page=${page}`, config)
       .then((res) => {
         hasMorePosts.current = res.data.hasMorePosts;
-        setTimeline([...res.data.posts]);
+        setTimeline([ ...res.data.posts]);
+        setFollowSomeone(res.data.followSomeone);
         setLoading(false);
+        scrollTo(0,0)
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status === 404) {
+          localStorage.removeItem("token");
+          navigate("/");
+          return;
+        }
         Swal.fire({
           icon: "error",
           title:
@@ -65,6 +85,8 @@ export default function Home() {
 
   const handleLoadMore = useCallback(
     (page) => {
+    console.log("callback" + page);
+
       if (!userToken || userToken === "null") {
         navigate("/");
         return;
@@ -90,9 +112,10 @@ export default function Home() {
           });
         });
     },
+
+    // eslint-disable-next-line
     [isFetching, timeline, hasMorePosts]
   );
-
   useEffect(() => {
     getPostsTimeline();
   }, []);
@@ -154,7 +177,11 @@ export default function Home() {
             <br></br>
           </LoaderWrapper>
         ) : timeline?.length === 0 ? (
-          <Message>There are no posts yet</Message>
+          followSomeone ? (
+            <Message>No posts found from your friends</Message>
+          ) : (
+            <Message>You don't follow anyone yet. Search for new friends!</Message>
+          )
         ) : (
           <TimelineWrapper>
             <InfiniteScrollWrapper>
@@ -162,7 +189,7 @@ export default function Home() {
                 pageStart={Nextpage}
                 loadMore={handleLoadMore}
                 hasMore={hasMorePosts.current}
-                loader={<LoadingPost key={0} />}
+                loader={<LoadingPost  key={0}/>}
                 style={{
                   width: "100%",
                 }}

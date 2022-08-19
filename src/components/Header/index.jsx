@@ -60,8 +60,7 @@ export function Header() {
       .then(({ data }) => {
         setFilteredUsers(data);
       })
-      .catch((err) => {
-      });
+      .catch((err) => {});
   }
 
   function logout() {
@@ -102,7 +101,11 @@ export function Header() {
                   className="searchUserImage"
                 />
 
-                <span>{user.username}</span>
+                <span className="search-username">{user.username}</span>
+
+                {user.isFollowing && (
+                  <span className="search-following"> • following</span>
+                )}
               </SearchUser>
             </Link>
           ))}
