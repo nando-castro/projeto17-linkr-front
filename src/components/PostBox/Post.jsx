@@ -358,7 +358,7 @@ export default function Post({
 			setShareDisabled(false);
 			setShareModal(!shareModal);
 			if(err.response.data === "User alredy shared this post")
-				alert(err.response.data);
+				Swal.fire(err.response.data);
 		});
 	}
     
